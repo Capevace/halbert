@@ -1,5 +1,12 @@
-window.socket = io.connect(location.toString());
+window.socket = io.connect(location.toString(), {
+  query: 'token=' + window.IO_TOKEN
+});
 window.SESSION_ID = null;
+
+// Reload every 4.5 hours so deal with the expiring token
+setTimeout(() => {
+  window.location.reload(true);
+}, 1000*60*60*4.5);
 
 socket.on('connect', () => {
   console.info('Connected');

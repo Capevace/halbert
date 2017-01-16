@@ -6052,6 +6052,15 @@ div.full-height {
   width: calc(100% - 40px);
   height: calc(100% - 40px); }
 
+.form-control-light {
+  background-color: #e0e3f0;
+  color: #617492;
+  border-color: #5967ab; }
+  .form-control-light:focus {
+    color: #353e69;
+    border-color: #353e69;
+    background-color: #e7e9f3; }
+
 .control-switch {
   display: block;
   position: relative;

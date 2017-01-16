@@ -48,6 +48,13 @@ $input-color: #8892a2;
 $input-border-color: $body-bg;
 $input-border-focus: $brand-primary;
 
+$input-light-bg: lighten($card-bg, 70%);
+$input-light-bg-focus: lighten($input-light-bg, 2%);
+$input-light-color: #617492;
+$input-light-color-focus: #353e69;
+$input-light-border-color: lighten(#353e69, 20%);
+$input-light-border-focus: #353e69;
+
 $page-loader-bg: $body-bg;
 $page-loader-circle-bg: $card-bg;
 $page-loader-circle-highlight: lighten($card-bg, 10%);

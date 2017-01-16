@@ -84,3 +84,15 @@ div.full-height {
   width: calc(100% - 40px);
   height: calc(100% - 40px);
 }
+
+.form-control-light {
+  background-color: $input-light-bg;
+  color: $input-light-color;
+  border-color: $input-light-border-color;
+
+  &:focus {
+    color: $input-light-color-focus;
+    border-color: $input-light-border-focus;
+    background-color: $input-light-bg-focus;
+  }
+}
