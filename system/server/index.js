@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static(__dirname + '/public'));
-app.use(session({ secret: '20e6f59e-4cdc-4f52-9104-b39b712d29cc' }))
+app.use(session({ secret: '20e6f59e-4cdc-4f52-9104-b39b712d29cc' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
@@ -64,7 +64,7 @@ app.get('/login', (req, res) => {
   res.render('login', { layout: false });
 });
 
-app.post('/login', passport.authenticate('local', {
+app.post('/login', passport.authenticate('local-login', {
   successRedirect: '/',
   failureRedirect: '/login',
 }));

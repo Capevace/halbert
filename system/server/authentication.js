@@ -2,21 +2,31 @@ const config = require('../config');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log(username, password);
-    if (username === 'Lukas' && password === '12345'){
-      console.log('ttt');
-      return done(null, { username, password });
-    }else
-      return done(null, false);
+const users = {
+  'lukas': {
+    username: 'Lukas',
+    password: '12345'
   }
-));
+};
+
+passport.use('local-login', new LocalStrategy({
+  // by default, local strategy uses username and password, we will override with email
+  usernameField: 'username',
+  passwordField: 'password',
+  passReqToCallback: true // allows us to pass back the entire request to the callback
+}, function(req, username, password, done) { // callback with email and password from our form
+
+  if (users[username.toLowerCase()] && users[username.toLowerCase()].password === password) {
+    return done(null, users[username.toLowerCase()]);
+  } else {
+    return done(null, false);
+  }
+}));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.username);
+  done(null, user.username.toLowerCase());
 });
 
 passport.deserializeUser(function(name, done) {
-  return {name};
+  done(null, users[name.toLowerCase()]);
 });
