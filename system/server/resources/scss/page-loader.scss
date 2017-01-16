@@ -1,0 +1,50 @@
+.page-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: $zindex-dropdown-backdrop;
+  background: $page-loader-bg;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+  pointer-events: none;
+}
+
+.page-loader-loading {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.load-circle {
+  width: 56px;
+  height: 56px;
+  border: 8px solid $page-loader-circle-bg;
+  border-top-color: $page-loader-circle-highlight;
+  border-radius: 50%;
+  position: relative;
+  animation: loader-rotate 1s linear infinite;
+}
+
+.load-circle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: calc(100% - 40px);
+  height: 100%;
+  top: 0px;
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

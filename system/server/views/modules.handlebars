@@ -1,0 +1,39 @@
+<div class="row mt-1 mb-1">
+  <div class="col-sm-12">
+    <h2>
+      Modules
+      <small class="text-muted">Add, Edit or Remove Modules.</small>
+    </h2>
+  </div>
+</div>
+<div class="row">
+  {{#each modules}}
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top w-100" src="https://placeholdit.imgix.net/~text?&txt=318x180&w=318&h=180" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">
+            {{name}}<br>
+            <small class="text-muted truncate">{{author}}</small>
+          </h4>
+          <p class="card-text">{{description}}</p>
+          <div class="text-xs-center">
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+              <a class="btn btn-secondary" href="modules/{{id}}">Edit</a>
+
+              <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-outline-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  More
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item" href="#">Reset Module</a>
+                  <a class="dropdown-item" href="#">Remove Module</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

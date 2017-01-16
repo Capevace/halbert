@@ -1,0 +1,40 @@
+.control-switch {
+  display: block;
+  position: relative;
+  height: 40px;
+  width: 80px;
+  background: darken($control-switch-bg, 1%);
+  cursor: pointer;
+  transition: background 300ms ease;
+  border-radius: $border-radius;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.control-switch::after {
+  display: block;
+  position: absolute;
+  content: ' ';
+  background: darken($control-switch-knob-bg, 10%);
+  width: 30px;
+  height: 30px;
+  top: 4px;
+  left: 5px;
+  transform: translateX(0);
+  transition: transform 300ms ease, opacity 300ms ease;
+  border-radius: $border-radius;
+  opacity: 1;
+}
+
+.control-switch-on {
+  background: $control-switch-active-bg;
+}
+
+.control-switch-on::after {
+  transform: translateX(40px);
+  background: $control-switch-knob-bg;
+}
+
+.control-switch-disabled::after {
+  // opacity: 0.2;
+}

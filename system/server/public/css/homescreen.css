@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url(/img/flat.jpg);
+  background-position-x: 70%;
+}
+
+.time-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 550px;
+}
+
+.time-label {
+  font-family: 'Fira Mono', monospace;
+  color: white;
+  font-size: 150px;
+  font-weight: 500;
+}
+
+.time-label-separator {
+  font-weight: 600;
+}

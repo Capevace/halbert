@@ -1,0 +1,31 @@
+.btn-options {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  .options-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: $options-button-bg;
+    border-radius: 100%;
+    margin: 0px 2px;
+    transition: background 300ms ease;
+    will-change: background;
+  }
+
+  &:hover .options-dot {
+    background: $options-button-bg-hover;
+  }
+
+  &:active .options-dot {
+    background: $options-button-bg-active;
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/homescreen.css">
+  </head>
+  <body>
+    <div class="time-wrapper">
+      <span class="time-label">88:88</span>
+    </div>
+    <script type="text/javascript">
+      function leftPad(str, width, char) {
+        char = char || '0';
+        str = str.toString();
+        while (str.length < width) str = char + str;
+        return str;
+      }
+
+      document
+        .querySelectorAll('.time-label')
+        .forEach(element => {
+          const date = new Date();
+
+          const setTime = date => {
+            element.innerHTML = `
+              ${leftPad(date.getHours(), 2)}<span class="time-label-separator">:</span>${leftPad(date.getMinutes(), 2)}
+            `;
+          };
+
+          setTime(new Date());
+
+          console.log((60 - date.getSeconds()) * 1000);
+          setTimeout(() => {
+            console.log('first')
+            setTime(new Date());
+            setInterval(() => {
+              console.log('second');
+              setTime(new Date());
+            }, 60000);
+          }, (60 - date.getSeconds()) * 1000);
+        });
+    </script>
+  </body>
+</html>

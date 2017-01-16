@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>H.A.L.B.E.R.T.</title>
+
+  <link rel="stylesheet" href="/css/framework.css">
+
+  <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+  <script src="/js/vue.js" charset="utf-8"></script>
+  <script src="/js/masonry.js"></script>
+  <script src="/js/jquery.js" charset="utf-8"></script>
+  <script src="/js/resize.js" charset="utf-8"></script>
+  <script src="/js/dashboard/util.js" charset="utf-8"></script>
+  <script src="/js/dashboard/socket.js" charset="utf-8"></script>
+  <script src="/js/dashboard/components.js" charset="utf-8"></script>
+  <script src="/js/bootstrap.js" charset="utf-8"></script>
+</head>
+<body class="dashboard">
+  <!-- Loop through plugins to place templates -->
+  <div id="templates">
+
+    {{{widgetTemplates}}}
+  </div>
+
+  <div id="dashboard-vue">
+    <options-modal :widget-data="modalWidget" :on-submit="submitModal"></options-modal>
+    <logs-modal></logs-modal>
+    <system-info-modal></system-info-modal>
+
+    <div class="page-content" id="page-content">
+      <nav class="navbar navbar-toggleable-md navbar-inverse navbar-full bg-primary">
+        <h1 class="navbar-brand mb-0 mr-2" href="#"><code>H.A.L.B.E.R.T.</code></h1>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav mr-0 mr-lg-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/halbert">Voice-Device</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav">
+            <li class="nav-item active">
+              <span class="navbar-text connection-label" id="connection-label">
+                <code>Connecting</code>
+              </span>
+            </li>
+            <li class="nav-item dropdown float-xs-right">
+              <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="supportedContentDropdown">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logs-modal">Logs</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="page-loader page-loader-loading" id="page-loader">
+        <div class="load-circle"></div>
+      </div>
+
+      <div id="widgets" class="container-flusid widgets-container">
+        <div class="grid-sizer col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"></div> <!--  -->
+        <div class="gutter-sizer"></div>
+
+        <template v-for="widget in widgetList">
+          <widget-box :widget="widget" />
+        </template>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var msnry = {
+      layout: function () {} // msnry.layout placeholder when msnry hasn't been loaded yet
+    };
+
+    var widgetsVueInstance = new Vue({
+      el: '#dashboard-vue',
+      data: {
+        widgetList: JSON.parse('{{{widgetList}}}'),
+        modalWidget: {
+          title: 'Undefined widget',
+        },
+      },
+      methods: {
+        submitModal: function (newWidgetData) {
+          socket.emit('widget-updated', newWidgetData);
+        }
+      }
+    });
+
+    // var modalVueInstance = new Vue({
+    //   el: '#options-modal-container',
+    //   data: {
+    //     widget: {
+    //       title: 'Undefined Widget'
+    //     }
+    //   },
+    //   beforeUpdate: function () {
+    //     console.info('updated', this.widget);
+    //   },
+    //   methods: {
+    //     submit: function (newWidgetData) {
+    //       console.log(newWidgetData);
+    //
+    //     }
+    //   }
+    // });
+
+    $('#options-modal').on('show.bs.modal', function (event) {
+      widgetsVueInstance.modalWidget = $(event.relatedTarget).data('widget');
+    });
+  </script>
+  <script type="text/javascript">
+    var msnry = new Masonry('.widgets-container', {
+      // options
+      itemSelector: '.grid-item',
+      columnWidth: '.grid-sizer',
+      percentPosition: true,
+      // gutter: '.gutter-sizer',
+    });
+  </script>
+  <script src="/js/fastclick.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+          FastClick.attach(document.body);
+      }, false);
+    }
+  </script>
+</body>
+</html>

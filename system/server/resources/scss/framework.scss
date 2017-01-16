@@ -1,0 +1,43 @@
+@import "variables";
+@import "bootstrap/bootstrap";
+@import "dashboard";
+@import "control-switch";
+@import "options-button";
+@import "page-loader";
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.card-title {
+  color: $card-title-color;
+  font-size: $card-title-font-size;
+}
+
+.btn:focus {
+  outline: none !important;
+  border: 1px solid $btn-focus-ring-color;
+  box-shadow: 0 0 0px 1px $btn-focus-ring-color inset;
+}
+
+.nav-item-center {
+  float: none !important;
+  display: inline-block;
+}
+
+.connection-label code {
+  background: $connection-label-bg;
+  color: $connection-label-color;
+}
+
+.connection-label.connected code {
+  color: $connection-label-connected-color;
+}
+
+.widget {
+  padding: 10px !important;
+}
+
+.list-group-item-small {
+  padding: 2px 10px;
+}

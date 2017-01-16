@@ -1,0 +1,47 @@
+{
+  "device": {
+    "uuid": "d12b728c-6bce-4515-824a-ce45250f20fa"
+  },
+  "weather": {
+    "openWeatherMapApiKey": "e3f4af5a5833f5b51e62d04ac9f6db75"
+  },
+  "server": {
+    "port": 3000,
+    "cacheTemplates": false
+  },
+  "users": [
+    {
+      "username": "Lukas",
+      "password": "12345"
+    }
+  ],
+  "modules": {
+    "switches": {
+      "gpio": {
+        "remote": 15
+      },
+      "available": [
+        {
+          "id": "desk-leds",
+          "name": "Desk LED",
+          "hotwords": ["desk led", "desk leds", "leds on the desk"],
+          "type": "remote",
+          "protocol": "intertechno",
+          "code": "A1"
+        },
+        {
+          "id": "desk-light",
+          "name": "Desk Light",
+          "hotwords": ["desk light", "desk lamp", "lamp on the desk", "light on the desk"],
+          "type": "remote",
+          "protocol": "intertechno",
+          "code": "A2"
+        }
+      ]
+    },
+    "ifttt": {
+      "apiKey": "hpVVthiDDf65WwydMzlkpYnJwT4X5-y3TukS9iKvYlR",
+      "webhookSecret": "e29bfc5d-a37e-442d-b41a-2fea884650f6"
+    }
+  }
+}

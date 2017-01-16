@@ -1,0 +1,81 @@
+<script type="text/x-template" id="voice-template">
+  <div>
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-primary btn-block" @click="toggleListen">{{listeningState ? 'Stop Listening' : 'Listen'}}</button>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  var speechRecognition;
+
+  if ('SpeechRecognition' in window) {
+    speechRecognition = SpeechRecognition;
+  } else if ('webkitSpeechRecognition' in window ) {
+    speechRecognition = webkitSpeechRecognition;
+  } else if ('mozSpeechRecognition' in window) {
+    speechRecognition = mozSpeechRecognition;
+  } else if ('msSpeechRecognition' in window) {
+    speechRecognition = msSpeechRecognition;
+  }
+
+  if (speechRecognition) {
+    var recognition = new speechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 5;
+  }
+
+  Vue.component('voice', {
+    template: '#voice-template',
+    props: ['id', 'moduleId'],
+    data: function () {
+      return {
+        listeningState: false,
+        transcripts: [],
+      };
+    },
+    created: function () {
+      var self = this;
+
+      recognition.onaudiostart = function (event) {
+        self.listeningState = true;
+      };
+
+      recognition.onerror = recognition.onend = function (event) {
+        self.listeningState = false;
+      };
+
+      recognition.onresult = function (event) {
+        var firstResult = event.results[0][0];
+        runAction('voice-input.parse', {
+          input: firstResult.transcript
+        });
+      };
+    },
+    methods: {
+      start: function (e) {
+        e.preventDefault();
+
+        runAction('voice-input.parse', {
+          input: this.input
+        });
+
+        this.input = '';
+      },
+      toggleListen: function () {
+        if (this.listeningState) {
+          recognition.stop();
+        } else {
+          recognition.start();
+        }
+      }
+    }
+  });
+</script>
+
+<style>
+
+</style>

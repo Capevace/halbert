@@ -1,0 +1,67 @@
+{
+  "widgets": [
+    {
+      "id": "2b4fdc80-d4fc-11e6-b450-63d0a63fea87",
+      "title": "Voice Control",
+      "moduleId": "voice",
+      "componentSize": {
+        "width": 1,
+        "height": 1
+      },
+      "customData": {}
+    },
+    {
+      "id": "2b500392-d4fc-11e6-b450-63d0a63fea87",
+      "title": "Media Player",
+      "moduleId": "music",
+      "componentSize": {
+        "width": 2,
+        "height": 1
+      },
+      "customData": {}
+    },
+    {
+      "id": "2b500390-d4fc-11e6-b450-63d0a63fea87",
+      "title": "Desk LEDs",
+      "moduleId": "switches",
+      "componentSize": {
+        "width": 1,
+        "height": 1
+      },
+      "customData": {
+        "switchId": "desk-leds"
+      },
+      "widgetSettings": {
+        "switchId": {
+          "type": "string",
+          "title": "Switch-ID"
+        }
+      }
+    },
+    {
+      "id": "2b500391-d4fc-11e6-b450-63d0a63fea87",
+      "title": "Desk Light",
+      "moduleId": "switches",
+      "componentSize": {
+        "width": 1,
+        "height": 1
+      },
+      "customData": {
+        "switchId": "desk-light"
+      },
+      "widgetSettings": {
+        "switchId": {
+          "type": "string",
+          "title": "Switch-ID"
+        }
+      }
+    }
+  ],
+  "modules": {
+    "music-builtin": {},
+    "switches": {},
+    "music": {},
+    "voice": {},
+    "ifttt": {}
+  }
+}
