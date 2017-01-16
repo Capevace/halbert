@@ -69,7 +69,7 @@ your-directory
 
 **package.json** - Your package.json file. Used to install the halbert-core.
 
-**persist** - Used to store data that is persistant over launches of the system.
+**persist/** - Used to store data that is persistant over launches of the system.
 
 ## Config
 This is what an example config looks like:
