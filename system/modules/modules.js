@@ -243,7 +243,10 @@ fs.readdirSync(__dirname)
   .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
   .forEach(directory => registerModule(require(path.resolve(__dirname, directory)), directory));
 
-// Install user-modules after
-fs.readdirSync(MODULES_PATH)
-  .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
-  .forEach(directory => registerModule(require(path.resolve(__dirname, directory)), directory));
+// Check if the modules path is the current path to remove duplicates in dev mode
+if (path.resolve(__dirname) !== path.resolve(MODULES_PATH)) {
+  // Install user-modules after
+  fs.readdirSync(MODULES_PATH)
+    .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
+    .forEach(directory => registerModule(require(path.resolve(__dirname, directory)), directory));
+}
