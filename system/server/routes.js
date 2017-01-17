@@ -55,10 +55,25 @@ module.exports = (app) => {
   Object.keys(modules)
     .forEach(moduleKey => {
       const module = modules[moduleKey];
-      if (module.routes) {
-        module.routes(app);
-        console.logger.info(`Added routes for module '${module.info.id}'.`);
-      }
+      module.routes
+        .forEach(route => {
+          switch (route.method.toLowerCase()) {
+            case 'get':
+              app.get(route.route, ...route.args);
+              break;
+            case 'post':
+              app.post(route.route, ...route.args);
+              break;
+            case 'patch':
+              app.patch(route.route, ...route.args);
+              break;
+            case 'put':
+              app.put(route.route, ...route.args);
+              break;
+            default:
+              console.logger.error(`Method '${route.method}' at module '${route.moduleId}' is unknown.`);
+          }
+        });
     });
 };
 

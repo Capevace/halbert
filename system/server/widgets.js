@@ -1,6 +1,7 @@
 const modules = require('../modules/modules');
 const database = require('../database');
 const uuid = require('uuid-1345').v4;
+const isFunction = require('lodash/isFunction');
 
 // database
 //   .set('widgets', [
@@ -57,14 +58,21 @@ const uuid = require('uuid-1345').v4;
 //   .value()
 
 function renderWidgetTemplates() {
-  const templates = modules.getTemplates();
+  const widgets = modules.getWidgets();
   let render = '';
 
-  Object.keys(templates).forEach(templateKey => {
+  Object.keys(widgets).forEach(widgetKey => {
+    let renderedWidget;
+    if (isFunction(widgets[widgetKey])) {
+      renderedWidget = widgets[widgetKey]();
+    } else {
+      renderedWidget = widgets[widgetKey];
+    }
+
     render = render
-      + `\n<!-- Start Template: ${templateKey}-->`
-      + '\n' + templates[templateKey]
-      + `\n<!-- End Template: ${templateKey}-->`;
+      + `\n<!-- Start Template: ${widgetKey}-->`
+      + '\n' + renderedWidget
+      + `\n<!-- End Template: ${widgetKey}-->`;
   });
 
   return render;
