@@ -1,3 +1,4 @@
+/* global Vue, addResizeListener, msnry, parseTerminalColors */
 //
 // Widget Box
 //
@@ -20,22 +21,22 @@ Vue.component('widget-box', {
         'col-sm-6': true,
         'col-md-4': true,
         'col-lg-3': true,
-        'col-xl-2': true,
+        'col-xl-2': true
       };
       const widthTwoClasses = {
         'col-xs-12': true,
         'col-sm-12': true,
         'col-md-8': true,
         'col-lg-6': true,
-        'col-xl-4': true,
+        'col-xl-4': true
       };
       const widthFullClasses = {
-        'col-xs-12': true,
+        'col-xs-12': true
       };
 
-      if (this.widget.componentSize.width + '' === 'full') {
+      if (`${this.widget.componentSize.width  }` === 'full') {
         return widthFullClasses;
-      } else if (this.widget.componentSize.width + '' === '2') {
+      } else if (`${this.widget.componentSize.width  }` === '2') {
         return widthTwoClasses;
       } else {
         return widthOneClasses;
@@ -139,7 +140,7 @@ Vue.component('options-modal', {
   props: ['widgetData', 'onSubmit'],
   data: () => ({
     widget: {
-      title: 'Untitled Widget',
+      title: 'Untitled Widget'
     }
   }),
   beforeUpdate: function () {
@@ -183,17 +184,17 @@ Vue.component('logs-modal', {
     </div>
   `,
   data: () => ({
-    logs: [],
+    logs: []
   }),
   created: function () {
-    socket.on('readback-logs', payload => {
+    window.socket.on('readback-logs', payload => {
       this.logs = payload.logs
         .map(log => parseTerminalColors(log));
     });
 
-    socket.emit('request-readback-logs');
+    window.socket.emit('request-readback-logs');
 
-    socket.on('log', payload => {
+    window.socket.on('log', payload => {
       this.logs.push(parseTerminalColors(payload.logString));
 
       if (this.logs.length > 1000) {
@@ -232,17 +233,17 @@ Vue.component('system-info-modal', {
     </div>
   `,
   data: () => ({
-    logs: [],
+    logs: []
   }),
   created: function () {
-    socket.on('readback-logs', payload => {
+    window.socket.on('readback-logs', payload => {
       this.logs = payload.logs
         .map(log => parseTerminalColors(log));
     });
 
-    socket.emit('request-readback-logs');
+    window.socket.emit('request-readback-logs');
 
-    socket.on('log', payload => {
+    window.socket.on('log', payload => {
       this.logs.push(parseTerminalColors(payload.logString));
 
       if (this.logs.length > 1000) {

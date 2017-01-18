@@ -10,43 +10,42 @@ const writeStream = fs.createWriteStream(path.resolve(__dirname, `../logs/${star
   flags: 'a'
 });
 
-writeStream.write('\n\n\nStarting Server at: ' + startupDate.toISOString() + '\n');
+writeStream.write(`\n\n\nStarting Server at: ${  startupDate.toISOString()  }\n`);
 
 const originalLog = console.log;
 
-const log = (orignalArguments, type, ...arguments) => {
-  // originalLog(logString);
+const log = (orignalArguments, type, ...args) => {
   const date = new Date();
   let dateString = '';
 
   switch (type) {
-    case 'info':
-      dateString = chalk.cyan.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
-      break;
-    case 'error':
-      dateString = chalk.red.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
-      break;
-    case 'warn':
-      dateString = chalk.yellow.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
-      break;
-    case 'success':
-      dateString = chalk.green.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
-      break;
-    case 'say':
-      dateString = chalk.magenta.bold(`[H.A.L.B.E.R.T.]`);
-      break;
+  case 'info':
+    dateString = chalk.cyan.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
+    break;
+  case 'error':
+    dateString = chalk.red.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
+    break;
+  case 'warn':
+    dateString = chalk.yellow.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
+    break;
+  case 'success':
+    dateString = chalk.green.bold(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`);
+    break;
+  case 'say':
+    dateString = chalk.magenta.bold(`[H.A.L.B.E.R.T.]`);
+    break;
   }
 
   const logString =
-    orignalArguments.reduce((string, argument) =>
+    `${orignalArguments.reduce((string, argument) =>
       (typeof argument === 'object')
-        ? string + ' ' + JSON.stringify(argument, null, 2)
-        : string + ' ' + argument
+        ? `${string  } ${  JSON.stringify(argument, null, 2)}`
+        : `${string  } ${  argument}`
     , '')
-    + '\n';
+     }\n`;
 
-  originalLog(dateString, ...arguments);
-  writeStream.write(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}] ${type.toUpperCase()}` + logString, 'utf8');
+  originalLog(dateString, ...args);
+  writeStream.write(`[${date.toLocaleDateString()} ${date.toLocaleTimeString()}] ${type.toUpperCase()}${logString}`, 'utf8');
   logEvent.emit('log', dateString + logString);
 
   const maxLogCount = 250;
@@ -60,33 +59,28 @@ const getReadbackLogs = () => readbackLogs;
 
 console.logger = {};
 
-console.logger.log = function (...arguments) {
-  const date = new Date();
-  log(arguments, 'log', ...arguments);
+console.logger.log = function (...args) {
+  log(args, 'log', ...args);
 };
 
-console.logger.info = function (...arguments) {
-  const date = new Date();
-  log(arguments, 'info', ...arguments);
+console.logger.info = function (...args) {
+  log(args, 'info', ...args);
 };
 
-console.logger.error = function (...arguments) {
-  const date = new Date();
-  log(arguments, 'error', ...arguments);
+console.logger.error = function (...args) {
+  log(args, 'error', ...args);
 };
 
-console.logger.warn = function (...arguments) {
-  const date = new Date();
-  log(arguments, 'warn', ...arguments);
+console.logger.warn = function (...args) {
+  log(args, 'warn', ...args);
 };
 
-console.logger.success = function (...arguments) {
-  const date = new Date();
-  log(arguments, 'success', ...arguments);
+console.logger.success = function (...args) {
+  log(args, 'success', ...args);
 };
 
-console.logger.say = function (...arguments) {
-  log(arguments, 'say', chalk.bgBlack(arguments.join(' ')));
+console.logger.say = function (...args) {
+  log(args, 'say', chalk.bgBlack(args.join(' ')));
 };
 
 module.exports = {

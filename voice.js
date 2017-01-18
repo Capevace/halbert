@@ -21,7 +21,7 @@ const detector = new Detector({
 // detector.on('error', function () {});
 let listeningTimeout;
 process.stdout.write("\tHAL: *relaxing*\r");
-detector.on('hotword', function (index, hotword) {
+detector.on('hotword', function () {
   process.stdout.write("\tHAL: Yeah?        \r");
 
   clearTimeout(listeningTimeout);
@@ -30,7 +30,7 @@ detector.on('hotword', function (index, hotword) {
   }, 3000);
 
   player.play('./system/oldResources/ding.wav', function (err) {
-  	if (err) throw err;
+    if (err) throw err;
   })
 });
 

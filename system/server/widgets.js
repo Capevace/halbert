@@ -1,6 +1,5 @@
 const modules = require('../modules/modules');
 const database = require('../database');
-const uuid = require('uuid-1345').v4;
 const isFunction = require('lodash/isFunction');
 
 // database
@@ -69,10 +68,11 @@ function renderWidgetTemplates() {
       renderedWidget = widgets[widgetKey].content;
     }
 
-    render = render
-      + `\n<!-- Start Template: ${widgetKey}-->`
-      + '\n' + renderedWidget
-      + `\n<!-- End Template: ${widgetKey}-->`;
+    render += `
+      <!-- Start Template: ${widgetKey}-->
+      ${renderedWidget}
+      <!-- End Template: ${widgetKey}-->
+    `;
   });
 
   return render;

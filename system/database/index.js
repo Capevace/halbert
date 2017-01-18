@@ -1,5 +1,4 @@
 const path = require('path');
-const _   = require('lodash');
 const _db = require('underscore-db');
 const lowdb = require('lowdb');
 const database = lowdb(path.resolve(__dirname, 'database.json'), {

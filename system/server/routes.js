@@ -32,7 +32,7 @@ module.exports = (app) => {
    */
   app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/login'
   }));
 
   /*
@@ -58,20 +58,20 @@ module.exports = (app) => {
       module.routes
         .forEach(route => {
           switch (route.method.toLowerCase()) {
-            case 'get':
-              app.get(route.route, ...route.args);
-              break;
-            case 'post':
-              app.post(route.route, ...route.args);
-              break;
-            case 'patch':
-              app.patch(route.route, ...route.args);
-              break;
-            case 'put':
-              app.put(route.route, ...route.args);
-              break;
-            default:
-              console.logger.error(`Method '${route.method}' at module '${route.moduleId}' is unknown.`);
+          case 'get':
+            app.get(route.route, ...route.args);
+            break;
+          case 'post':
+            app.post(route.route, ...route.args);
+            break;
+          case 'patch':
+            app.patch(route.route, ...route.args);
+            break;
+          case 'put':
+            app.put(route.route, ...route.args);
+            break;
+          default:
+            console.logger.error(`Method '${route.method}' at module '${route.moduleId}' is unknown.`);
           }
         });
     });

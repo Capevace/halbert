@@ -2,7 +2,7 @@ const config = require('../../config');
 const { Accessory, Service, Characteristic } = require('hap-nodejs');
 const uuid = require('uuid-1345');
 const { runAction } = require('../modules');
-const { getState, stateEvents } = require('../state').state('switches');
+const { getState } = require('../state').state('switches');
 
 function setupAccessory(switchConfig) {
   const outletUUID = uuid.v3({
@@ -41,13 +41,13 @@ function setupAccessory(switchConfig) {
     .getService(Service.Outlet)
     .getCharacteristic(Characteristic.On)
     .on('get', (callback) => {
-      callback(null, getState('switch_' + switchConfig.id).state);
+      callback(null, getState(`switch_${  switchConfig.id}`).state);
     });
 
   return outlet;
 }
 
-let switchAccessories = [];
+const switchAccessories = [];
 
 if (config.modules.switches && config.modules.switches.available) {
   config.modules.switches.available

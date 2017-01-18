@@ -1,4 +1,4 @@
-const { getState, setState } = require('../state').state('music');
+const { setState } = require('../state').state('music');
 const NodeAudioPlayer = require('./NodeAudioPlayer');
 const player = new NodeAudioPlayer();
 const { playMusic, cacheSong, getSong, songIsCached } = require('./play-music');
@@ -93,11 +93,11 @@ module.exports = {
   'music.resume': {
     name: 'Resume Music',
     sentence: 'resume the music',
-    callback: data => resume()
+    callback: () => resume()
   },
   'music.pause': {
     name: 'Pause Music',
     sentence: 'pause the music',
-    callback: data => pause()
-  },
+    callback: () => pause()
+  }
 };

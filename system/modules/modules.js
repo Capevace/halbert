@@ -11,12 +11,12 @@ const {
   WidgetBuilder
 } = require('./builders');
 
-let modules = {};
-let actions = {};
-let triggers = {};
-let accessories = [];
-let widgets = {};
-let triggerEmitter = new EventEmitter();
+const modules = {};
+const actions = {};
+const triggers = {};
+const accessories = [];
+const widgets = {};
+const triggerEmitter = new EventEmitter();
 
 function registerModule(moduleDirectory) {
   console.logger.info(`Registering Module '${moduleDirectory}'.`);
@@ -29,7 +29,7 @@ function registerModule(moduleDirectory) {
 
   const module = require(path.resolve(modulePath, 'index.js'));
 
-  let moduleBuilder = getModuleBuilder(moduleInfo.id);
+  const moduleBuilder = getModuleBuilder(moduleInfo.id);
 
   if (isFunction(module))
     module(moduleBuilder);
@@ -75,7 +75,7 @@ function getModuleBuilder(moduleId) {
     actions: new ActionBuilder(moduleId),
     routes: new RoutesBuilder(moduleId),
     accessories: new AccessoryBuilder(moduleId),
-    widgets: new WidgetBuilder(moduleId),
+    widgets: new WidgetBuilder(moduleId)
   };
 
   return moduleBuilder;
@@ -86,7 +86,7 @@ function loadModuleInfo(modulePath) {
   const infoPath = path.resolve(modulePath, 'module.json');
 
   if (!fs.existsSync(infoPath)) {
-    console.logger.error('No module.json file for module at /' + modulePath);
+    console.logger.error(`No module.json file for module at /${  modulePath}`);
     return null;
   }
 

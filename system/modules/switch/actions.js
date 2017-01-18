@@ -1,21 +1,19 @@
 const config = require('../../config');
-const { getState, setState } = require('../state').state('switches');
+const { setState } = require('../state').state('switches');
 const transmitCode = require('433mhz');
 const intertechno = require('./codes/intertechno');
 const { JaroWinklerDistance } = require('natural');
 
-let switches = {};
-let remoteCallstack = [];
-let running = false;
+const switches = {};
 
 if (config.modules.switches && config.modules.switches.available) {
   config.modules.switches.available
     .forEach(switchConfig => {
       // Setup switch
-      switches[switchConfig.id + ''] = switchConfig;
+      switches[`${switchConfig.id  }`] = switchConfig;
 
-      setState('switch_' + switchConfig.id, {
-        state: false,
+      setState(`switch_${  switchConfig.id}`, {
+        state: false
       });
 
       console.logger.info(`Prepared switch ${switchConfig.id}.`);
@@ -45,7 +43,7 @@ function toggle(data, state) {
 }
 
 function toggleWithId(switchId, state) {
-  const switchConfig = switches[switchId + ''];
+  const switchConfig = switches[`${switchId  }`];
 
   if (!switchConfig) {
     console.logger.error(`Switch with '${switchId}' is not configured.`);
@@ -53,15 +51,15 @@ function toggleWithId(switchId, state) {
   }
 
   switch (switchConfig.type) {
-    case 'remote':
-      toggleRemote(switchConfig, state);
-      break;
-    case 'relay':
-      toggleRelay(switchConfig, state);
-      break;
-    default:
-      console.logger.error(`Switch with '${switchId}' does not have a type.`);
-      break;
+  case 'remote':
+    toggleRemote(switchConfig, state);
+    break;
+  case 'relay':
+    toggleRelay(switchConfig, state);
+    break;
+  default:
+    console.logger.error(`Switch with '${switchId}' does not have a type.`);
+    break;
   }
 }
 
@@ -70,7 +68,7 @@ function toggleRemote(switchConfig, state) {
 
   // Set state of switch, but also set it to busy
   setState('busy', true);
-  setState('switch_' + switchConfig.id, {
+  setState(`switch_${  switchConfig.id}`, {
     state
   });
 
@@ -80,6 +78,7 @@ function toggleRemote(switchConfig, state) {
     }, 500);
   } else {
     transmitCode(code, err => {
+      if (err) throw err;
       // finally remove busy state
       setState('busy', false);
     });
@@ -88,7 +87,7 @@ function toggleRemote(switchConfig, state) {
 
 function toggleRelay(switchConfig, state) {
   // TODO: add proper toggling of lights
-  setState('switch_' + switchConfig.id, {
+  setState(`switch_${  switchConfig.id}`, {
     state
   });
 }
@@ -127,18 +126,18 @@ function switchNameToId(switchName) {
         return {
           distance: result.distance,
           hotword: result.hotword,
-          config: switchConfig,
+          config: switchConfig
         };
       }
 
       return best;
     }, null);
 
-    if (result) {
-      return result.config.id;
-    }
+  if (result) {
+    return result.config.id;
+  }
 
-    return null;
+  return null;
 }
 
 // 1111111111111111111010101 // A1
@@ -160,12 +159,12 @@ function switchNameToId(switchName) {
 
 function deviceCodeToBinary(switchConfig, state) {
   switch (switchConfig.protocol) {
-    case 'intertechno':
-      const i = intertechno(switchConfig.code, state);
-      return i;
-    default:
-      console.logger.error(`There is no device code generator for the type '${switchConfig.protocol}' in switch '${switchConfig.id}'.`);
-      return null;
+  case 'intertechno':
+    const i = intertechno(switchConfig.code, state);
+    return i;
+  default:
+    console.logger.error(`There is no device code generator for the type '${switchConfig.protocol}' in switch '${switchConfig.id}'.`);
+    return null;
   }
 }
 

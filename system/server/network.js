@@ -2,7 +2,7 @@ const os = require('os');
 
 function getLocalIP() {
   const ifaces = os.networkInterfaces();
-  let addresses = {};
+  const addresses = {};
 
   Object.keys(ifaces).forEach((ifname) => {
     var alias = 0;

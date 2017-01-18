@@ -17,8 +17,8 @@ module.exports = {
   },
   triggers: {
     'ifttt.webhook': {
-    	name: 'IFTTT triggered a webhoook',
-    	sentence: 'IFTTT triggered a webhook',
+      name: 'IFTTT triggered a webhoook',
+      sentence: 'IFTTT triggered a webhook'
     }
   },
   actions: {
@@ -27,17 +27,17 @@ module.exports = {
       sentence: 'set a switch to on',
       arguments: {
         name: {
-          type: 'string',
+          type: 'string'
         },
         value1: {
-          type: 'string',
+          type: 'string'
         },
         value2: {
-          type: 'string',
+          type: 'string'
         },
         value3: {
-          type: 'string',
-        },
+          type: 'string'
+        }
       },
       callback: data => {
         if (!config.modules.ifttt || !config.modules.ifttt.apiKey) {
@@ -67,7 +67,7 @@ module.exports = {
             console.logger.error(`Error triggering IFTTT event '${data.name}'.`, error);
           });
       }
-    },
+    }
   },
   routes: app => {
     if (config.modules.ifttt.webhookSecret) {

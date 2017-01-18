@@ -34,8 +34,8 @@ class TriggerBuilder {
 
   setMeta(name, sentence) {
     Object.assign(this.triggers[this.currentTriggerId], {
-      name: name || this.currentTriggerId,
-      sentence: sentence || this.currentTriggerId
+      name: name || this.currentTriggerId,
+      sentence: sentence || this.currentTriggerId
     });
 
     return this;
@@ -50,11 +50,6 @@ class TriggerBuilder {
     return this;
   }
 }
-
-
-
-
-
 
 
 // The ActionBuilder class is a utility to create actions.
@@ -75,7 +70,7 @@ class ActionBuilder {
       sentence: actionIdentifier,
       arguments: {},
       callback: () => {
-        console.logger.warn(`No callback for action '${actionIdentifier}' in module '${moduleId}'`);
+        console.logger.warn(`No callback for action '${actionIdentifier}' in module '${this.moduleId}'`);
       }
     };
 
@@ -89,8 +84,8 @@ class ActionBuilder {
 
   setMeta(name, sentence) {
     Object.assign(this.actions[this.currentActionId], {
-      name: name || this.currentActionId,
-      sentence: sentence || this.currentActionId
+      name: name || this.currentActionId,
+      sentence: sentence || this.currentActionId
     });
 
     return this;
@@ -112,12 +107,6 @@ class ActionBuilder {
     return this;
   }
 }
-
-
-
-
-
-
 
 
 // The RoutesBuilder enables modules to build routes,
@@ -172,11 +161,6 @@ class RoutesBuilder {
 }
 
 
-
-
-
-
-
 class AccessoryBuilder {
   constructor(moduleId) {
     this.moduleId = moduleId;
@@ -186,7 +170,7 @@ class AccessoryBuilder {
   }
 
   createAccessory(name, id) {
-    if (!name || !id) {
+    if (!name || !id) {
       console.logger.error('An accessory wasn\'t supplied with a proper name or id. These two must be provided.');
       return null;
     }
@@ -206,20 +190,9 @@ class AccessoryBuilder {
 }
 
 
-
-
-
-
-
 function renderTemplate(templateFileName, moduleId) {
   return fs.readFileSync(path.resolve(__dirname, moduleId, templateFileName), 'utf8');
 }
-
-
-
-
-
-
 
 
 class WidgetBuilder {
@@ -241,9 +214,9 @@ class WidgetBuilder {
       content = widgetContent;
     }
 
-    let widget = {
-      name: name,
-      id: this.moduleId + '-' + name.toLowerCase(),
+    const widget = {
+      name,
+      id: `${this.moduleId}-${name.toLowerCase()}`,
       content
     };
 
@@ -261,4 +234,4 @@ module.exports = {
   RoutesBuilder,
   AccessoryBuilder,
   WidgetBuilder
-}
+};

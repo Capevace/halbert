@@ -1,6 +1,3 @@
-const path = require('path');
-const get = require('lodash/get');
-const chalk = require('chalk');
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -12,11 +9,10 @@ const passport = require('passport');
 const socketioJwt = require('socketio-jwt');
 
 
+require('./authentication');
 const config = require('../config');
-const database = require('../database');
 const { getLocalIP } = require('./network');
 const { setupSockets } = require('./socket');
-const authentication = require('./authentication');
 const routes = require('./routes');
 
 module.exports = {
@@ -27,7 +23,7 @@ module.exports = {
 // Enable Handlebars as a view engine
 app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
-app.set('views', __dirname + '/views');
+app.set('views', `${__dirname  }/views`);
 
 // Logs out requests (e.g. GET /x.html)
 app.use((req, res, next) => {
@@ -45,7 +41,7 @@ app.use((req, res, next) => {
 });
 
 // Enable use of static public folder
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(`${__dirname  }/public`));
 
 // Add sessions
 app.use(session({ secret: '20e6f59e-4cdc-4f52-9104-b39b712d29cc' }));

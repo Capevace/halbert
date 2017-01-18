@@ -1,4 +1,3 @@
-const config = require('../../config');
 const actions = require('./actions');
 // const accessories = require('./accessories');
 

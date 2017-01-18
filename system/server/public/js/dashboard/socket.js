@@ -1,7 +1,10 @@
-window.socket = io.connect(location.toString(), {
-  query: 'token=' + window.IO_TOKEN
+/* global io, $ */
+const socket = io.connect(location.toString(), {
+  query: `token=${  window.IO_TOKEN}`
 });
+
 window.SESSION_ID = null;
+window.socket = socket;
 
 // Reload every 4.5 hours so deal with the expiring token
 setTimeout(() => {
@@ -38,7 +41,7 @@ socket.on('reconnect', () => {
   socket.emit('request-session-id');
 });
 
-socket.on('dashboard-refresh', (data) => {
+socket.on('dashboard-refresh', () => {
   window.location.reload(true);
 });
 
@@ -59,22 +62,24 @@ socket.on('log', data => {
   console.log(data.logString);
 });
 
-function module(moduleId) {
-  const state = state(moduleId);
-  const communication = {
-    on: (eventName, callback) => socket.on('com-server-' + moduleId + '.' + eventName, callback),
-    emit: (eventName, payload) => socket.emit('com-client-' + moduleId + '.' + eventName, payload)
-  };
-
-  return {
-    state,
-    communication
-  };
-}
+// dont think well need this anymore, but am keeping for now
+// TODO: remove
+// function module(moduleId) {
+//   const state = state(moduleId);
+//   const communication = {
+//     on: (eventName, callback) => socket.on(`com-server-${  moduleId  }.${  eventName}`, callback),
+//     emit: (eventName, payload) => socket.emit(`com-client-${  moduleId  }.${  eventName}`, payload)
+//   };
+//
+//   return {
+//     state,
+//     communication
+//   };
+// }
 
 function state(moduleId) {
   const requestState = (stateKey) => socket.emit('request-state', {
-    key: moduleId + '.' + stateKey
+    key: `${moduleId  }.${  stateKey}`
   });
 
   const update = (stateKey, value) => socket.emit('update-state', {
@@ -82,8 +87,8 @@ function state(moduleId) {
   });
 
   const listen = (stateKey, callback) => {
-    socket.on('state-updated-' + moduleId + '.' + stateKey, callback);
-    socket.on('state-error-' + moduleId + '.' + stateKey, payload => console.error(payload.error));
+    socket.on(`state-updated-${  moduleId  }.${  stateKey}`, callback);
+    socket.on(`state-error-${  moduleId  }.${  stateKey}`, payload => console.error(payload.error));
 
     // Enable a "refresh of state" when the state reconnects
     socket.on('reconnect', requestState.bind(null, stateKey));
@@ -99,7 +104,7 @@ function state(moduleId) {
   };
 }
 
-function runAction(action, data) {
+function runAction(action, data) { // eslint-disable-line
   socket.emit('run-action', {
     action,
     data

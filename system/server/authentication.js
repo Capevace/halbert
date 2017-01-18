@@ -1,4 +1,3 @@
-const config = require('../config');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 

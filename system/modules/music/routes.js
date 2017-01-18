@@ -1,4 +1,4 @@
-const { playMusic, getPlaylists, getPlaylist } = require('./play-music');
+const { playMusic, getPlaylists } = require('./play-music');
 
 function setupRoutes(app) {
   app.get('/music/playlists', (req, res) => {

@@ -8,7 +8,7 @@ module.exports = {
     sentence: 'parse the voice input',
     callback: data => {
       const request = app.textRequest(data.input, {
-          sessionId: `${SESSION_ID}.${Math.round(Math.random() * 9999)}`
+        sessionId: `${SESSION_ID}.${Math.round(Math.random() * 9999)}`
       });
 
       request.on('response', function(response) {
@@ -30,10 +30,10 @@ module.exports = {
       });
 
       request.on('error', function(error) {
-          console.logger.error(error);
+        console.logger.error(error);
       });
 
       request.end();
     }
-  },
+  }
 };

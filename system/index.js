@@ -1,5 +1,5 @@
 if (!global.CONFIG_PATH) global.CONFIG_PATH = '../halbert.config.json';
-if (!global.MODULES_PATH) global.MODULES_PATH = __dirname + '/modules';
+if (!global.MODULES_PATH) global.MODULES_PATH = `${__dirname}/modules`;
 
 // Install custom logging functions
 require('./log');

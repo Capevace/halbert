@@ -3,8 +3,8 @@ const playMusic = new PlayMusic();
 
 let googlePlayReady = false;
 
+const songs = {};
 let playlists = {};
-let songs = {};
 let fetchedSongs = false;
 
 playMusic.init({ email: 'lukas.mateffy@gmail.com', password: 'exkdqygckgmtfkpp' }, function(err) {
@@ -24,7 +24,7 @@ function cacheSongs() {
     }
 
     if (!playListsData.data.items) {
-      console.error('An error occurred during the fetching of playlists with data attr.', data);
+      console.error('An error occurred during the fetching of playlists with data attr.', playListsData.data);
       return;
     }
 
@@ -37,7 +37,7 @@ function cacheSongs() {
           type: playlist.type,
           description: playlist.description,
           deleted: playlist.deleted,
-          songs: [],
+          songs: []
         };
       });
 
@@ -48,7 +48,7 @@ function cacheSongs() {
       }
 
       if (!entriesData.data.items) {
-        console.error('An error occurred during the fetching of playlist entries with data attr.', data);
+        console.error('An error occurred during the fetching of playlist entries with data attr.', entriesData.data);
         return;
       }
 
@@ -103,7 +103,7 @@ function cacheSong(entry) {
       ? entry.track.artistArtRef[0].url
       : null,
     size: entry.track.estimatedSize,
-    albumId: entry.track.albumId,
+    albumId: entry.track.albumId
   };
 
   songs[song.id] = song;

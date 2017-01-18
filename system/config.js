@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const uuid = require('uuid-1345').v4;
 const config = require(CONFIG_PATH);
 

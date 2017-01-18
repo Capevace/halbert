@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
 * Detect Element Resize
 *

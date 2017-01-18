@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*!
  * Masonry PACKAGED v4.1.1
  * Cascading grid layout library

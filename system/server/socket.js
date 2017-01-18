@@ -6,12 +6,12 @@ const { logEvent, getReadbackLogs } = require('../log');
 function setupSockets(io) {
   io.on('connection', socket => {
     socket.emit('session-id', {
-      id: SESSION_ID,
+      id: SESSION_ID
     });
 
     socket.on('request-session-id', () => {
       socket.emit('session-id', {
-        id: SESSION_ID,
+        id: SESSION_ID
       });
     });
 
@@ -40,5 +40,5 @@ function setupSockets(io) {
 }
 
 module.exports = {
-  setupSockets,
+  setupSockets
 };

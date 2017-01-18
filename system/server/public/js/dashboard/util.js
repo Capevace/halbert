@@ -1,10 +1,10 @@
 function stripHtml(html) {
-   const tmp = document.createElement('div');
-   tmp.innerHTML = html;
-   return tmp.textContent || tmp.innerText || '';
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
 }
 
-function parseTerminalColors(input) {
+function parseTerminalColors(input) { // eslint-disable-line
   return stripHtml(input)
     .replace(/\[1m/g, '<strong>')
     .replace(/\[22m/g, '</strong>')

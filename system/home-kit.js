@@ -2,9 +2,7 @@ const config = require('./config');
 const {
   init,
   Bridge,
-  Accessory,
-  Service,
-  Characteristic
+  Accessory
 } = require('hap-nodejs');
 const { getRegisteredModules } = require('./modules');
 

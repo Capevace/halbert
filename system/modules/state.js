@@ -2,7 +2,7 @@ const EventEmitter = require('events');
 const systemEvent = require('../system-event');
 const { set, get } = require('lodash');
 
-let stateCache = {};
+const stateCache = {};
 const changeEmitter = new EventEmitter();
 
 // The State function exposes a state object unique for a specific stateId.
@@ -42,7 +42,7 @@ function state(stateId) {
 
 // This function stays empty and waits, until the io server was setup.
 // Then it gets set to a function that emits an event when stateWasUpdated.
-let stateWasUpdated = (stateKey, value) => {};
+let stateWasUpdated = () => {};
 
 function setupSync(io) {
   // Update the function because we now have io systems
@@ -66,7 +66,7 @@ function setupSync(io) {
         console.logger.error(`State for key '${key}' has not been assigned.`);
 
         // Emitting a state error for better error handling
-        socket.emit('state-error-' + key, {
+        socket.emit(`state-error-${key}`, {
           error: `State for key '${key}' has not been assigned.`
         });
         return;
@@ -74,7 +74,7 @@ function setupSync(io) {
 
       // Execute state-updated handler, because thats the handler that gets
       // executed when you .listen for a specific state.
-      socket.emit('state-updated-' + key, {
+      socket.emit(`state-updated-${key}`, {
         value: stateForKey
       });
     });

@@ -1,14 +1,13 @@
 const triggerListeners = require('./triggerListeners');
 const actions = require('./actions');
-const conditions = require('./conditions');
 
 module.exports = {
   info: {
-      name: 'Voice',
-      description: 'Voice Control',
-      id: 'voice',
-      author: 'Lukas von Mateffy (@Capevace)',
-      type: 'virtual'
+    name: 'Voice',
+    description: 'Voice Control',
+    id: 'voice',
+    author: 'Lukas von Mateffy (@Capevace)',
+    type: 'virtual'
   },
   actions,
   triggerListeners,

@@ -186,10 +186,10 @@ function checkCondition(condition) {
 // Runs a given action
 function runAction(action, data) {
   if (!registeredActions[action]) {
-    console.error(`The action '${action}' doesn't exist.`);
+    console.logger.error(`The action '${action}' doesn't exist.`);
     return false;
   } else if (!registeredActions[action].callback) {
-     console.error(`The action'${action} doesn't provide a callback.`);
+    console.logger.error(`The action'${action} doesn't provide a callback.`);
     return false;
   }
 
@@ -229,7 +229,7 @@ module.exports = {
   checkCondition,
   getTemplates,
   getRegisteredModules,
-  getRegisteredModule,
+  getRegisteredModule
 };
 
 // Read all folders from modules folder
