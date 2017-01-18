@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const isFunction = require('lodash/isFunction');
+const EventEmitter = require('events');
 
 const {
   TriggerBuilder,
@@ -15,6 +16,7 @@ let actions = {};
 let triggers = {};
 let accessories = [];
 let widgets = {};
+let triggerEmitter = new EventEmitter();
 
 function registerModule(moduleDirectory) {
   console.logger.info(`Registering Module '${moduleDirectory}'.`);
@@ -108,6 +110,20 @@ module.exports = {
   },
   getWidgets() {
     return widgets;
+  },
+  runAction(actionKey, ...args) {
+    const action = actions[actionKey];
+
+    if (action)
+      action.callback(...args);
+    else
+      console.logger.warn(`The action '${actionKey}' doesn't exist.`);
+  },
+  emitTrigger(triggerKey, ...args) {
+    if (triggers[triggerKey])
+      triggerEmitter.emit(triggerKey, ...args);
+    else
+      console.logger.warn(`The trigger '${triggerKey}' doesn't exist.`);
   }
 };
 
