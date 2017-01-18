@@ -1,23 +1,40 @@
-const triggers = require('./triggers');
 const actions = require('./actions');
-const conditions = require('./conditions');
-const routes = require('./routes');
+const { getPlaylists } = require('./play-music');
 
-module.exports = {
-  info: {
-    name: 'Music',
-    description: 'Does music stuff',
-    id: 'music',
-    author: 'Lukas von Mateffy (@Capevace)',
-    type: 'virtual'
-  },
-  widgetSettings: {
-    switchId: {
-      type: 'string'
-    }
-  },
-  triggers,
-  conditions,
-  actions,
-  routes
+module.exports = builder => {
+  builder.widgets
+    .createWidget('Music Player', 'widget.html');
+
+  builder.actions
+    .createAction('music.play')
+    .setMeta('Play Music', 'play music')
+    .addArgument('query', 'string')
+    .setCallback(actions.play)
+
+    .createAction('music.resume')
+    .setMeta('Resume Music', 'resume music')
+    .setCallback(actions.resume)
+
+    .createAction('music.pause')
+    .setMeta('Pause Music', 'pause music')
+    .setCallback(actions.pause);
+
+  builder.routes
+    .get('/music/playlists', (req, res) => {
+
+      function sendPlaylists() {
+        const playlists = getPlaylists();
+
+        if (!playlists) {
+          setTimeout(sendPlaylists, 2000);
+        } else {
+          res.json({
+            status: 200,
+            playlists: getPlaylists()
+          });
+        }
+      }
+
+      sendPlaylists();
+    });
 };

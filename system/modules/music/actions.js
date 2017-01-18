@@ -80,24 +80,7 @@ function pause() {
 }
 
 module.exports = {
-  'music.play': {
-    name: 'Play Music',
-    sentence: 'play music',
-    arguments: {
-      query: {
-        type: 'string'
-      }
-    },
-    callback: data => data.id ? playSongById(data.id) : playSong(data.query)
-  },
-  'music.resume': {
-    name: 'Resume Music',
-    sentence: 'resume the music',
-    callback: () => resume()
-  },
-  'music.pause': {
-    name: 'Pause Music',
-    sentence: 'pause the music',
-    callback: () => pause()
-  }
+  play: data => data.id ? playSongById(data.id) : playSong(data.query),
+  resume,
+  pause
 };
