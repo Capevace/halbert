@@ -63,10 +63,10 @@ function renderWidgetTemplates() {
 
   Object.keys(widgets).forEach(widgetKey => {
     let renderedWidget;
-    if (isFunction(widgets[widgetKey])) {
-      renderedWidget = widgets[widgetKey]();
+    if (isFunction(widgets[widgetKey].content)) {
+      renderedWidget = widgets[widgetKey].content();
     } else {
-      renderedWidget = widgets[widgetKey];
+      renderedWidget = widgets[widgetKey].content;
     }
 
     render = render

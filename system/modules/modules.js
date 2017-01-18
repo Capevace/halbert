@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const isFunction = require('lodash/isFunction');
+
 const {
   TriggerBuilder,
   ActionBuilder,
@@ -17,7 +19,7 @@ let widgets = {};
 function registerModule(moduleDirectory) {
   console.logger.info(`Registering Module '${moduleDirectory}'.`);
 
-  const modulePath = path.resolve(__dirname + '/m', moduleDirectory);
+  const modulePath = path.resolve(__dirname, moduleDirectory);
   const moduleInfo = loadModuleInfo(modulePath);
   if (!moduleInfo) return;
 
@@ -26,7 +28,11 @@ function registerModule(moduleDirectory) {
   const module = require(path.resolve(modulePath, 'index.js'));
 
   let moduleBuilder = getModuleBuilder(moduleInfo.id);
-  module(moduleBuilder);
+
+  if (isFunction(module))
+    module(moduleBuilder);
+  else
+    return;
 
   modules[moduleInfo.id] = {
     info: moduleInfo,
@@ -38,16 +44,25 @@ function registerModule(moduleDirectory) {
   };
 
   Object.keys(moduleBuilder.actions.actions)
-    .forEach(action => actions[action.id] = action);
+    .forEach(actionKey => {
+      const action = moduleBuilder.actions.actions[actionKey];
+      actions[actionKey] = action;
+    });
 
   Object.keys(moduleBuilder.triggers.triggers)
-    .forEach(trigger => triggers[trigger.id] = trigger);
+    .forEach(triggerKey => {
+      const trigger = moduleBuilder.triggers.triggers[triggerKey];
+      triggers[triggerKey] = trigger;
+    });
 
   Object.keys(moduleBuilder.widgets.widgets)
-    .forEach(widget => widgets[widget.id] = widget);
+    .forEach(widgetKey => {
+      const widget = moduleBuilder.widgets.widgets[widgetKey];
+      widgets[widgetKey] = widget;
+    });
 
   moduleBuilder.accessories.accessories
-    .forEach(accessory => accessories.push(accessory));
+    .forEach(accessoryKey => accessories.push(moduleBuilder.accessories.accessories[accessoryKey]));
 
   console.logger.success(`Registered Module '${moduleDirectory}'.`);
 }
@@ -97,6 +112,6 @@ module.exports = {
 };
 
 // Install built-in modules first
-fs.readdirSync(__dirname + '/m')
-  .filter(result => fs.statSync(path.resolve(__dirname + '/m', result)).isDirectory())
+fs.readdirSync(__dirname)
+  .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
   .forEach(directory => registerModule(directory));

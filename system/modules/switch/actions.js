@@ -170,24 +170,6 @@ function deviceCodeToBinary(switchConfig, state) {
 }
 
 module.exports = {
-  'switch.on': {
-    name: 'Set Switch to on',
-    sentence: 'set a switch to on',
-    arguments: {
-      switchId: {
-        type: 'string',
-      }
-    },
-    callback: data => toggle(data, true)
-  },
-  'switch.off': {
-    name: 'Set Switch to off',
-    sentence: 'set a switch to off',
-    arguments: {
-      switchId: {
-        type: 'string',
-      }
-    },
-    callback: data => toggle(data, false)
-  },
+  on: data => toggle(data, true),
+  off: data => toggle(data, false)
 };

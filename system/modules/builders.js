@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid-1345');
 const isFunction = require('lodash/isFunction');
-// const { server } = require('../config');
+const { server } = require('../config');
 
 // The TriggerBuilder class is a utility to create triggers.
 // The good thing about it is, that it's chainable.
@@ -232,10 +232,10 @@ class WidgetBuilder {
     let content;
 
     if (!isFunction(widgetContent)) {
-      if (/*server.cacheTemplates*/ true) {
-        content = renderTemplate(widgetContent);
+      if (server.cacheTemplates) {
+        content = renderTemplate(widgetContent, this.moduleId);
       } else {
-        content = () => renderTemplate(widgetContent);
+        content = () => renderTemplate(widgetContent, this.moduleId);
       }
     } else {
       content = widgetContent;
