@@ -8,8 +8,9 @@ const { server } = require('../config');
 // The TriggerBuilder class is a utility to create triggers.
 // The good thing about it is, that it's chainable.
 class TriggerBuilder {
-  constructor(moduleId) {
+  constructor(moduleId, triggerEmitter) {
     this.moduleId = moduleId;
+    this.triggerEmitter = triggerEmitter;
     this.currentTriggerId = null;
     this.triggers = {};
   }
@@ -46,6 +47,12 @@ class TriggerBuilder {
       .arguments[name] = {
         type
       };
+
+    return this;
+  }
+
+  listen(trigger, callback) {
+    this.triggerEmitter.on(trigger, callback);
 
     return this;
   }

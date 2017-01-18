@@ -71,7 +71,7 @@ function registerModule(moduleDirectory) {
 
 function getModuleBuilder(moduleId) {
   const moduleBuilder = {
-    triggers: new TriggerBuilder(moduleId),
+    triggers: new TriggerBuilder(moduleId, triggerEmitter),
     actions: new ActionBuilder(moduleId),
     routes: new RoutesBuilder(moduleId),
     accessories: new AccessoryBuilder(moduleId),
