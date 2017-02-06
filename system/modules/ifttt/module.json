@@ -1,7 +1,0 @@
-{
-  "name": "IFTTT",
-  "description": "Enables the use of IFTTT Triggers.",
-  "id": "ifttt",
-  "author": "Lukas von Mateffy (@Capevace)",
-  "type": "virtual"
-}
