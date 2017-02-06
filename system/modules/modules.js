@@ -6,10 +6,11 @@ const EventEmitter = require('events');
 const {
   TriggerBuilder,
   ActionBuilder,
-  RoutesBuilder,
+  RouteBuilder,
   AccessoryBuilder,
   WidgetBuilder
 } = require('./builders');
+const stateBuilder = require('./state').state;
 
 const modules = {};
 const actions = {};
@@ -17,11 +18,12 @@ const triggers = {};
 const accessories = [];
 const widgets = {};
 const triggerEmitter = new EventEmitter();
+const builtinPath = path.resolve(__dirname, 'built-in');
 
 function registerModule(moduleDirectory) {
   console.logger.info(`Registering Module '${moduleDirectory}'.`);
 
-  const modulePath = path.resolve(__dirname, moduleDirectory);
+  const modulePath = path.resolve(builtinPath, moduleDirectory);
   const moduleInfo = loadModuleInfo(modulePath);
   if (!moduleInfo) return;
 
@@ -70,12 +72,18 @@ function registerModule(moduleDirectory) {
 }
 
 function getModuleBuilder(moduleId) {
+  const state = stateBuilder(moduleId);
+
   const moduleBuilder = {
     triggers: new TriggerBuilder(moduleId, triggerEmitter),
     actions: new ActionBuilder(moduleId),
-    routes: new RoutesBuilder(moduleId),
+    routes: new RouteBuilder(moduleId),
     accessories: new AccessoryBuilder(moduleId),
-    widgets: new WidgetBuilder(moduleId)
+    widgets: new WidgetBuilder(moduleId),
+    state: {
+      get: state.getState.bind(state),
+      set: state.setState.bind(state)
+    }
   };
 
   return moduleBuilder;
@@ -84,9 +92,8 @@ function getModuleBuilder(moduleId) {
 
 function loadModuleInfo(modulePath) {
   const infoPath = path.resolve(modulePath, 'module.json');
-
   if (!fs.existsSync(infoPath)) {
-    console.logger.error(`No module.json file for module at /${  modulePath}`);
+    console.logger.error(`No module.json file for module at ${modulePath}`);
     return null;
   }
 
@@ -111,6 +118,10 @@ module.exports = {
   getWidgets() {
     return widgets;
   },
+  getWidget(key) {
+    console.log(widgets[key]);
+    return widgets[key];
+  },
   runAction(actionKey, ...args) {
     const action = actions[actionKey];
 
@@ -128,6 +139,6 @@ module.exports = {
 };
 
 // Install built-in modules first
-fs.readdirSync(__dirname)
-  .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
+fs.readdirSync(builtinPath)
+  .filter(result => fs.statSync(path.resolve(builtinPath, result)).isDirectory())
   .forEach(directory => registerModule(directory));

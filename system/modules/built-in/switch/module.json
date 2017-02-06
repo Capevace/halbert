@@ -1,0 +1,8 @@
+{
+  "name": "Switches",
+  "description": "Enables you to use switches for lights or remote plugs.",
+  "id": "switches",
+  "author": "Lukas von Mateffy (@Capevace)",
+  "type": "physical",
+  "usesGPIO": true
+}

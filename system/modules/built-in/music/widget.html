@@ -1,0 +1,189 @@
+<script type="text/x-template" id="music-template">
+  <div>
+    <div class="row mt-2 mb-3">
+      <div class="col-sm-12 col-md-4">
+        <iframe :src="songData.albumArt" class="hidden-xl-down"></iframe>
+        <img class="mx-auto d-block rounded-circle" style="width: 100%;" :src="songData.albumArt" :alt="songData.album">
+      </div>
+      <div class="col-xs-12 col-md-8 d-flex align-items-center justify-content-center">
+        <div class="d-flex align-content-center flex-column">
+          <p class="text-center font-weight-bold mb-0">{{songData.title}}</p>
+          <p class="text-center">{{songData.artist}} - {{songData.album}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-9">
+        <button class="btn btn-secondary btn-block" @click="toggle">{{label}}</button>
+      </div>
+      <div class="col-3">
+        <button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#music-collapse" aria-expanded="false" aria-controls="music-collapse">
+          V
+        </button>
+      </div>
+    </div>
+    <div class="collapse mt-1" id="music-collapse">
+      <div class="row">
+        <form @submit="start">
+          <div class="col-7">
+            <div class="form-group">
+              <input type="text" v-model="query" class="form-control" />
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="form-group">
+              <button class="btn btn-primary btn-block">Start</button>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="form-group">
+              <button class="btn btn-outline-primary btn-block" type="button" data-toggle="collapse" data-target="#music-collapse" aria-expanded="false" aria-controls="music-collapse">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <music-selector></music-selector>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  Vue.component('music', {
+    template: '#music-template',
+    props: ['id', 'moduleId', 'widgetData'],
+    data: function () {
+      return {
+        player: {
+          playing: false,
+          song: {
+            title: 'Select a song above',
+            artist: '',
+            album: '',
+          }
+        },
+        query: ''
+      };
+    },
+    computed: {
+      label: function () {
+        return this.player.playing ? 'Stop' : 'Resume';
+      },
+      songData: function () {
+        return this.player.song;
+      }
+    },
+    created: function () {
+      var state = window.state(this.moduleId);
+      var self = this;
+
+      console.log(this.query, 'q');
+
+      state.listen('playing', function (payload) {
+        self.player.playing = payload.value;
+      });
+      state.listen('song', function (payload) {
+        self.player.song = payload.value;
+      });
+    },
+    methods: {
+      start: function (e) {
+        e.preventDefault();
+
+        runAction('music.play', {
+          query: this.query
+        });
+
+        this.query = '';
+      },
+      toggle: function () {
+        var action = (this.player.playing)
+          ? 'music.pause'
+          : 'music.resume';
+
+        runAction(action);
+      }
+    }
+  });
+</script>
+
+<script type="text/x-template" id="music-selector-template">
+  <div>
+    <div class="col-xs-4">
+      <div class="list-group">
+        <div v-if="loadingPlaylists">
+          Loading Playlists...
+        </div>
+        <a v-for="playlist in playlists" href="#" @click="selectPlaylist(playlist.id, $event)" class="list-group-item list-group-item-small list-group-item-action" :class="classObject">
+          {{playlist.name}}
+        </a>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <div v-if="!selectedPlaylist">Select a Playlist</div>
+      <div v-else>
+        <div class="list-group">
+          <a v-for="song in selectedPlaylist.songs" @click="playSong(song.id, $event)" href="#" class="list-group-item list-group-item-small list-group-item-action">
+            {{song.title}} - {{song.artist}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  Vue.component('music-selector', {
+    template: '#music-selector-template',
+    props: ['onPlaySelect'],
+    data: function () {
+      return {
+        playlists: {},
+        loadingPlaylists: true,
+        selectedPlaylist: {},
+        classObject: {},
+      };
+    },
+    created: function () {
+      this.loadPlaylists();
+    },
+    methods: {
+      loadPlaylists: function () {
+        var self = this;
+
+        $.get('music/playlists')
+          .done(function(data) {
+            console.log(data);
+            self.playlists = data.playlists;
+            self.loadingPlaylists = false;
+            self.selectPlaylist(0);
+          })
+          .fail(function(err) {
+            alert('An error occurred trying to fetch playlists.');
+            console.error('Playlist fetch error', err);
+          });
+      },
+      selectPlaylist: function (id, event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        this.selectedPlaylist = this.playlists[id];
+      },
+      playSong: function (id, event) {
+        if (event) {
+          event.preventDefault();
+        }
+
+        runAction('music.play', { id });
+      }
+    }
+  });
+</script>
+
+<style>
+
+</style>

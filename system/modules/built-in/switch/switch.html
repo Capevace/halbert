@@ -1,0 +1,50 @@
+<script type="text/x-template" id="widget-switch-template">
+  <div class="row">
+    <div class="col-6">Desk LED</div>
+    <div class="col-6 d-flex justify-content-end">
+      <control-switch :value="switchData.state" :on-change="toggle" :disabled="busy"></control-switch>
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  Vue.component('widget-switch', {
+    template: '#widget-switch-template',
+    props: ['id', 'moduleId', 'widgetData'],
+    data: function () {
+      return {
+        switchData: {
+          state: false
+        },
+        busy: false,
+      };
+    },
+    created: function () {
+      var state = window.state(this.moduleId);
+      var self = this;
+
+      state.listen('switch_' + this.widgetData.settings.switchId, function (payload) {
+        self.switchData = payload.value;
+      });
+
+      state.listen('busy', function (payload) {
+        self.busy = payload.value;
+      });
+    },
+    methods: {
+      toggle: function () {
+        var action = (this.switchData.state)
+          ? 'switch.off'
+          : 'switch.on';
+
+        runAction(action, {
+          switchId: this.widgetData.settings.switchId
+        });
+      }
+    }
+  });
+</script>
+
+<style>
+
+</style>

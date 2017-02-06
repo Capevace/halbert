@@ -1,0 +1,7 @@
+{
+  "name": "Voice",
+  "description": "Voice Control",
+  "id": "voice",
+  "author": "Lukas von Mateffy (@Capevace)",
+  "type": "virtual"
+}
