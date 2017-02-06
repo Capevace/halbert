@@ -49,7 +49,9 @@
     "yargs": "^6.6.0"
   },
   "scripts": {
-    "start": "node system/router",
+    "activate-python-env": ". ./halbert_python_env/bin/activate",
+    "start": "npm run activate-python-env && node system",
+    "dev": "npm run activate-python-env && node system -d",
     "push": "git add . && git commit -m \"Upload\" && git push",
     "lint": "eslint ."
   },

@@ -6,15 +6,18 @@ Vue.component('widget-box', {
   template: `
     <div class="widget grid-item" :class="classObject">
       <div class="card"  :data-id="widget.id" @resize="resize">
+        <widget-title :title="widgetTitle" :widget-data="widget"></widget-title>
         <div class="card-block">
-          <widget-title :title="widget.title" :widget-data="widget"></widget-title>
-          <component :is="widget.moduleId" :id="widget.id" :module-id="widget.moduleId" :widget-data="widget"></component>
+          <component :is="widget.config.componentName" :id="widget.id" :module-id="widget.config.moduleId" :widget-data="widget"></component>
         </div>
       </div>
     </div>
   `,
   props: ['widget'],
   computed: {
+    widgetTitle: function () {
+      return this.widget.settings.title || this.widget.config.name;
+    },
     classObject: function () {
       const widthOneClasses = {
         'col-xs-12': true,
@@ -34,9 +37,9 @@ Vue.component('widget-box', {
         'col-xs-12': true
       };
 
-      if (`${this.widget.componentSize.width  }` === 'full') {
+      if (`${this.widget.size.width  }` === 'full') {
         return widthFullClasses;
-      } else if (`${this.widget.componentSize.width  }` === '2') {
+      } else if (`${this.widget.size.width  }` === '2') {
         return widthTwoClasses;
       } else {
         return widthOneClasses;
@@ -44,6 +47,7 @@ Vue.component('widget-box', {
     }
   },
   mounted: function () {
+    console.info(this.widget.componentName);
     let timeout = null;
     addResizeListener(this.$el, () => {
       if (timeout) {
@@ -98,7 +102,7 @@ Vue.component('options-modal', {
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="options-modal-label">{{widget.title}}</h4>
+            <h4 class="modal-title" id="options-modal-label">{{widget.settings.title}}</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -109,16 +113,16 @@ Vue.component('options-modal', {
                 <div class="form-group row">
                   <label for="title-input" class="col-3 col-form-label">Title</label>
                   <div class="col-9">
-                    <input class="form-control" type="text" v-model="widget.title" id="title-input">
+                    <input class="form-control" type="text" v-model="widget.settings.title" id="title-input">
                   </div>
                 </div>
 
-                <template v-if="widget.widgetSettings" v-for="(value, key) in widget.widgetSettings">
+                <template v-if="widget.config.settingsTypes" v-for="(value, key) in widget.config.settingsTypes">
                   <template v-if="value.type === 'string'">
                     <div class="form-group row">
                       <label for="{{key}}-input" class="col-3 col-form-label">{{value.title || key}}</label>
                       <div class="col-9">
-                        <input class="form-control" type="text" v-model="widget.customData[key]" id="{{key}}-input">
+                        <input class="form-control" type="text" v-model="widget.settings[key]" id="{{key}}-input">
                       </div>
                     </div>
                   </template>
@@ -140,10 +144,16 @@ Vue.component('options-modal', {
   props: ['widgetData', 'onSubmit'],
   data: () => ({
     widget: {
-      title: 'Untitled Widget'
+      settings: {
+        title: 'Untitled Widget'
+      },
+      config: {
+        settingsTypes: {}
+      }
     }
   }),
   beforeUpdate: function () {
+    console.log(this.widgetData);
     this.widget = this.widgetData;
   },
   methods: {

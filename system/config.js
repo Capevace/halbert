@@ -8,4 +8,6 @@ if (!config.device || !config.device.uuid) {
   process.exit(1);
 }
 
+global.HALBERT_CONFIG = config;
+
 module.exports = config;

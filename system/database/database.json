@@ -1,65 +1,96 @@
 {
   "widgets": [
     {
-      "id": "2b4fdc80-d4fc-11e6-b450-63d0a63fea87",
-      "title": "Voice Control",
-      "moduleId": "voice",
-      "componentSize": {
+      "id": "84572d72-e7ed-11a6-016c-0242ac150004",
+      "settings": {
+        "title": "HAL"
+      },
+      "size": {
         "width": 1,
         "height": 1
       },
-      "customData": {}
+      "component": "voice-voice",
+      "config": {
+        "id": "voice-voice",
+        "name": "Voice Recognizer",
+        "componentName": "voice",
+        "moduleId": "voice",
+        "settingsTypes": {}
+      },
+      "data": {}
     },
     {
-      "id": "2b500392-d4fc-11e6-b450-63d0a63fea87",
-      "title": "Media Player",
-      "moduleId": "music",
-      "componentSize": {
+      "id": "8dd6d170-e7ed-11a6-078c-0242ac150040",
+      "settings": {
+        "title": "Music"
+      },
+      "size": {
         "width": 2,
         "height": 1
       },
-      "customData": {}
+      "component": "music-music",
+      "config": {
+        "id": "music-music",
+        "name": "Music Player",
+        "componentName": "music",
+        "moduleId": "music",
+        "settingsTypes": {}
+      },
+      "data": {}
     },
     {
-      "id": "2b500390-d4fc-11e6-b450-63d0a63fea87",
-      "title": "Desk LEDs",
-      "moduleId": "switches",
-      "componentSize": {
-        "width": 1,
-        "height": 1
-      },
-      "customData": {
+      "id": "9f8e3020-e7ed-11a6-1434-0242ac150032",
+      "settings": {
+        "title": "Desk LED",
         "switchId": "desk-leds"
       },
-      "widgetSettings": {
-        "switchId": {
-          "type": "string",
-          "title": "Switch-ID"
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "component": "switch-widget-switch",
+      "config": {
+        "id": "switch-widget-switch",
+        "name": "Switch",
+        "componentName": "widget-switch",
+        "moduleId": "switch",
+        "settingsTypes": {
+          "switchId": {
+            "type": "string"
+          }
+        }
+      },
+      "data": {
+        "switch": {
+          "id": "desk-leds",
+          "name": "Desk LED",
+          "hotwords": [
+            "desk led",
+            "desk leds",
+            "leds on the desk"
+          ],
+          "type": "remote",
+          "protocol": "intertechno",
+          "code": "A1"
         }
       }
     },
     {
-      "id": "2b500391-d4fc-11e6-b450-63d0a63fea87",
-      "title": "Desk Light",
-      "moduleId": "switches",
-      "componentSize": {
+      "id": "a2999b60-e7ed-11a6-2b81-0242ac15005a",
+      "settings": {
+        "title": "Desk Light",
+        "switchId": "desk-light"
+      },
+      "size": {
         "width": 1,
         "height": 1
       },
-      "customData": {
-        "switchId": "desk-light"
-      },
-      "widgetSettings": {
-        "switchId": {
-          "type": "string",
-          "title": "Switch-ID"
-        }
-      }
+      "component": "switch-widget-switch"
     }
   ],
   "modules": {
     "music-builtin": {},
-    "switches": {},
+    "switches-widget-switch": {},
     "music": {},
     "voice": {},
     "ifttt": {}

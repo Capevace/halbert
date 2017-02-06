@@ -25,6 +25,7 @@ module.exports = {
     MODULES_PATH: true,
     SESSION_ID: true,
     CONFIG_PATH: true,
-    DEBUG_MODE: true
+    DEBUG_MODE: true,
+    HALBERT_CONFIG: true
   },
 }

@@ -4,14 +4,26 @@
 @import "control-switch";
 @import "options-button";
 @import "page-loader";
+@import "hal";
 
 body {
   -webkit-font-smoothing: antialiased;
 }
 
+.card {
+  // border: 4px solid white;
+  // box-shadow: 0px 0px 20px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.06);
+}
+
 .card-title {
   color: $card-title-color;
   font-size: $card-title-font-size;
+  background: $card-title-bg;
+  padding: 10px;
+  border-radius: $border-radius $border-radius 0 0;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
 .btn:focus {
@@ -40,4 +52,87 @@ body {
 
 .list-group-item-small {
   padding: 2px 10px;
+}
+
+.bg-white {
+  background: white;
+}
+
+.widgets-container {
+  width: 95%;
+  margin: 20px auto;
+}
+
+.modal-content {
+  box-shadow: 0px 7px 0px 0px rgba(179, 179, 179, 0.64);
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  background: $card-title-bg;
+}
+
+.modal-title {
+  color: rgba(0, 0, 0, 0.46);
+  font-weight: 700;
+}
+
+.halbert-logo-wrapper {
+  position: absolute;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @include media-breakpoint-down('sm') {
+    margin: 0;
+    left: 0;
+    transform: translateX(0);
+  };
+}
+
+.halbert-logo {
+  padding: 0.2rem 0.4rem;
+  font-size: 22px;
+  color: #fff;
+  background-color: #4e85d8;
+  font-family: Roboto, sans-serif;
+  border-radius: 0;
+  border: 2px solid #c5c5c5;
+  font-weight: 700;
+}
+
+.halbert-logo-left {
+  border-right: none;
+  padding-left: 15px;
+  margin-right: -5px;
+}
+
+.halbert-logo-right {
+  background: #2b2b2b;
+  border-left: none;
+}
+
+.position-relative {
+  position: relative;
+
+  &::after {
+    content: " ";
+    display: block;
+    min-height: 40px;
+  }
+}
+
+.nav-container {
+  @include media-breakpoint-down('sm') {
+    width: 100%;
+
+    .navbar-collapse {
+      margin-top: 40px;
+    }
+  };
+}
+
+.navbar {
+  min-height: 90px;
 }

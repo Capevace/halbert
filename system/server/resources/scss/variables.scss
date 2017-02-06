@@ -7,35 +7,37 @@ $font-family-sans-serif: "Open Sans", Roboto, -apple-system, BlinkMacSystemFont,
 
 $zindex-dropdown-backdrop: 980;
 
-$body-bg: #1c1d33;
-$body-color: #8A8BAF;
+$body-bg: #efefef; // #1c1d33
+$body-color: #4c4c4c;
 
-$brand-primary: #d02d59;
+$brand-primary: #4e85d8; // #d02d59, #00fd96
+$brand-secondary: #f7f7f7;
 $brand-success: #50E3C2;
 $brand-danger: #e63e3e;
 
-$card-bg: #242A47;
+$card-bg: #fff; // 242A47
 $card-spacer-x: 1.1rem 1.3rem; // For some reason this is the padding :/
 $card-spacer-y: 1.2rem;
-$card-title-color: #8A8BAF;
-$card-title-font-size: .9375rem;
+$card-title-bg: #f7f7f7;
+$card-title-color: rgba(0, 0, 0, 0.32); //#8A8BAF
+$card-title-font-size: 0.9rem;
 
 $btn-font-weight: 600;
-$btn-primary-color: #fff;
-$btn-secondary-bg: #a8acbf;
-$btn-secondary-border: #a8acbf;
+$btn-primary-color: rgba(0, 0, 0, 0.51);
+$btn-secondary-bg: darken($brand-secondary, 2.5%);
+$btn-secondary-border: darken($brand-secondary, 10%);
 $btn-secondary-color: #202131;
 $btn-focus-ring-color: $brand-primary;
 
-$close-color: #c4c4da;
+$close-color: rgba(0, 0, 0, 0.57);
 
 $control-switch-bg: $body-bg;
-$control-switch-active-bg: #212238;
-$control-switch-knob-bg: $brand-primary;
+$control-switch-active-bg: $brand-primary;
+$control-switch-knob-bg: white;
 
-$options-button-bg: transparentize($body-color, 0.8);
-$options-button-bg-hover: $body-color;
-$options-button-bg-active: darken($body-color, 5%);
+$options-button-bg: rgba(0, 0, 0, 0.32);
+$options-button-bg-hover: rgba(0, 0, 0, 0.4);
+$options-button-bg-active: rgba(0, 0, 0, 0.5);
 
 $modal-content-bg: $card-bg;
 $modal-header-border-color: $body-bg;
@@ -56,13 +58,18 @@ $input-light-border-color: lighten(#353e69, 20%);
 $input-light-border-focus: #353e69;
 
 $page-loader-bg: $body-bg;
-$page-loader-circle-bg: $card-bg;
-$page-loader-circle-highlight: lighten($card-bg, 10%);
+$page-loader-circle-bg: $brand-primary;
+$page-loader-circle-highlight: lighten($page-loader-circle-bg, 20%);
 
-$connection-label-bg: $card-bg;
+$connection-label-bg: #3c3c3c;
 $connection-label-color: $brand-danger;
 $connection-label-connected-color: $brand-success;
 
-$navbar-dark-color: transparentize(#fff, 0.4);
-$navbar-dark-active-color: #fff;
-$navbar-dark-hover-color: #fff;
+$navbar-light-color: transparentize(#000, 0.4);
+$navbar-light-active-color: #000;
+$navbar-light-hover-color: #000;
+
+$code-bg: $brand-primary;
+$code-color: white;
+
+$border-radius: 0;

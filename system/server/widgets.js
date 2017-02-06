@@ -1,60 +1,7 @@
 const modules = require('../modules/modules');
 const database = require('../database');
 const isFunction = require('lodash/isFunction');
-
-// database
-//   .set('widgets', [
-//     {
-//       id: 'voice-h5j7A',
-//       title: 'Voice Control (debug)',
-//       moduleId: 'voice',
-//       componentSize: {
-//         width: 1,
-//         height: 1
-//       },
-//       customData: {},
-//     },
-//     {
-//       id: 'switches-j3Sla',
-//       title: 'Desk LEDs',
-//       moduleId: 'switches',
-//       componentSize: {
-//         width: 1,
-//         height: 1
-//       },
-//       customData: {
-//         switchId: 'desk-leds'
-//       },
-//       widgetSettings: {
-//         switchId: {
-//           type: 'string'
-//         }
-//       }
-//     },
-//     {
-//       id: 'switches-4Ak34',
-//       title: 'Second Plug',
-//       moduleId: 'switches',
-//       componentSize: {
-//         width: 1,
-//         height: 1
-//       },
-//       customData: {
-//         switchId: 'desk-light'
-//       }
-//     },
-//     {
-//       id: 'music-b45Ss',
-//       title: 'Music',
-//       moduleId: 'music',
-//       componentSize: {
-//         width: 2,
-//         height: 1
-//       },
-//       customData: {},
-//     },
-//   ])
-//   .value()
+const uuid = require('uuid-1345').v1;
 
 function renderWidgetTemplates() {
   const widgets = modules.getWidgets();
@@ -79,8 +26,30 @@ function renderWidgetTemplates() {
 }
 
 function getWidgets() {
-  return database
-    .get('widgets');
+  console.log(modules.getWidgets());
+  const w = database
+    .get('widgets')
+    .map(widgetEntry => {
+      const widgetConfig = modules.getWidget(widgetEntry.component);
+
+      return {
+        id: widgetEntry.id,
+        config: {
+          id: widgetConfig.id,
+          name: widgetConfig.name,
+          componentName: widgetConfig.componentName,
+          moduleId: widgetConfig.moduleId,
+          settingsTypes: widgetConfig.settingsTypes
+        },
+        size: widgetEntry.size,
+        settings: widgetEntry.settings,
+        data: widgetConfig.onDataRequest(widgetEntry.settings)
+      };
+    })
+    .value();
+
+  console.log(w);
+  return w;
 }
 
 function updateWidget(widget) {
