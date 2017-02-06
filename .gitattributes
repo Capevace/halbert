@@ -1,4 +1,1 @@
-*.js linguist-language=Javascript
-system/server/resources/scss/bootstrap linguist-vendored
-system/server/resources/scss/bootstrapOld linguist-vendored
-halbert_python_env linguist-vendored=false
+
