@@ -49,7 +49,7 @@
     "yargs": "^6.6.0"
   },
   "scripts": {
-    "activate-python-env": ". ./halbert_python_env/bin/activate",
+    "activate-python-env": ". ./env/halbert_python_env/bin/activate",
     "start": "npm run activate-python-env && node system",
     "dev": "npm run activate-python-env && node system -d",
     "push": "git add . && git commit -m \"Upload\" && git push",
