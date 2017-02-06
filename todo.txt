@@ -1,2 +1,3 @@
 - Rewrite setState/getState to state.get/.set
 - Supply custom builder functions for module interaction ('runAction' etc)
+- refactor scss
