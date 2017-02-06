@@ -1,2 +1,2 @@
-- Refactor old modules
-- fix action and trigger runners
+- Rewrite setState/getState to state.get/.set
+- Supply custom builder functions for module interaction ('runAction' etc)
