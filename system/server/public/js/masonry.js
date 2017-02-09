@@ -8,25 +8,25 @@
  */
 
 !(function(t, e) {
-  "function" == typeof define && define.amd
-    ? define("jquery-bridget/jquery-bridget", ["jquery"], function(i) {
+  'function' == typeof define && define.amd
+    ? define('jquery-bridget/jquery-bridget', ['jquery'], function(i) {
         return e(t, i);
       })
-    : "object" == typeof module && module.exports
-        ? module.exports = e(t, require("jquery"))
+    : 'object' == typeof module && module.exports
+        ? module.exports = e(t, require('jquery'))
         : t.jQueryBridget = e(t, t.jQuery);
 })(window, function(t, e) {
-  "use strict";
+  'use strict';
   function i(i, r, a) {
     function h(t, e, n) {
-      var o, r = "$()." + i + '("' + e + '")';
+      var o, r = '$().' + i + '("' + e + '")';
       return t.each(function(t, h) {
         var u = a.data(h, i);
         if (!u)
-          return void s(i + " not initialized. Cannot call methods, i.e. " + r);
+          return void s(i + ' not initialized. Cannot call methods, i.e. ' + r);
         var d = u[e];
-        if (!d || "_" == e.charAt(0))
-          return void s(r + " is not a valid method");
+        if (!d || '_' == e.charAt(0))
+          return void s(r + ' is not a valid method');
         var l = d.apply(u, n);
         o = void 0 === o ? l : o;
       }), void 0 !== o ? o : t;
@@ -42,7 +42,7 @@
         (r.prototype.option = function(t) {
           a.isPlainObject(t) && (this.options = a.extend(!0, this.options, t));
         }), a.fn[i] = function(t) {
-        if ("string" == typeof t) {
+        if ('string' == typeof t) {
           var e = o.call(arguments, 1);
           return h(this, t, e);
         }
@@ -54,19 +54,19 @@
   }
   var o = Array.prototype.slice,
     r = t.console,
-    s = "undefined" == typeof r
+    s = 'undefined' == typeof r
       ? (function() {})
       : (function(t) {
           r.error(t);
         });
   return n(e || t.jQuery), i;
 }), (function(t, e) {
-  "function" == typeof define && define.amd
-    ? define("ev-emitter/ev-emitter", e)
-    : "object" == typeof module && module.exports
+  'function' == typeof define && define.amd
+    ? define('ev-emitter/ev-emitter', e)
+    : 'object' == typeof module && module.exports
         ? module.exports = e()
         : t.EvEmitter = e();
-})("undefined" != typeof window ? window : this, function() {
+})('undefined' != typeof window ? window : this, function() {
   function t() {}
   var e = t.prototype;
   return e.on = function(t, e) {
@@ -101,18 +101,18 @@
     }
   }, t;
 }), (function(t, e) {
-  "use strict";
-  "function" == typeof define && define.amd
-    ? define("get-size/get-size", [], function() {
+  'use strict';
+  'function' == typeof define && define.amd
+    ? define('get-size/get-size', [], function() {
         return e();
       })
-    : "object" == typeof module && module.exports
+    : 'object' == typeof module && module.exports
         ? module.exports = e()
         : t.getSize = e();
 })(window, function() {
-  "use strict";
+  'use strict';
   function t(t) {
-    var e = parseFloat(t), i = -1 == t.indexOf("%") && !isNaN(e);
+    var e = parseFloat(t), i = -1 == t.indexOf('%') && !isNaN(e);
     return i && e;
   }
   function e() {}
@@ -139,16 +139,16 @@
     var e = getComputedStyle(t);
     return e ||
       a(
-        "Style returned " +
+        'Style returned ' +
           e +
-          ". Are you running this code in a hidden iframe on Firefox? See http://bit.ly/getsizebug1"
+          '. Are you running this code in a hidden iframe on Firefox? See http://bit.ly/getsizebug1'
       ), e;
   }
   function o() {
     if (!d) {
       d = !0;
-      var e = document.createElement("div");
-      e.style.width = "200px", e.style.padding = "1px 2px 3px 4px", e.style.borderStyle = "solid", e.style.borderWidth = "1px 2px 3px 4px", e.style.boxSizing = "border-box";
+      var e = document.createElement('div');
+      e.style.width = '200px', e.style.padding = '1px 2px 3px 4px', e.style.borderStyle = 'solid', e.style.borderWidth = '1px 2px 3px 4px', e.style.boxSizing = 'border-box';
       var i = document.body || document.documentElement;
       i.appendChild(e);
       var o = n(e);
@@ -157,16 +157,16 @@
   }
   function r(e) {
     if (
-      (o(), "string" == typeof e && (e = document.querySelector(e)), e &&
-        "object" == typeof e &&
+      (o(), 'string' == typeof e && (e = document.querySelector(e)), e &&
+        'object' == typeof e &&
         e.nodeType)
     ) {
       var r = n(e);
-      if ("none" == r.display) return i();
+      if ('none' == r.display) return i();
       var a = {};
       a.width = e.offsetWidth, a.height = e.offsetHeight;
       for (
-        var d = a.isBorderBox = "border-box" == r.boxSizing, l = 0;
+        var d = a.isBorderBox = 'border-box' == r.boxSizing, l = 0;
         u > l;
         l++
       ) {
@@ -190,43 +190,43 @@
     }
   }
   var s,
-    a = "undefined" == typeof console
+    a = 'undefined' == typeof console
       ? e
       : (function(t) {
           console.error(t);
         }),
     h = [
-      "paddingLeft",
-      "paddingRight",
-      "paddingTop",
-      "paddingBottom",
-      "marginLeft",
-      "marginRight",
-      "marginTop",
-      "marginBottom",
-      "borderLeftWidth",
-      "borderRightWidth",
-      "borderTopWidth",
-      "borderBottomWidth"
+      'paddingLeft',
+      'paddingRight',
+      'paddingTop',
+      'paddingBottom',
+      'marginLeft',
+      'marginRight',
+      'marginTop',
+      'marginBottom',
+      'borderLeftWidth',
+      'borderRightWidth',
+      'borderTopWidth',
+      'borderBottomWidth'
     ],
     u = h.length,
     d = !1;
   return r;
 }), (function(t, e) {
-  "use strict";
-  "function" == typeof define && define.amd
-    ? define("desandro-matches-selector/matches-selector", e)
-    : "object" == typeof module && module.exports
+  'use strict';
+  'function' == typeof define && define.amd
+    ? define('desandro-matches-selector/matches-selector', e)
+    : 'object' == typeof module && module.exports
         ? module.exports = e()
         : t.matchesSelector = e();
 })(window, function() {
-  "use strict";
+  'use strict';
   var t = (function() {
     var t = Element.prototype;
-    if (t.matches) return "matches";
-    if (t.matchesSelector) return "matchesSelector";
-    for (var e = ["webkit", "moz", "ms", "o"], i = 0; i < e.length; i++) {
-      var n = e[i], o = n + "MatchesSelector";
+    if (t.matches) return 'matches';
+    if (t.matchesSelector) return 'matchesSelector';
+    for (var e = ['webkit', 'moz', 'ms', 'o'], i = 0; i < e.length; i++) {
+      var n = e[i], o = n + 'MatchesSelector';
       if (t[o]) return o;
     }
   })();
@@ -234,16 +234,16 @@
     return e[t](i);
   };
 }), (function(t, e) {
-  "function" == typeof define && define.amd
+  'function' == typeof define && define.amd
     ? define(
-        "fizzy-ui-utils/utils",
-        ["desandro-matches-selector/matches-selector"],
+        'fizzy-ui-utils/utils',
+        ['desandro-matches-selector/matches-selector'],
         function(i) {
           return e(t, i);
         }
       )
-    : "object" == typeof module && module.exports
-        ? module.exports = e(t, require("desandro-matches-selector"))
+    : 'object' == typeof module && module.exports
+        ? module.exports = e(t, require('desandro-matches-selector'))
         : t.fizzyUIUtils = e(t, t.matchesSelector);
 })(window, function(t, e) {
   var i = {};
@@ -256,7 +256,7 @@
   }, i.makeArray = function(t) {
     var e = [];
     if (Array.isArray(t)) e = t;
-    else if (t && "number" == typeof t.length)
+    else if (t && 'number' == typeof t.length)
       for (var i = 0; i < t.length; i++)
         e.push(t[i]);
     else
@@ -269,9 +269,9 @@
     for (; t != document.body; )
       if ((t = t.parentNode, e(t, i))) return t;
   }, i.getQueryElement = function(t) {
-    return "string" == typeof t ? document.querySelector(t) : t;
+    return 'string' == typeof t ? document.querySelector(t) : t;
   }, i.handleEvent = function(t) {
-    var e = "on" + t.type;
+    var e = 'on' + t.type;
     this[e] && this[e](t);
   }, i.filterFindElements = function(t, n) {
     t = i.makeArray(t);
@@ -285,7 +285,7 @@
       }
     }), o;
   }, i.debounceMethod = function(t, e, i) {
-    var n = t.prototype[e], o = e + "Timeout";
+    var n = t.prototype[e], o = e + 'Timeout';
     t.prototype[e] = function() {
       var t = this[o];
       t && clearTimeout(t);
@@ -299,13 +299,13 @@
     };
   }, i.docReady = function(t) {
     var e = document.readyState;
-    "complete" == e || "interactive" == e
+    'complete' == e || 'interactive' == e
       ? t()
-      : document.addEventListener("DOMContentLoaded", t);
+      : document.addEventListener('DOMContentLoaded', t);
   }, i.toDashed = function(t) {
     return t
       .replace(/(.)([A-Z])/g, function(t, e, i) {
-        return e + "-" + i;
+        return e + '-' + i;
       })
       .toLowerCase();
   };
@@ -313,11 +313,11 @@
   return i.htmlInit = function(e, o) {
     i.docReady(function() {
       var r = i.toDashed(o),
-        s = "data-" + r,
-        a = document.querySelectorAll("[" + s + "]"),
-        h = document.querySelectorAll(".js-" + r),
+        s = 'data-' + r,
+        a = document.querySelectorAll('[' + s + ']'),
+        h = document.querySelectorAll('.js-' + r),
         u = i.makeArray(a).concat(i.makeArray(h)),
-        d = s + "-options",
+        d = s + '-options',
         l = t.jQuery;
       u.forEach(function(t) {
         var i, r = t.getAttribute(s) || t.getAttribute(d);
@@ -325,7 +325,7 @@
           i = r && JSON.parse(r);
         } catch (a) {
           return void (n &&
-            n.error("Error parsing " + s + " on " + t.className + ": " + a));
+            n.error('Error parsing ' + s + ' on ' + t.className + ': ' + a));
         }
         var h = new e(t, i);
         l && l.data(t, o, h);
@@ -333,13 +333,13 @@
     });
   }, i;
 }), (function(t, e) {
-  "function" == typeof define && define.amd
-    ? define("outlayer/item", ["ev-emitter/ev-emitter", "get-size/get-size"], e)
-    : "object" == typeof module && module.exports
-        ? module.exports = e(require("ev-emitter"), require("get-size"))
+  'function' == typeof define && define.amd
+    ? define('outlayer/item', ['ev-emitter/ev-emitter', 'get-size/get-size'], e)
+    : 'object' == typeof module && module.exports
+        ? module.exports = e(require('ev-emitter'), require('get-size'))
         : (t.Outlayer = {}, t.Outlayer.Item = e(t.EvEmitter, t.getSize));
 })(window, function(t, e) {
-  "use strict";
+  'use strict';
   function i(t) {
     for (var e in t) return !1;
     return e = null, !0;
@@ -353,30 +353,30 @@
   }
   function o(t) {
     return t.replace(/([A-Z])/g, function(t) {
-      return "-" + t.toLowerCase();
+      return '-' + t.toLowerCase();
     });
   }
   var r = document.documentElement.style,
-    s = "string" == typeof r.transition ? "transition" : "WebkitTransition",
-    a = "string" == typeof r.transform ? "transform" : "WebkitTransform",
+    s = 'string' == typeof r.transition ? 'transition' : 'WebkitTransition',
+    a = 'string' == typeof r.transform ? 'transform' : 'WebkitTransform',
     h = ({
-      WebkitTransition: "webkitTransitionEnd",
-      transition: "transitionend"
+      WebkitTransition: 'webkitTransitionEnd',
+      transition: 'transitionend'
     })[s],
     u = {
       transform: a,
       transition: s,
-      transitionDuration: s + "Duration",
-      transitionProperty: s + "Property",
-      transitionDelay: s + "Delay"
+      transitionDuration: s + 'Duration',
+      transitionProperty: s + 'Property',
+      transitionDelay: s + 'Delay'
     },
     d = n.prototype = Object.create(t.prototype);
   d.constructor = n, d._create = function() {
     this._transn = { ingProperties: {}, clean: {}, onEnd: {} }, this.css({
-      position: "absolute"
+      position: 'absolute'
     });
   }, d.handleEvent = function(t) {
-    var e = "on" + t.type;
+    var e = 'on' + t.type;
     this[e] && this[e](t);
   }, d.getSize = function() {
     this.size = e(this.element);
@@ -388,15 +388,15 @@
     }
   }, d.getPosition = function() {
     var t = getComputedStyle(this.element),
-      e = this.layout._getOption("originLeft"),
-      i = this.layout._getOption("originTop"),
-      n = t[e ? "left" : "right"],
-      o = t[i ? "top" : "bottom"],
+      e = this.layout._getOption('originLeft'),
+      i = this.layout._getOption('originTop'),
+      n = t[e ? 'left' : 'right'],
+      o = t[i ? 'top' : 'bottom'],
       r = this.layout.size,
-      s = -1 != n.indexOf("%")
+      s = -1 != n.indexOf('%')
         ? parseFloat(n) / 100 * r.width
         : parseInt(n, 10),
-      a = -1 != o.indexOf("%")
+      a = -1 != o.indexOf('%')
         ? parseFloat(o) / 100 * r.height
         : parseInt(o, 10);
     s = isNaN(s) ? 0 : s, a = isNaN(a) ? 0 : a, s -= e
@@ -407,30 +407,30 @@
   }, d.layoutPosition = function() {
     var t = this.layout.size,
       e = {},
-      i = this.layout._getOption("originLeft"),
-      n = this.layout._getOption("originTop"),
-      o = i ? "paddingLeft" : "paddingRight",
-      r = i ? "left" : "right",
-      s = i ? "right" : "left",
+      i = this.layout._getOption('originLeft'),
+      n = this.layout._getOption('originTop'),
+      o = i ? 'paddingLeft' : 'paddingRight',
+      r = i ? 'left' : 'right',
+      s = i ? 'right' : 'left',
       a = this.position.x + t[o];
-    e[r] = this.getXValue(a), e[s] = "";
-    var h = n ? "paddingTop" : "paddingBottom",
-      u = n ? "top" : "bottom",
-      d = n ? "bottom" : "top",
+    e[r] = this.getXValue(a), e[s] = '';
+    var h = n ? 'paddingTop' : 'paddingBottom',
+      u = n ? 'top' : 'bottom',
+      d = n ? 'bottom' : 'top',
       l = this.position.y + t[h];
-    e[u] = this.getYValue(l), e[d] = "", this.css(e), this.emitEvent("layout", [
+    e[u] = this.getYValue(l), e[d] = '', this.css(e), this.emitEvent('layout', [
       this
     ]);
   }, d.getXValue = function(t) {
-    var e = this.layout._getOption("horizontal");
+    var e = this.layout._getOption('horizontal');
     return this.layout.options.percentPosition && !e
-      ? t / this.layout.size.width * 100 + "%"
-      : t + "px";
+      ? t / this.layout.size.width * 100 + '%'
+      : t + 'px';
   }, d.getYValue = function(t) {
-    var e = this.layout._getOption("horizontal");
+    var e = this.layout._getOption('horizontal');
     return this.layout.options.percentPosition && e
-      ? t / this.layout.size.height * 100 + "%"
-      : t + "px";
+      ? t / this.layout.size.height * 100 + '%'
+      : t + 'px';
   }, d._transitionTo = function(t, e) {
     this.getPosition();
     var i = this.position.x,
@@ -447,13 +447,13 @@
       isCleaning: !0
     });
   }, d.getTranslate = function(t, e) {
-    var i = this.layout._getOption("originLeft"),
-      n = this.layout._getOption("originTop");
-    return t = i ? t : -t, e = n ? e : -e, "translate3d(" +
+    var i = this.layout._getOption('originLeft'),
+      n = this.layout._getOption('originTop');
+    return t = i ? t : -t, e = n ? e : -e, 'translate3d(' +
       t +
-      "px, " +
+      'px, ' +
       e +
-      "px, 0)";
+      'px, 0)';
   }, d.goTo = function(t, e) {
     this.setPosition(t, e), this.layoutPosition();
   }, d.moveTo = d._transitionTo, d.setPosition = function(t, e) {
@@ -477,11 +477,11 @@
     }
     this.enableTransition(t.to), this.css(t.to), this.isTransitioning = !0;
   };
-  var l = "opacity," + o(a);
+  var l = 'opacity,' + o(a);
   d.enableTransition = function() {
     if (!this.isTransitioning) {
       var t = this.layout.options.transitionDuration;
-      t = "number" == typeof t ? t + "ms" : t, this.css({
+      t = 'number' == typeof t ? t + 'ms' : t, this.css({
         transitionProperty: l,
         transitionDuration: t,
         transitionDelay: this.staggerDelay || 0
@@ -492,20 +492,20 @@
   }, d.onotransitionend = function(t) {
     this.ontransitionend(t);
   };
-  var c = { "-webkit-transform": "transform" };
+  var c = { '-webkit-transform': 'transform' };
   d.ontransitionend = function(t) {
     if (t.target === this.element) {
       var e = this._transn, n = c[t.propertyName] || t.propertyName;
       if (
         (delete e.ingProperties[n], i(e.ingProperties) &&
           this.disableTransition(), n in e.clean &&
-          (this.element.style[t.propertyName] = "", delete e.clean[n]), n in
+          (this.element.style[t.propertyName] = '', delete e.clean[n]), n in
           e.onEnd)
       ) {
         var o = e.onEnd[n];
         o.call(this), delete e.onEnd[n];
       }
-      this.emitEvent("transitionEnd", [this]);
+      this.emitEvent('transitionEnd', [this]);
     }
   }, d.disableTransition = function() {
     this.removeTransitionStyles(), this.element.removeEventListener(
@@ -516,33 +516,33 @@
   }, d._removeStyles = function(t) {
     var e = {};
     for (var i in t)
-      e[i] = "";
+      e[i] = '';
     this.css(e);
   };
   var f = {
-    transitionProperty: "",
-    transitionDuration: "",
-    transitionDelay: ""
+    transitionProperty: '',
+    transitionDuration: '',
+    transitionDelay: ''
   };
   return d.removeTransitionStyles = function() {
     this.css(f);
   }, d.stagger = function(t) {
-    t = isNaN(t) ? 0 : t, this.staggerDelay = t + "ms";
+    t = isNaN(t) ? 0 : t, this.staggerDelay = t + 'ms';
   }, d.removeElem = function() {
     this.element.parentNode.removeChild(this.element), this.css({
-      display: ""
-    }), this.emitEvent("remove", [this]);
+      display: ''
+    }), this.emitEvent('remove', [this]);
   }, d.remove = function() {
     return s && parseFloat(this.layout.options.transitionDuration)
-      ? (this.once("transitionEnd", function() {
+      ? (this.once('transitionEnd', function() {
           this.removeElem();
         }), void this.hide())
       : void this.removeElem();
   }, d.reveal = function() {
-    delete this.isHidden, this.css({ display: "" });
+    delete this.isHidden, this.css({ display: '' });
     var t = this.layout.options,
       e = {},
-      i = this.getHideRevealTransitionEndProperty("visibleStyle");
+      i = this.getHideRevealTransitionEndProperty('visibleStyle');
     e[i] = this.onRevealTransitionEnd, this.transition({
       from: t.hiddenStyle,
       to: t.visibleStyle,
@@ -550,17 +550,17 @@
       onTransitionEnd: e
     });
   }, d.onRevealTransitionEnd = function() {
-    this.isHidden || this.emitEvent("reveal");
+    this.isHidden || this.emitEvent('reveal');
   }, d.getHideRevealTransitionEndProperty = function(t) {
     var e = this.layout.options[t];
-    if (e.opacity) return "opacity";
+    if (e.opacity) return 'opacity';
     for (var i in e)
       return i;
   }, d.hide = function() {
-    this.isHidden = !0, this.css({ display: "" });
+    this.isHidden = !0, this.css({ display: '' });
     var t = this.layout.options,
       e = {},
-      i = this.getHideRevealTransitionEndProperty("hiddenStyle");
+      i = this.getHideRevealTransitionEndProperty('hiddenStyle');
     e[i] = this.onHideTransitionEnd, this.transition({
       from: t.visibleStyle,
       to: t.hiddenStyle,
@@ -568,40 +568,40 @@
       onTransitionEnd: e
     });
   }, d.onHideTransitionEnd = function() {
-    this.isHidden && (this.css({ display: "none" }), this.emitEvent("hide"));
+    this.isHidden && (this.css({ display: 'none' }), this.emitEvent('hide'));
   }, d.destroy = function() {
     this.css({
-      position: "",
-      left: "",
-      right: "",
-      top: "",
-      bottom: "",
-      transition: "",
-      transform: ""
+      position: '',
+      left: '',
+      right: '',
+      top: '',
+      bottom: '',
+      transition: '',
+      transform: ''
     });
   }, n;
 }), (function(t, e) {
-  "use strict";
-  "function" == typeof define && define.amd
+  'use strict';
+  'function' == typeof define && define.amd
     ? define(
-        "outlayer/outlayer",
+        'outlayer/outlayer',
         [
-          "ev-emitter/ev-emitter",
-          "get-size/get-size",
-          "fizzy-ui-utils/utils",
-          "./item"
+          'ev-emitter/ev-emitter',
+          'get-size/get-size',
+          'fizzy-ui-utils/utils',
+          './item'
         ],
         function(i, n, o, r) {
           return e(t, i, n, o, r);
         }
       )
-    : "object" == typeof module && module.exports
+    : 'object' == typeof module && module.exports
         ? module.exports = e(
             t,
-            require("ev-emitter"),
-            require("get-size"),
-            require("fizzy-ui-utils"),
-            require("./item")
+            require('ev-emitter'),
+            require('get-size'),
+            require('fizzy-ui-utils'),
+            require('./item')
           )
         : t.Outlayer = e(
             t,
@@ -611,18 +611,18 @@
             t.Outlayer.Item
           );
 })(window, function(t, e, i, n, o) {
-  "use strict";
+  'use strict';
   function r(t, e) {
     var i = n.getQueryElement(t);
     if (!i)
       return void (h &&
         h.error(
-          "Bad element for " + this.constructor.namespace + ": " + (i || t)
+          'Bad element for ' + this.constructor.namespace + ': ' + (i || t)
         ));
     this.element = i, u && (this.$element = u(this.element)), this.options = n.extend({}, this.constructor.defaults), this.option(e);
     var o = ++l;
     this.element.outlayerGUID = o, c[o] = this, this._create();
-    var r = this._getOption("initLayout");
+    var r = this._getOption('initLayout');
     r && this.layout();
   }
   function s(t) {
@@ -634,7 +634,7 @@
     ), e.prototype.constructor = e, e;
   }
   function a(t) {
-    if ("number" == typeof t) return t;
+    if ('number' == typeof t) return t;
     var e = t.match(/(^\d*\.?\d*)(\w*)/), i = e && e[1], n = e && e[2];
     if (!i.length) return 0;
     i = parseFloat(i);
@@ -642,18 +642,18 @@
     return i * o;
   }
   var h = t.console, u = t.jQuery, d = function() {}, l = 0, c = {};
-  r.namespace = "outlayer", r.Item = o, r.defaults = { containerStyle: { position: "relative" }, initLayout: !0, originLeft: !0, originTop: !0, resize: !0, resizeContainer: !0, transitionDuration: "0.4s", hiddenStyle: { opacity: 0, transform: "scale(0.001)" }, visibleStyle: { opacity: 1, transform: "scale(1)" } };
+  r.namespace = 'outlayer', r.Item = o, r.defaults = { containerStyle: { position: 'relative' }, initLayout: !0, originLeft: !0, originTop: !0, resize: !0, resizeContainer: !0, transitionDuration: '0.4s', hiddenStyle: { opacity: 0, transform: 'scale(0.001)' }, visibleStyle: { opacity: 1, transform: 'scale(1)' } };
   var f = r.prototype;
   n.extend(f, e.prototype), f.option = function(t) {
     n.extend(this.options, t);
   }, f._getOption = function(t) {
     var e = this.constructor.compatOptions[t];
     return e && void 0 !== this.options[e] ? this.options[e] : this.options[t];
-  }, r.compatOptions = { initLayout: "isInitLayout", horizontal: "isHorizontal", layoutInstant: "isLayoutInstant", originLeft: "isOriginLeft", originTop: "isOriginTop", resize: "isResizeBound", resizeContainer: "isResizingContainer" }, f._create = function() {
+  }, r.compatOptions = { initLayout: 'isInitLayout', horizontal: 'isHorizontal', layoutInstant: 'isLayoutInstant', originLeft: 'isOriginLeft', originTop: 'isOriginTop', resize: 'isResizeBound', resizeContainer: 'isResizingContainer' }, f._create = function() {
     this.reloadItems(), this.stamps = [], this.stamp(
       this.options.stamp
     ), n.extend(this.element.style, this.options.containerStyle);
-    var t = this._getOption("resize");
+    var t = this._getOption('resize');
     t && this.bindResize();
   }, f.reloadItems = function() {
     this.items = this._itemize(this.element.children);
@@ -678,7 +678,7 @@
     });
   }, f.layout = function() {
     this._resetLayout(), this._manageStamps();
-    var t = this._getOption("layoutInstant"),
+    var t = this._getOption('layoutInstant'),
       e = void 0 !== t ? t : !this._isLayoutInited;
     this.layoutItems(this.items, e), this._isLayoutInited = !0;
   }, f._init = f.layout, f._resetLayout = function() {
@@ -688,7 +688,7 @@
   }, f._getMeasurement = function(t, e) {
     var n, o = this.options[t];
     o
-      ? ("string" == typeof o
+      ? ('string' == typeof o
           ? n = this.element.querySelector(o)
           : o instanceof HTMLElement && (n = o), this[t] = n ? i(n)[e] : o)
       : this[t] = 0;
@@ -699,7 +699,7 @@
       return !t.isIgnored;
     });
   }, f._layoutItems = function(t, e) {
-    if ((this._emitCompleteOnItems("layout", t), t && t.length)) {
+    if ((this._emitCompleteOnItems('layout', t), t && t.length)) {
       var i = [];
       t.forEach(
         function(t) {
@@ -728,7 +728,7 @@
   }, f._postLayout = function() {
     this.resizeContainer();
   }, f.resizeContainer = function() {
-    var t = this._getOption("resizeContainer");
+    var t = this._getOption('resizeContainer');
     if (t) {
       var e = this._getContainerSize();
       e &&
@@ -750,12 +750,12 @@
               i.paddingTop +
               i.borderTopWidth +
               i.borderBottomWidth), t = Math.max(t, 0), this.element.style[
-        e ? "width" : "height"
-      ] = t + "px";
+        e ? 'width' : 'height'
+      ] = t + 'px';
     }
   }, f._emitCompleteOnItems = function(t, e) {
     function i() {
-      o.dispatchEvent(t + "Complete", null, [e]);
+      o.dispatchEvent(t + 'Complete', null, [e]);
     }
     function n() {
       s++, s == r && i();
@@ -793,7 +793,7 @@
       );
   }, f._find = function(t) {
     return t
-      ? ("string" == typeof t &&
+      ? ('string' == typeof t &&
           (t = this.element.querySelectorAll(t)), t = n.makeArray(t))
       : void 0;
   }, f._manageStamps = function() {
@@ -820,12 +820,12 @@
       };
     return r;
   }, f.handleEvent = n.handleEvent, f.bindResize = function() {
-    t.addEventListener("resize", this), this.isResizeBound = !0;
+    t.addEventListener('resize', this), this.isResizeBound = !0;
   }, f.unbindResize = function() {
-    t.removeEventListener("resize", this), this.isResizeBound = !1;
+    t.removeEventListener('resize', this), this.isResizeBound = !1;
   }, f.onresize = function() {
     this.resize();
-  }, n.debounceMethod(r, "onresize", 100), f.resize = function() {
+  }, n.debounceMethod(r, 'onresize', 100), f.resize = function() {
     this.isResizeBound && this.needsResizeLayout() && this.layout();
   }, f.needsResizeLayout = function() {
     var t = i(this.element), e = this.size && t;
@@ -848,14 +848,14 @@
       ), this.reveal(e), this.layoutItems(i);
     }
   }, f.reveal = function(t) {
-    if ((this._emitCompleteOnItems("reveal", t), t && t.length)) {
+    if ((this._emitCompleteOnItems('reveal', t), t && t.length)) {
       var e = this.updateStagger();
       t.forEach(function(t, i) {
         t.stagger(i * e), t.reveal();
       });
     }
   }, f.hide = function(t) {
-    if ((this._emitCompleteOnItems("hide", t), t && t.length)) {
+    if ((this._emitCompleteOnItems('hide', t), t && t.length)) {
       var e = this.updateStagger();
       t.forEach(function(t, i) {
         t.stagger(i * e), t.hide();
@@ -884,7 +884,7 @@
     ), e;
   }, f.remove = function(t) {
     var e = this.getItems(t);
-    this._emitCompleteOnItems("remove", e), e &&
+    this._emitCompleteOnItems('remove', e), e &&
       e.length &&
       e.forEach(
         function(t) {
@@ -894,7 +894,7 @@
       );
   }, f.destroy = function() {
     var t = this.element.style;
-    t.height = "", t.position = "", t.width = "", this.items.forEach(function(
+    t.height = '', t.position = '', t.width = '', this.items.forEach(function(
       t
     ) {
       t.destroy();
@@ -921,20 +921,20 @@
   var m = { ms: 1, s: 1e3 };
   return r.Item = o, r;
 }), (function(t, e) {
-  "function" == typeof define && define.amd
-    ? define(["outlayer/outlayer", "get-size/get-size"], e)
-    : "object" == typeof module && module.exports
-        ? module.exports = e(require("outlayer"), require("get-size"))
+  'function' == typeof define && define.amd
+    ? define(['outlayer/outlayer', 'get-size/get-size'], e)
+    : 'object' == typeof module && module.exports
+        ? module.exports = e(require('outlayer'), require('get-size'))
         : t.Masonry = e(t.Outlayer, t.getSize);
 })(window, function(t, e) {
-  var i = t.create("masonry");
-  return i.compatOptions.fitWidth = "isFitWidth", i.prototype._resetLayout = function() {
+  var i = t.create('masonry');
+  return i.compatOptions.fitWidth = 'isFitWidth', i.prototype._resetLayout = function() {
     this.getSize(), this._getMeasurement(
-      "columnWidth",
-      "outerWidth"
+      'columnWidth',
+      'outerWidth'
     ), this._getMeasurement(
-      "gutter",
-      "outerWidth"
+      'gutter',
+      'outerWidth'
     ), this.measureColumns(), this.colYs = [];
     for (var t = 0; t < this.cols; t++)
       this.colYs.push(0);
@@ -948,17 +948,17 @@
       o = this.containerWidth + this.gutter,
       r = o / n,
       s = n - o % n,
-      a = s && 1 > s ? "round" : "floor";
+      a = s && 1 > s ? 'round' : 'floor';
     r = Math[a](r), this.cols = Math.max(r, 1);
   }, i.prototype.getContainerWidth = function() {
-    var t = this._getOption("fitWidth"),
+    var t = this._getOption('fitWidth'),
       i = t ? this.element.parentNode : this.element,
       n = e(i);
     this.containerWidth = n && n.innerWidth;
   }, i.prototype._getItemLayoutPosition = function(t) {
     t.getSize();
     var e = t.size.outerWidth % this.columnWidth,
-      i = e && 1 > e ? "round" : "ceil",
+      i = e && 1 > e ? 'round' : 'ceil',
       n = Math[i](t.size.outerWidth / this.columnWidth);
     n = Math.min(n, this.cols);
     for (
@@ -984,7 +984,7 @@
   }, i.prototype._manageStamp = function(t) {
     var i = e(t),
       n = this._getElementOffset(t),
-      o = this._getOption("originLeft"),
+      o = this._getOption('originLeft'),
       r = o ? n.left : n.right,
       s = r + i.outerWidth,
       a = Math.floor(r / this.columnWidth);
@@ -992,7 +992,7 @@
     var h = Math.floor(s / this.columnWidth);
     h -= s % this.columnWidth ? 0 : 1, h = Math.min(this.cols - 1, h);
     for (
-      var u = this._getOption("originTop"),
+      var u = this._getOption('originTop'),
         d = (u ? n.top : n.bottom) + i.outerHeight,
         l = a;
       h >= l;
@@ -1002,7 +1002,7 @@
   }, i.prototype._getContainerSize = function() {
     this.maxY = Math.max.apply(Math, this.colYs);
     var t = { height: this.maxY };
-    return this._getOption("fitWidth") &&
+    return this._getOption('fitWidth') &&
       (t.width = this._getContainerFitWidth()), t;
   }, i.prototype._getContainerFitWidth = function() {
     for (var t = 0, e = this.cols; --e && 0 === this.colYs[e]; )

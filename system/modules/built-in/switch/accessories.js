@@ -1,7 +1,7 @@
-const config = require("../../config");
-const { Accessory, Service, Characteristic } = require("hap-nodejs");
-const uuid = require("uuid-1345");
-const { runAction } = require("../../modules");
+const config = require('../../config');
+const { Accessory, Service, Characteristic } = require('hap-nodejs');
+const uuid = require('uuid-1345');
+const { runAction } = require('../../modules');
 
 module.exports = function(state) {
   function setupAccessory(switchConfig) {
@@ -13,14 +13,14 @@ module.exports = function(state) {
 
     outlet
       .getService(Service.AccessoryInformation)
-      .setCharacteristic(Characteristic.Manufacturer, "HALBERT")
+      .setCharacteristic(Characteristic.Manufacturer, 'HALBERT')
       .setCharacteristic(
         Characteristic.Model,
         `${switchConfig.type}-${switchConfig.protocol}-switch`
       )
       .setCharacteristic(Characteristic.SerialNumber, switchConfig.id);
 
-    outlet.on("identify", (paired, callback) => {
+    outlet.on('identify', (paired, callback) => {
       console.logger.info(
         `${switchConfig.name} was identified. Paired: ${paired}.`
       );
@@ -30,8 +30,8 @@ module.exports = function(state) {
     outlet
       .addService(Service.Outlet, switchConfig.name)
       .getCharacteristic(Characteristic.On)
-      .on("set", (value, callback) => {
-        const action = value ? "switch.on" : "switch.off";
+      .on('set', (value, callback) => {
+        const action = value ? 'switch.on' : 'switch.off';
 
         runAction(action, {
           switchId: switchConfig.id
@@ -43,7 +43,7 @@ module.exports = function(state) {
     outlet
       .getService(Service.Outlet)
       .getCharacteristic(Characteristic.On)
-      .on("get", callback => {
+      .on('get', callback => {
         callback(null, getState(`switch_${switchConfig.id}`).state);
       });
 

@@ -2,7 +2,7 @@
 //
 // Widget Box
 //
-Vue.component("widget-box", {
+Vue.component('widget-box', {
   template: (
     `
     <div class="widget grid-item" :class="classObject">
@@ -15,33 +15,33 @@ Vue.component("widget-box", {
     </div>
   `
   ),
-  props: ["widget"],
+  props: ['widget'],
   computed: {
     widgetTitle: function() {
       return this.widget.settings.title || this.widget.config.name;
     },
     classObject: function() {
       const widthOneClasses = {
-        "col-xs-12": true,
-        "col-sm-6": true,
-        "col-md-4": true,
-        "col-lg-3": true,
-        "col-xl-2": true
+        'col-xs-12': true,
+        'col-sm-6': true,
+        'col-md-4': true,
+        'col-lg-3': true,
+        'col-xl-2': true
       };
       const widthTwoClasses = {
-        "col-xs-12": true,
-        "col-sm-12": true,
-        "col-md-8": true,
-        "col-lg-6": true,
-        "col-xl-4": true
+        'col-xs-12': true,
+        'col-sm-12': true,
+        'col-md-8': true,
+        'col-lg-6': true,
+        'col-xl-4': true
       };
       const widthFullClasses = {
-        "col-xs-12": true
+        'col-xs-12': true
       };
 
-      if (`${this.widget.size.width}` === "full") {
+      if (`${this.widget.size.width}` === 'full') {
         return widthFullClasses;
-      } else if (`${this.widget.size.width}` === "2") {
+      } else if (`${this.widget.size.width}` === '2') {
         return widthTwoClasses;
       } else {
         return widthOneClasses;
@@ -67,7 +67,7 @@ Vue.component("widget-box", {
 //
 // Widget Title
 //
-Vue.component("widget-title", {
+Vue.component('widget-title', {
   template: (
     `
     <h6 class="card-title">
@@ -84,7 +84,7 @@ Vue.component("widget-title", {
     </h6>
   `
   ),
-  props: ["title", "widgetData"],
+  props: ['title', 'widgetData'],
   computed: {
     jsonData: function() {
       return JSON.stringify(this.widgetData || {});
@@ -95,7 +95,7 @@ Vue.component("widget-title", {
 //
 // Options Modal
 //
-Vue.component("options-modal", {
+Vue.component('options-modal', {
   template: (
     `
     <div class="modal fade" id="options-modal" tabindex="-1" role="dialog" aria-labelledby="options-modal-label" aria-hidden="true">
@@ -143,11 +143,11 @@ Vue.component("options-modal", {
     </div>
   `
   ),
-  props: ["widgetData", "onSubmit"],
+  props: ['widgetData', 'onSubmit'],
   data: () => ({
     widget: {
       settings: {
-        title: "Untitled Widget"
+        title: 'Untitled Widget'
       },
       config: {
         settingsTypes: {}
@@ -168,7 +168,7 @@ Vue.component("options-modal", {
 //
 // Logs Modal
 //
-Vue.component("logs-modal", {
+Vue.component('logs-modal', {
   template: (
     `
     <div class="modal fade in" id="logs-modal" tabindex="-1" role="dialog" aria-labelledby="logs-modal-label" aria-hidden="true">
@@ -199,13 +199,13 @@ Vue.component("logs-modal", {
     logs: []
   }),
   created: function() {
-    window.socket.on("readback-logs", payload => {
+    window.socket.on('readback-logs', payload => {
       this.logs = payload.logs.map(log => parseTerminalColors(log));
     });
 
-    window.socket.emit("request-readback-logs");
+    window.socket.emit('request-readback-logs');
 
-    window.socket.on("log", payload => {
+    window.socket.on('log', payload => {
       this.logs.push(parseTerminalColors(payload.logString));
 
       if (this.logs.length > 1000) {
@@ -221,7 +221,7 @@ Vue.component("logs-modal", {
 //
 // System Info Modal
 //
-Vue.component("system-info-modal", {
+Vue.component('system-info-modal', {
   template: (
     `
     <div class="modal fade in" id="system-info-modal" tabindex="-1" role="dialog" aria-labelledby="system-info-modal-label" aria-hidden="true">
@@ -251,13 +251,13 @@ Vue.component("system-info-modal", {
     logs: []
   }),
   created: function() {
-    window.socket.on("readback-logs", payload => {
+    window.socket.on('readback-logs', payload => {
       this.logs = payload.logs.map(log => parseTerminalColors(log));
     });
 
-    window.socket.emit("request-readback-logs");
+    window.socket.emit('request-readback-logs');
 
-    window.socket.on("log", payload => {
+    window.socket.on('log', payload => {
       this.logs.push(parseTerminalColors(payload.logString));
 
       if (this.logs.length > 1000) {
@@ -273,16 +273,16 @@ Vue.component("system-info-modal", {
 //
 // Control Switch
 //
-Vue.component("control-switch", {
+Vue.component('control-switch', {
   template: (
     `<div class="control-switch" :class="classObject" @click="onClick"></div>`
   ),
-  props: ["value", "onChange", "disabled"],
+  props: ['value', 'onChange', 'disabled'],
   computed: {
     classObject: function() {
       return {
-        "control-switch-on": !!this.value,
-        "control-switch-disabled": !!this.disabled
+        'control-switch-on': !!this.value,
+        'control-switch-disabled': !!this.disabled
       };
     }
   },

@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const EventEmitter = require("events");
+const fs = require('fs');
+const path = require('path');
+const EventEmitter = require('events');
 
-const config = require("../config");
-const database = require("../database");
+const config = require('../config');
+const database = require('../database');
 
 const cacheTemplates = config.server.cacheTemplates;
 const triggerEmitter = new EventEmitter();
@@ -36,17 +36,17 @@ function registerModule(module, directory) {
   // Go through default settings and check, what's needed to be added
   // to current settings (by using Object.assign)
   if (module.defaultSettings) {
-    const oldSettings = database.get("modules").get(module.info.id).value();
+    const oldSettings = database.get('modules').get(module.info.id).value();
 
     database
-      .get("modules")
+      .get('modules')
       .set(
         module.info.id,
         Object.assign(module.defaultSettings || {}, oldSettings)
       )
       .value();
   } else {
-    database.get("modules").set(module.info.id, {}).value();
+    database.get('modules').set(module.info.id, {}).value();
   }
 
   // Register all the triggers that the module exports
@@ -146,9 +146,9 @@ function registerAction(action, module) {
 }
 
 function registerTemplate(module, directory) {
-  const templatePath = path.resolve(__dirname, directory, "widget.html");
+  const templatePath = path.resolve(__dirname, directory, 'widget.html');
   if (fs.existsSync(templatePath)) {
-    const templateContent = fs.readFileSync(templatePath, "utf8");
+    const templateContent = fs.readFileSync(templatePath, 'utf8');
 
     if (cacheTemplates) {
       registeredTemplates[module.info.id] = templateContent;
@@ -213,7 +213,7 @@ function getTemplates() {
     const renderedTemplates = {};
     for (const templateKey in registeredTemplates) {
       const path = registeredTemplates[templateKey];
-      renderedTemplates[templateKey] = fs.readFileSync(path, "utf8");
+      renderedTemplates[templateKey] = fs.readFileSync(path, 'utf8');
     }
 
     return renderedTemplates;
@@ -247,8 +247,8 @@ module.exports = {
 // Read all folders from modules folder
 // then filter these to get only directories
 // then register the module
-console.logger.info("Begin registering modules");
-console.logger.info("Template Cache:", cacheTemplates ? "ENABLED" : "DISABLED");
+console.logger.info('Begin registering modules');
+console.logger.info('Template Cache:', cacheTemplates ? 'ENABLED' : 'DISABLED');
 
 // Install built-in modules first
 fs

@@ -1,12 +1,12 @@
-const fs = require("fs");
-const path = require("path");
-const isFunction = require("lodash/isFunction");
-const { server } = require("../../config");
+const fs = require('fs');
+const path = require('path');
+const isFunction = require('lodash/isFunction');
+const { server } = require('../../config');
 
 function renderTemplate(templateFileName, moduleId) {
   return fs.readFileSync(
-    path.resolve(__dirname, "../built-in", moduleId, templateFileName),
-    "utf8"
+    path.resolve(__dirname, '../built-in', moduleId, templateFileName),
+    'utf8'
   );
 }
 
@@ -76,7 +76,7 @@ class WidgetBuilder {
       return;
     }
 
-    if (typeof type === "string") {
+    if (typeof type === 'string') {
       this.widgets[this.currentWidgetId].settingsTypes[key] = {
         type
       };

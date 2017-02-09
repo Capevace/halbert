@@ -1,12 +1,12 @@
-const { setState } = require("../../state").state("music");
-const NodeAudioPlayer = require("./NodeAudioPlayer");
+const { setState } = require('../../state').state('music');
+const NodeAudioPlayer = require('./NodeAudioPlayer');
 const player = new NodeAudioPlayer();
-const { playMusic, cacheSong, getSong, songIsCached } = require("./play-music");
+const { playMusic, cacheSong, getSong, songIsCached } = require('./play-music');
 
-setState("song", {
-  title: "Select a song"
+setState('song', {
+  title: 'Select a song'
 });
-setState("playing", false);
+setState('playing', false);
 
 function playSong(query) {
   console.log(query);
@@ -15,13 +15,13 @@ function playSong(query) {
     if (err) throw err;
 
     if (!data.entries) {
-      console.logger.warn("Didnt find entries for query", query, data);
+      console.logger.warn('Didnt find entries for query', query, data);
       return;
     }
 
     const song = data.entries
       .sort((a, b) => a.score < b.score) // sort by score
-      .filter(entry => entry.type === "1") // filter by only songs
+      .filter(entry => entry.type === '1') // filter by only songs
       .shift(); // take first song
 
     if (songIsCached(song.track.nid)) {
@@ -37,11 +37,11 @@ function playSongById(id) {
   playMusic.getStreamUrl(id, function(err, streamUrl) {
     if (err) throw err;
 
-    if (DEBUG_MODE) console.logger.info("Fetched streamUrl:", streamUrl);
+    if (DEBUG_MODE) console.logger.info('Fetched streamUrl:', streamUrl);
 
     const song = getSong(id);
 
-    setState("song", {
+    setState('song', {
       title: song.title,
       artist: song.artist,
       album: song.album,
@@ -49,11 +49,11 @@ function playSongById(id) {
     });
 
     if (DEBUG_MODE) {
-      setState("playing", true);
+      setState('playing', true);
       return;
     }
 
-    player.addSource(streamUrl.replace("https://", "http://"));
+    player.addSource(streamUrl.replace('https://', 'http://'));
     player.stop();
 
     const index = player.sourceList.length > 0
@@ -63,11 +63,11 @@ function playSongById(id) {
   });
 }
 
-player.on("playstate", playing => setState("playing", playing));
+player.on('playstate', playing => setState('playing', playing));
 
 function resume() {
   if (DEBUG_MODE) {
-    setState("playing", true);
+    setState('playing', true);
   }
 
   player.resume();
@@ -75,7 +75,7 @@ function resume() {
 
 function pause() {
   if (DEBUG_MODE) {
-    setState("playing", false);
+    setState('playing', false);
   }
 
   player.pause();

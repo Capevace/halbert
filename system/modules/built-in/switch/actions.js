@@ -1,6 +1,6 @@
-const transmitCode = require("433mhz");
-const intertechno = require("./codes/intertechno");
-const { JaroWinklerDistance } = require("natural");
+const transmitCode = require('433mhz');
+const intertechno = require('./codes/intertechno');
+const { JaroWinklerDistance } = require('natural');
 
 const switches = {};
 
@@ -20,7 +20,7 @@ function actions(moduleState) {
     });
   }
 
-  moduleState.set("busy", false);
+  moduleState.set('busy', false);
 
   function toggle(data, state) {
     let switchId = data.switchId;
@@ -29,7 +29,7 @@ function actions(moduleState) {
       data.switchName.forEach(name => toggle({ switchName: name }, state));
 
       return;
-    } else if ("switchName" in data) {
+    } else if ('switchName' in data) {
       // Find Id
       switchId = switchNameToId(data.switchName);
       if (switchId === null) {
@@ -52,10 +52,10 @@ function actions(moduleState) {
     }
 
     switch (switchConfig.type) {
-      case "remote":
+      case 'remote':
         toggleRemote(switchConfig, state);
         break;
-      case "relay":
+      case 'relay':
         toggleRelay(switchConfig, state);
         break;
       default:
@@ -68,7 +68,7 @@ function actions(moduleState) {
     const code = deviceCodeToBinary(switchConfig, state);
 
     // Set state of switch, but also set it to busy
-    moduleState.set("busy", true);
+    moduleState.set('busy', true);
     moduleState.set(`switch_${switchConfig.id}`, {
       state
     });
@@ -76,7 +76,7 @@ function actions(moduleState) {
     if (DEBUG_MODE) {
       setTimeout(
         () => {
-          moduleState.set("busy", false);
+          moduleState.set('busy', false);
         },
         500
       );
@@ -84,7 +84,7 @@ function actions(moduleState) {
       transmitCode(code, err => {
         if (err) throw err;
         // finally remove busy state
-        moduleState.set("busy", false);
+        moduleState.set('busy', false);
       });
     }
   }
@@ -166,7 +166,7 @@ function actions(moduleState) {
 
   function deviceCodeToBinary(switchConfig, state) {
     switch (switchConfig.protocol) {
-      case "intertechno":
+      case 'intertechno':
         const i = intertechno(switchConfig.code, state);
         return i;
       default:

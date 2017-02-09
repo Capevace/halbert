@@ -4,12 +4,12 @@
  * Copyright 2011-2017 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-if ("undefined" == typeof jQuery)
+if ('undefined' == typeof jQuery)
   throw new Error(
     "Bootstrap's JavaScript requires jQuery. jQuery must be included before Bootstrap's JavaScript."
   );
 +(function(t) {
-  var e = t.fn.jquery.split(" ")[0].split(".");
+  var e = t.fn.jquery.split(' ')[0].split('.');
   if (e[0] < 2 && e[1] < 9 || 1 == e[0] && 9 == e[1] && e[2] < 1 || e[0] >= 4)
     throw new Error(
       "Bootstrap's JavaScript requires at least jQuery v1.9.1 but less than v4.0.0"
@@ -20,12 +20,12 @@ if ("undefined" == typeof jQuery)
       throw new ReferenceError(
         "this hasn't been initialised - super() hasn't been called"
       );
-    return !e || "object" != typeof e && "function" != typeof e ? t : e;
+    return !e || 'object' != typeof e && 'function' != typeof e ? t : e;
   }
   function e(t, e) {
-    if ("function" != typeof e && null !== e)
+    if ('function' != typeof e && null !== e)
       throw new TypeError(
-        "Super expression must either be null or a function, not " + typeof e
+        'Super expression must either be null or a function, not ' + typeof e
       );
     t.prototype = Object.create(e && e.prototype, {
       constructor: { value: t, enumerable: !1, writable: !0, configurable: !0 }
@@ -34,25 +34,25 @@ if ("undefined" == typeof jQuery)
   }
   function n(t, e) {
     if (!(t instanceof e))
-      throw new TypeError("Cannot call a class as a function");
+      throw new TypeError('Cannot call a class as a function');
   }
-  var i = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator
+  var i = 'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
     ? (function(t) {
         return typeof t;
       })
     : (function(t) {
         return t &&
-          "function" == typeof Symbol &&
+          'function' == typeof Symbol &&
           t.constructor === Symbol &&
           t !== Symbol.prototype
-          ? "symbol"
+          ? 'symbol'
           : typeof t;
       }),
     o = (function() {
       function t(t, e) {
         for (var n = 0; n < e.length; n++) {
           var i = e[n];
-          i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in
+          i.enumerable = i.enumerable || !1, i.configurable = !0, 'value' in
             i &&
             (i.writable = !0), Object.defineProperty(t, i.key, i);
         }
@@ -80,7 +80,7 @@ if ("undefined" == typeof jQuery)
       }
       function o() {
         if (window.QUnit) return !1;
-        var t = document.createElement("bootstrap");
+        var t = document.createElement('bootstrap');
         for (var e in h)
           if (void 0 !== t.style[e]) return { end: h[e] };
         return !1;
@@ -103,13 +103,13 @@ if ("undefined" == typeof jQuery)
       var a = !1,
         l = 1e6,
         h = {
-          WebkitTransition: "webkitTransitionEnd",
-          MozTransition: "transitionend",
-          OTransition: "oTransitionEnd otransitionend",
-          transition: "transitionend"
+          WebkitTransition: 'webkitTransitionEnd',
+          MozTransition: 'transitionend',
+          OTransition: 'oTransitionEnd otransitionend',
+          transition: 'transitionend'
         },
         c = {
-          TRANSITION_END: "bsTransitionEnd",
+          TRANSITION_END: 'bsTransitionEnd',
           getUID: function(t) {
             do
               t += ~~(Math.random() * l);
@@ -117,9 +117,9 @@ if ("undefined" == typeof jQuery)
             return t;
           },
           getSelectorFromElement: function(t) {
-            var e = t.getAttribute("data-target");
+            var e = t.getAttribute('data-target');
             return e ||
-              (e = t.getAttribute("href") || "", e = /^#[a-z]/i.test(e)
+              (e = t.getAttribute('href') || '', e = /^#[a-z]/i.test(e)
                 ? e
                 : null), e;
           },
@@ -135,11 +135,11 @@ if ("undefined" == typeof jQuery)
           typeCheckConfig: function(t, i, o) {
             for (var r in o)
               if (o.hasOwnProperty(r)) {
-                var s = o[r], a = i[r], l = a && n(a) ? "element" : e(a);
+                var s = o[r], a = i[r], l = a && n(a) ? 'element' : e(a);
                 if (!new RegExp(s).test(l))
                   throw new Error(
                     t.toUpperCase() +
-                      ": " +
+                      ': ' +
                       ('Option "' + r + '" provided type "' + l + '" ') +
                       ('but expected type "' + s + '".')
                   );
@@ -149,20 +149,20 @@ if ("undefined" == typeof jQuery)
       return s(), c;
     })(jQuery),
     s = ((function(t) {
-      var e = "alert",
-        i = "4.0.0-alpha.6",
-        s = "bs.alert",
-        a = "." + s,
-        l = ".data-api",
+      var e = 'alert',
+        i = '4.0.0-alpha.6',
+        s = 'bs.alert',
+        a = '.' + s,
+        l = '.data-api',
         h = t.fn[e],
         c = 150,
         u = { DISMISS: '[data-dismiss="alert"]' },
         d = {
-          CLOSE: "close" + a,
-          CLOSED: "closed" + a,
-          CLICK_DATA_API: "click" + a + l
+          CLOSE: 'close' + a,
+          CLOSED: 'closed' + a,
+          CLICK_DATA_API: 'click' + a + l
         },
-        f = { ALERT: "alert", FADE: "fade", SHOW: "show" },
+        f = { ALERT: 'alert', FADE: 'fade', SHOW: 'show' },
         _ = (function() {
           function e(t) {
             n(this, e), this._element = t;
@@ -176,7 +176,7 @@ if ("undefined" == typeof jQuery)
           }, e.prototype._getRootElement = function(e) {
             var n = r.getSelectorFromElement(e), i = !1;
             return n && (i = t(n)[0]), i ||
-              (i = t(e).closest("." + f.ALERT)[0]), i;
+              (i = t(e).closest('.' + f.ALERT)[0]), i;
           }, e.prototype._triggerCloseEvent = function(e) {
             var n = t.Event(d.CLOSE);
             return t(e).trigger(n), n;
@@ -195,7 +195,7 @@ if ("undefined" == typeof jQuery)
           }, e._jQueryInterface = function(n) {
             return this.each(function() {
               var i = t(this), o = i.data(s);
-              o || (o = new e(this), i.data(s, o)), "close" === n && o[n](this);
+              o || (o = new e(this), i.data(s, o)), 'close' === n && o[n](this);
             });
           }, e._handleDismiss = function(t) {
             return function(e) {
@@ -203,7 +203,7 @@ if ("undefined" == typeof jQuery)
             };
           }, o(e, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return i;
               }
@@ -220,23 +220,23 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = h, _._jQueryInterface;
       }, _;
     })(jQuery), (function(t) {
-      var e = "button",
-        i = "4.0.0-alpha.6",
-        r = "bs.button",
-        s = "." + r,
-        a = ".data-api",
+      var e = 'button',
+        i = '4.0.0-alpha.6',
+        r = 'bs.button',
+        s = '.' + r,
+        a = '.data-api',
         l = t.fn[e],
-        h = { ACTIVE: "active", BUTTON: "btn", FOCUS: "focus" },
+        h = { ACTIVE: 'active', BUTTON: 'btn', FOCUS: 'focus' },
         c = {
           DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
           DATA_TOGGLE: '[data-toggle="buttons"]',
-          INPUT: "input",
-          ACTIVE: ".active",
-          BUTTON: ".btn"
+          INPUT: 'input',
+          ACTIVE: '.active',
+          BUTTON: '.btn'
         },
         u = {
-          CLICK_DATA_API: "click" + s + a,
-          FOCUS_BLUR_DATA_API: "focus" + s + a + " " + ("blur" + s + a)
+          CLICK_DATA_API: 'click' + s + a,
+          FOCUS_BLUR_DATA_API: 'focus' + s + a + ' ' + ('blur' + s + a)
         },
         d = (function() {
           function e(t) {
@@ -247,7 +247,7 @@ if ("undefined" == typeof jQuery)
             if (n) {
               var i = t(this._element).find(c.INPUT)[0];
               if (i) {
-                if ("radio" === i.type)
+                if ('radio' === i.type)
                   if (i.checked && t(this._element).hasClass(h.ACTIVE))
                     e = !1;
                   else {
@@ -257,11 +257,11 @@ if ("undefined" == typeof jQuery)
                 e &&
                   (i.checked = !t(this._element).hasClass(h.ACTIVE), t(
                     i
-                  ).trigger("change")), i.focus();
+                  ).trigger('change')), i.focus();
               }
             }
             this._element.setAttribute(
-              "aria-pressed",
+              'aria-pressed',
               !t(this._element).hasClass(h.ACTIVE)
             ), e && t(this._element).toggleClass(h.ACTIVE);
           }, e.prototype.dispose = function() {
@@ -270,11 +270,11 @@ if ("undefined" == typeof jQuery)
             return this.each(function() {
               var i = t(this).data(r);
               i ||
-                (i = new e(this), t(this).data(r, i)), "toggle" === n && i[n]();
+                (i = new e(this), t(this).data(r, i)), 'toggle' === n && i[n]();
             });
           }, o(e, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return i;
               }
@@ -288,7 +288,7 @@ if ("undefined" == typeof jQuery)
           t(n).hasClass(h.BUTTON) ||
             (n = t(n).closest(
               c.BUTTON
-            )), d._jQueryInterface.call(t(n), "toggle");
+            )), d._jQueryInterface.call(t(n), 'toggle');
         })
         .on(u.FOCUS_BLUR_DATA_API, c.DATA_TOGGLE_CARROT, function(e) {
           var n = t(e.target).closest(c.BUTTON)[0];
@@ -299,11 +299,11 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = l, d._jQueryInterface;
       }, d;
     })(jQuery), (function(t) {
-      var e = "carousel",
-        s = "4.0.0-alpha.6",
-        a = "bs.carousel",
-        l = "." + a,
-        h = ".data-api",
+      var e = 'carousel',
+        s = '4.0.0-alpha.6',
+        a = 'bs.carousel',
+        l = '.' + a,
+        h = '.data-api',
         c = t.fn[e],
         u = 600,
         d = 37,
@@ -312,43 +312,43 @@ if ("undefined" == typeof jQuery)
           interval: 5e3,
           keyboard: !0,
           slide: !1,
-          pause: "hover",
+          pause: 'hover',
           wrap: !0
         },
         g = {
-          interval: "(number|boolean)",
-          keyboard: "boolean",
-          slide: "(boolean|string)",
-          pause: "(string|boolean)",
-          wrap: "boolean"
+          interval: '(number|boolean)',
+          keyboard: 'boolean',
+          slide: '(boolean|string)',
+          pause: '(string|boolean)',
+          wrap: 'boolean'
         },
-        p = { NEXT: "next", PREV: "prev", LEFT: "left", RIGHT: "right" },
+        p = { NEXT: 'next', PREV: 'prev', LEFT: 'left', RIGHT: 'right' },
         m = {
-          SLIDE: "slide" + l,
-          SLID: "slid" + l,
-          KEYDOWN: "keydown" + l,
-          MOUSEENTER: "mouseenter" + l,
-          MOUSELEAVE: "mouseleave" + l,
-          LOAD_DATA_API: "load" + l + h,
-          CLICK_DATA_API: "click" + l + h
+          SLIDE: 'slide' + l,
+          SLID: 'slid' + l,
+          KEYDOWN: 'keydown' + l,
+          MOUSEENTER: 'mouseenter' + l,
+          MOUSELEAVE: 'mouseleave' + l,
+          LOAD_DATA_API: 'load' + l + h,
+          CLICK_DATA_API: 'click' + l + h
         },
         E = {
-          CAROUSEL: "carousel",
-          ACTIVE: "active",
-          SLIDE: "slide",
-          RIGHT: "carousel-item-right",
-          LEFT: "carousel-item-left",
-          NEXT: "carousel-item-next",
-          PREV: "carousel-item-prev",
-          ITEM: "carousel-item"
+          CAROUSEL: 'carousel',
+          ACTIVE: 'active',
+          SLIDE: 'slide',
+          RIGHT: 'carousel-item-right',
+          LEFT: 'carousel-item-left',
+          NEXT: 'carousel-item-next',
+          PREV: 'carousel-item-prev',
+          ITEM: 'carousel-item'
         },
         v = {
-          ACTIVE: ".active",
-          ACTIVE_ITEM: ".active.carousel-item",
-          ITEM: ".carousel-item",
-          NEXT_PREV: ".carousel-item-next, .carousel-item-prev",
-          INDICATORS: ".carousel-indicators",
-          DATA_SLIDE: "[data-slide], [data-slide-to]",
+          ACTIVE: '.active',
+          ACTIVE_ITEM: '.active.carousel-item',
+          ITEM: '.carousel-item',
+          NEXT_PREV: '.carousel-item-next, .carousel-item-prev',
+          INDICATORS: '.carousel-indicators',
+          DATA_SLIDE: '[data-slide], [data-slide-to]',
           DATA_RIDE: '[data-ride="carousel"]'
         },
         T = (function() {
@@ -363,12 +363,12 @@ if ("undefined" == typeof jQuery)
             ).find(v.INDICATORS)[0], this._addEventListeners();
           }
           return h.prototype.next = function() {
-            if (this._isSliding) throw new Error("Carousel is sliding");
+            if (this._isSliding) throw new Error('Carousel is sliding');
             this._slide(p.NEXT);
           }, h.prototype.nextWhenVisible = function() {
             document.hidden || this.next();
           }, h.prototype.prev = function() {
-            if (this._isSliding) throw new Error("Carousel is sliding");
+            if (this._isSliding) throw new Error('Carousel is sliding');
             this._slide(p.PREVIOUS);
           }, h.prototype.pause = function(e) {
             e || (this._isPaused = !0), t(this._element).find(v.NEXT_PREV)[0] &&
@@ -413,8 +413,8 @@ if ("undefined" == typeof jQuery)
             this._config.keyboard &&
               t(this._element).on(m.KEYDOWN, function(t) {
                 return e._keydown(t);
-              }), "hover" !== this._config.pause ||
-              "ontouchstart" in document.documentElement ||
+              }), 'hover' !== this._config.pause ||
+              'ontouchstart' in document.documentElement ||
               t(this._element)
                 .on(m.MOUSEENTER, function(t) {
                   return e.pause(t);
@@ -484,10 +484,10 @@ if ("undefined" == typeof jQuery)
                   ).addClass(l), t(o)
                     .one(r.TRANSITION_END, function() {
                       t(s)
-                        .removeClass(l + " " + h)
+                        .removeClass(l + ' ' + h)
                         .addClass(
                           E.ACTIVE
-                        ), t(o).removeClass(E.ACTIVE + " " + h + " " + l), i._isSliding = !1, setTimeout(
+                        ), t(o).removeClass(E.ACTIVE + ' ' + h + ' ' + l), i._isSliding = !1, setTimeout(
                         function() {
                           return t(i._element).trigger(f);
                         },
@@ -503,15 +503,15 @@ if ("undefined" == typeof jQuery)
           }, h._jQueryInterface = function(e) {
             return this.each(function() {
               var n = t(this).data(a), o = t.extend({}, _, t(this).data());
-              "object" === ("undefined" == typeof e ? "undefined" : i(e)) &&
+              'object' === ('undefined' == typeof e ? 'undefined' : i(e)) &&
                 t.extend(o, e);
-              var r = "string" == typeof e ? e : o.slide;
+              var r = 'string' == typeof e ? e : o.slide;
               if (
-                (n || (n = new h(this, o), t(this).data(a, n)), "number" ==
+                (n || (n = new h(this, o), t(this).data(a, n)), 'number' ==
                   typeof e)
               )
                 n.to(e);
-              else if ("string" == typeof r) {
+              else if ('string' == typeof r) {
                 if (void 0 === n[r])
                   throw new Error('No method named "' + r + '"');
                 n[r]();
@@ -524,20 +524,20 @@ if ("undefined" == typeof jQuery)
               var i = t(n)[0];
               if (i && t(i).hasClass(E.CAROUSEL)) {
                 var o = t.extend({}, t(i).data(), t(this).data()),
-                  s = this.getAttribute("data-slide-to");
+                  s = this.getAttribute('data-slide-to');
                 s && (o.interval = !1), h._jQueryInterface.call(t(i), o), s &&
                   t(i).data(a).to(s), e.preventDefault();
               }
             }
           }, o(h, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return s;
               }
             },
             {
-              key: "Default",
+              key: 'Default',
               get: function() {
                 return _;
               }
@@ -559,31 +559,31 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = c, T._jQueryInterface;
       }, T;
     })(jQuery), (function(t) {
-      var e = "collapse",
-        s = "4.0.0-alpha.6",
-        a = "bs.collapse",
-        l = "." + a,
-        h = ".data-api",
+      var e = 'collapse',
+        s = '4.0.0-alpha.6',
+        a = 'bs.collapse',
+        l = '.' + a,
+        h = '.data-api',
         c = t.fn[e],
         u = 600,
-        d = { toggle: !0, parent: "" },
-        f = { toggle: "boolean", parent: "string" },
+        d = { toggle: !0, parent: '' },
+        f = { toggle: 'boolean', parent: 'string' },
         _ = {
-          SHOW: "show" + l,
-          SHOWN: "shown" + l,
-          HIDE: "hide" + l,
-          HIDDEN: "hidden" + l,
-          CLICK_DATA_API: "click" + l + h
+          SHOW: 'show' + l,
+          SHOWN: 'shown' + l,
+          HIDE: 'hide' + l,
+          HIDDEN: 'hidden' + l,
+          CLICK_DATA_API: 'click' + l + h
         },
         g = {
-          SHOW: "show",
-          COLLAPSE: "collapse",
-          COLLAPSING: "collapsing",
-          COLLAPSED: "collapsed"
+          SHOW: 'show',
+          COLLAPSE: 'collapse',
+          COLLAPSING: 'collapsing',
+          COLLAPSED: 'collapsed'
         },
-        p = { WIDTH: "width", HEIGHT: "height" },
+        p = { WIDTH: 'width', HEIGHT: 'height' },
         m = {
-          ACTIVES: ".card > .show, .card > .collapsing",
+          ACTIVES: '.card > .show, .card > .collapsing',
           DATA_TOGGLE: '[data-toggle="collapse"]'
         },
         E = (function() {
@@ -613,7 +613,7 @@ if ("undefined" == typeof jQuery)
           }, l.prototype.show = function() {
             var e = this;
             if (this._isTransitioning)
-              throw new Error("Collapse is transitioning");
+              throw new Error('Collapse is transitioning');
             if (!t(this._element).hasClass(g.SHOW)) {
               var n = void 0, i = void 0;
               if (
@@ -625,7 +625,7 @@ if ("undefined" == typeof jQuery)
                 var o = t.Event(_.SHOW);
                 if ((t(this._element).trigger(o), !o.isDefaultPrevented())) {
                   n &&
-                    (l._jQueryInterface.call(t(n), "hide"), i ||
+                    (l._jQueryInterface.call(t(n), 'hide'), i ||
                       t(n).data(a, null));
                   var s = this._getDimension();
                   t(this._element)
@@ -633,60 +633,60 @@ if ("undefined" == typeof jQuery)
                     .addClass(g.COLLAPSING), this._element.style[
                     s
                   ] = 0, this._element.setAttribute(
-                    "aria-expanded",
+                    'aria-expanded',
                     !0
                   ), this._triggerArray.length &&
                     t(this._triggerArray)
                       .removeClass(g.COLLAPSED)
-                      .attr("aria-expanded", !0), this.setTransitioning(!0);
+                      .attr('aria-expanded', !0), this.setTransitioning(!0);
                   var h = function() {
                     t(e._element)
                       .removeClass(g.COLLAPSING)
                       .addClass(g.COLLAPSE)
                       .addClass(g.SHOW), e._element.style[
                       s
-                    ] = "", e.setTransitioning(!1), t(e._element).trigger(
+                    ] = '', e.setTransitioning(!1), t(e._element).trigger(
                       _.SHOWN
                     );
                   };
                   if (!r.supportsTransitionEnd()) return void h();
-                  var c = s[0].toUpperCase() + s.slice(1), d = "scroll" + c;
+                  var c = s[0].toUpperCase() + s.slice(1), d = 'scroll' + c;
                   t(this._element)
                     .one(r.TRANSITION_END, h)
                     .emulateTransitionEnd(u), this._element.style[
                     s
-                  ] = this._element[d] + "px";
+                  ] = this._element[d] + 'px';
                 }
               }
             }
           }, l.prototype.hide = function() {
             var e = this;
             if (this._isTransitioning)
-              throw new Error("Collapse is transitioning");
+              throw new Error('Collapse is transitioning');
             if (t(this._element).hasClass(g.SHOW)) {
               var n = t.Event(_.HIDE);
               if ((t(this._element).trigger(n), !n.isDefaultPrevented())) {
                 var i = this._getDimension(),
-                  o = i === p.WIDTH ? "offsetWidth" : "offsetHeight";
-                this._element.style[i] = this._element[o] + "px", r.reflow(
+                  o = i === p.WIDTH ? 'offsetWidth' : 'offsetHeight';
+                this._element.style[i] = this._element[o] + 'px', r.reflow(
                   this._element
                 ), t(this._element)
                   .addClass(g.COLLAPSING)
                   .removeClass(g.COLLAPSE)
                   .removeClass(g.SHOW), this._element.setAttribute(
-                  "aria-expanded",
+                  'aria-expanded',
                   !1
                 ), this._triggerArray.length &&
                   t(this._triggerArray)
                     .addClass(g.COLLAPSED)
-                    .attr("aria-expanded", !1), this.setTransitioning(!0);
+                    .attr('aria-expanded', !1), this.setTransitioning(!0);
                 var s = function() {
                   e.setTransitioning(!1), t(e._element)
                     .removeClass(g.COLLAPSING)
                     .addClass(g.COLLAPSE)
                     .trigger(_.HIDDEN);
                 };
-                return this._element.style[i] = "", r.supportsTransitionEnd()
+                return this._element.style[i] = '', r.supportsTransitionEnd()
                   ? void t(this._element)
                       .one(r.TRANSITION_END, s)
                       .emulateTransitionEnd(u)
@@ -719,8 +719,8 @@ if ("undefined" == typeof jQuery)
           }, l.prototype._addAriaAndCollapsedClass = function(e, n) {
             if (e) {
               var i = t(e).hasClass(g.SHOW);
-              e.setAttribute("aria-expanded", i), n.length &&
-                t(n).toggleClass(g.COLLAPSED, !i).attr("aria-expanded", i);
+              e.setAttribute('aria-expanded', i), n.length &&
+                t(n).toggleClass(g.COLLAPSED, !i).attr('aria-expanded', i);
             }
           }, l._getTargetFromElement = function(e) {
             var n = r.getSelectorFromElement(e);
@@ -733,12 +733,12 @@ if ("undefined" == typeof jQuery)
                   {},
                   d,
                   n.data(),
-                  "object" === ("undefined" == typeof e ? "undefined" : i(e)) &&
+                  'object' === ('undefined' == typeof e ? 'undefined' : i(e)) &&
                     e
                 );
               if (
                 (!o && r.toggle && /show|hide/.test(e) && (r.toggle = !1), o ||
-                  (o = new l(this, r), n.data(a, o)), "string" == typeof e)
+                  (o = new l(this, r), n.data(a, o)), 'string' == typeof e)
               ) {
                 if (void 0 === o[e])
                   throw new Error('No method named "' + e + '"');
@@ -747,13 +747,13 @@ if ("undefined" == typeof jQuery)
             });
           }, o(l, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return s;
               }
             },
             {
-              key: "Default",
+              key: 'Default',
               get: function() {
                 return d;
               }
@@ -764,7 +764,7 @@ if ("undefined" == typeof jQuery)
         e.preventDefault();
         var n = E._getTargetFromElement(this),
           i = t(n).data(a),
-          o = i ? "toggle" : t(this).data();
+          o = i ? 'toggle' : t(this).data();
         E._jQueryInterface.call(t(n), o);
       }), t.fn[e] = E._jQueryInterface, t.fn[e].Constructor = E, t.fn[
         e
@@ -772,38 +772,38 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = c, E._jQueryInterface;
       }, E;
     })(jQuery), (function(t) {
-      var e = "dropdown",
-        i = "4.0.0-alpha.6",
-        s = "bs.dropdown",
-        a = "." + s,
-        l = ".data-api",
+      var e = 'dropdown',
+        i = '4.0.0-alpha.6',
+        s = 'bs.dropdown',
+        a = '.' + s,
+        l = '.data-api',
         h = t.fn[e],
         c = 27,
         u = 38,
         d = 40,
         f = 3,
         _ = {
-          HIDE: "hide" + a,
-          HIDDEN: "hidden" + a,
-          SHOW: "show" + a,
-          SHOWN: "shown" + a,
-          CLICK: "click" + a,
-          CLICK_DATA_API: "click" + a + l,
-          FOCUSIN_DATA_API: "focusin" + a + l,
-          KEYDOWN_DATA_API: "keydown" + a + l
+          HIDE: 'hide' + a,
+          HIDDEN: 'hidden' + a,
+          SHOW: 'show' + a,
+          SHOWN: 'shown' + a,
+          CLICK: 'click' + a,
+          CLICK_DATA_API: 'click' + a + l,
+          FOCUSIN_DATA_API: 'focusin' + a + l,
+          KEYDOWN_DATA_API: 'keydown' + a + l
         },
         g = {
-          BACKDROP: "dropdown-backdrop",
-          DISABLED: "disabled",
-          SHOW: "show"
+          BACKDROP: 'dropdown-backdrop',
+          DISABLED: 'disabled',
+          SHOW: 'show'
         },
         p = {
-          BACKDROP: ".dropdown-backdrop",
+          BACKDROP: '.dropdown-backdrop',
           DATA_TOGGLE: '[data-toggle="dropdown"]',
-          FORM_CHILD: ".dropdown form",
+          FORM_CHILD: '.dropdown form',
           ROLE_MENU: '[role="menu"]',
           ROLE_LISTBOX: '[role="listbox"]',
-          NAVBAR_NAV: ".navbar-nav",
+          NAVBAR_NAV: '.navbar-nav',
           VISIBLE_ITEMS: '[role="menu"] li:not(.disabled) a, [role="listbox"] li:not(.disabled) a'
         },
         m = (function() {
@@ -815,18 +815,18 @@ if ("undefined" == typeof jQuery)
             var n = e._getParentFromElement(this), i = t(n).hasClass(g.SHOW);
             if ((e._clearMenus(), i)) return !1;
             if (
-              "ontouchstart" in document.documentElement &&
+              'ontouchstart' in document.documentElement &&
                 !t(n).closest(p.NAVBAR_NAV).length
             ) {
-              var o = document.createElement("div");
+              var o = document.createElement('div');
               o.className = g.BACKDROP, t(o).insertBefore(this), t(o).on(
-                "click",
+                'click',
                 e._clearMenus
               );
             }
             var r = { relatedTarget: this }, s = t.Event(_.SHOW, r);
             return t(n).trigger(s), !s.isDefaultPrevented() &&
-              (this.focus(), this.setAttribute("aria-expanded", !0), t(
+              (this.focus(), this.setAttribute('aria-expanded', !0), t(
                 n
               ).toggleClass(g.SHOW), t(n).trigger(t.Event(_.SHOWN, r)), !1);
           }, e.prototype.dispose = function() {
@@ -839,7 +839,7 @@ if ("undefined" == typeof jQuery)
             return this.each(function() {
               var i = t(this).data(s);
               if (
-                (i || (i = new e(this), t(this).data(s, i)), "string" ==
+                (i || (i = new e(this), t(this).data(s, i)), 'string' ==
                   typeof n)
               ) {
                 if (void 0 === i[n])
@@ -861,14 +861,14 @@ if ("undefined" == typeof jQuery)
                 if (
                   t(s).hasClass(g.SHOW) &&
                     !(n &&
-                      ("click" === n.type &&
+                      ('click' === n.type &&
                         /input|textarea/i.test(n.target.tagName) ||
-                        "focusin" === n.type) &&
+                        'focusin' === n.type) &&
                       t.contains(s, n.target))
                 ) {
                   var l = t.Event(_.HIDE, a);
                   t(s).trigger(l), l.isDefaultPrevented() ||
-                    (o[r].setAttribute("aria-expanded", "false"), t(s)
+                    (o[r].setAttribute('aria-expanded', 'false'), t(s)
                       .removeClass(g.SHOW)
                       .trigger(t.Event(_.HIDDEN, a)));
                 }
@@ -888,9 +888,9 @@ if ("undefined" == typeof jQuery)
               if (!o && n.which !== c || o && n.which === c) {
                 if (n.which === c) {
                   var r = t(i).find(p.DATA_TOGGLE)[0];
-                  t(r).trigger("focus");
+                  t(r).trigger('focus');
                 }
-                return void t(this).trigger("click");
+                return void t(this).trigger('click');
               }
               var s = t(i).find(p.VISIBLE_ITEMS).get();
               if (s.length) {
@@ -902,7 +902,7 @@ if ("undefined" == typeof jQuery)
             }
           }, o(e, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return i;
               }
@@ -913,7 +913,7 @@ if ("undefined" == typeof jQuery)
         .on(_.KEYDOWN_DATA_API, p.DATA_TOGGLE, m._dataApiKeydownHandler)
         .on(_.KEYDOWN_DATA_API, p.ROLE_MENU, m._dataApiKeydownHandler)
         .on(_.KEYDOWN_DATA_API, p.ROLE_LISTBOX, m._dataApiKeydownHandler)
-        .on(_.CLICK_DATA_API + " " + _.FOCUSIN_DATA_API, m._clearMenus)
+        .on(_.CLICK_DATA_API + ' ' + _.FOCUSIN_DATA_API, m._clearMenus)
         .on(_.CLICK_DATA_API, p.DATA_TOGGLE, m.prototype.toggle)
         .on(_.CLICK_DATA_API, p.FORM_CHILD, function(t) {
           t.stopPropagation();
@@ -923,47 +923,47 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = h, m._jQueryInterface;
       }, m;
     })(jQuery), (function(t) {
-      var e = "modal",
-        s = "4.0.0-alpha.6",
-        a = "bs.modal",
-        l = "." + a,
-        h = ".data-api",
+      var e = 'modal',
+        s = '4.0.0-alpha.6',
+        a = 'bs.modal',
+        l = '.' + a,
+        h = '.data-api',
         c = t.fn[e],
         u = 300,
         d = 150,
         f = 27,
         _ = { backdrop: !0, keyboard: !0, focus: !0, show: !0 },
         g = {
-          backdrop: "(boolean|string)",
-          keyboard: "boolean",
-          focus: "boolean",
-          show: "boolean"
+          backdrop: '(boolean|string)',
+          keyboard: 'boolean',
+          focus: 'boolean',
+          show: 'boolean'
         },
         p = {
-          HIDE: "hide" + l,
-          HIDDEN: "hidden" + l,
-          SHOW: "show" + l,
-          SHOWN: "shown" + l,
-          FOCUSIN: "focusin" + l,
-          RESIZE: "resize" + l,
-          CLICK_DISMISS: "click.dismiss" + l,
-          KEYDOWN_DISMISS: "keydown.dismiss" + l,
-          MOUSEUP_DISMISS: "mouseup.dismiss" + l,
-          MOUSEDOWN_DISMISS: "mousedown.dismiss" + l,
-          CLICK_DATA_API: "click" + l + h
+          HIDE: 'hide' + l,
+          HIDDEN: 'hidden' + l,
+          SHOW: 'show' + l,
+          SHOWN: 'shown' + l,
+          FOCUSIN: 'focusin' + l,
+          RESIZE: 'resize' + l,
+          CLICK_DISMISS: 'click.dismiss' + l,
+          KEYDOWN_DISMISS: 'keydown.dismiss' + l,
+          MOUSEUP_DISMISS: 'mouseup.dismiss' + l,
+          MOUSEDOWN_DISMISS: 'mousedown.dismiss' + l,
+          CLICK_DATA_API: 'click' + l + h
         },
         m = {
-          SCROLLBAR_MEASURER: "modal-scrollbar-measure",
-          BACKDROP: "modal-backdrop",
-          OPEN: "modal-open",
-          FADE: "fade",
-          SHOW: "show"
+          SCROLLBAR_MEASURER: 'modal-scrollbar-measure',
+          BACKDROP: 'modal-backdrop',
+          OPEN: 'modal-open',
+          FADE: 'fade',
+          SHOW: 'show'
         },
         E = {
-          DIALOG: ".modal-dialog",
+          DIALOG: '.modal-dialog',
           DATA_TOGGLE: '[data-toggle="modal"]',
           DATA_DISMISS: '[data-dismiss="modal"]',
-          FIXED_CONTENT: ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top"
+          FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top'
         },
         v = (function() {
           function h(e, i) {
@@ -978,7 +978,7 @@ if ("undefined" == typeof jQuery)
           }, h.prototype.show = function(e) {
             var n = this;
             if (this._isTransitioning)
-              throw new Error("Modal is transitioning");
+              throw new Error('Modal is transitioning');
             r.supportsTransitionEnd() &&
               t(this._element).hasClass(m.FADE) &&
               (this._isTransitioning = !0);
@@ -1003,7 +1003,7 @@ if ("undefined" == typeof jQuery)
           }, h.prototype.hide = function(e) {
             var n = this;
             if ((e && e.preventDefault(), this._isTransitioning))
-              throw new Error("Modal is transitioning");
+              throw new Error('Modal is transitioning');
             var i = r.supportsTransitionEnd() &&
               t(this._element).hasClass(m.FADE);
             i && (this._isTransitioning = !0);
@@ -1042,8 +1042,8 @@ if ("undefined" == typeof jQuery)
               this._element.parentNode.nodeType === Node.ELEMENT_NODE ||
               document.body.appendChild(
                 this._element
-              ), this._element.style.display = "block", this._element.removeAttribute(
-              "aria-hidden"
+              ), this._element.style.display = 'block', this._element.removeAttribute(
+              'aria-hidden'
             ), this._element.scrollTop = 0, i && r.reflow(this._element), t(
               this._element
             ).addClass(m.SHOW), this._config.focus && this._enforceFocus();
@@ -1081,9 +1081,9 @@ if ("undefined" == typeof jQuery)
               : t(window).off(p.RESIZE);
           }, h.prototype._hideModal = function() {
             var e = this;
-            this._element.style.display = "none", this._element.setAttribute(
-              "aria-hidden",
-              "true"
+            this._element.style.display = 'none', this._element.setAttribute(
+              'aria-hidden',
+              'true'
             ), this._isTransitioning = !1, this._showBackdrop(function() {
               t(document.body).removeClass(
                 m.OPEN
@@ -1093,12 +1093,12 @@ if ("undefined" == typeof jQuery)
             this._backdrop &&
               (t(this._backdrop).remove(), this._backdrop = null);
           }, h.prototype._showBackdrop = function(e) {
-            var n = this, i = t(this._element).hasClass(m.FADE) ? m.FADE : "";
+            var n = this, i = t(this._element).hasClass(m.FADE) ? m.FADE : '';
             if (this._isShown && this._config.backdrop) {
               var o = r.supportsTransitionEnd() && i;
               if (
                 (this._backdrop = document.createElement(
-                  "div"
+                  'div'
                 ), this._backdrop.className = m.BACKDROP, i &&
                   t(this._backdrop).addClass(i), t(this._backdrop).appendTo(
                   document.body
@@ -1106,7 +1106,7 @@ if ("undefined" == typeof jQuery)
                   return n._ignoreBackdropClick
                     ? void (n._ignoreBackdropClick = !1)
                     : void (t.target === t.currentTarget &&
-                        ("static" === n._config.backdrop
+                        ('static' === n._config.backdrop
                           ? n._element.focus()
                           : n.hide()));
                 }), o && r.reflow(this._backdrop), t(this._backdrop).addClass(
@@ -1138,25 +1138,25 @@ if ("undefined" == typeof jQuery)
             !this._isBodyOverflowing &&
               t &&
               (this._element.style.paddingLeft = this._scrollbarWidth +
-                "px"), this._isBodyOverflowing &&
+                'px'), this._isBodyOverflowing &&
               !t &&
-              (this._element.style.paddingRight = this._scrollbarWidth + "px");
+              (this._element.style.paddingRight = this._scrollbarWidth + 'px');
           }, h.prototype._resetAdjustments = function() {
-            this._element.style.paddingLeft = "", this._element.style.paddingRight = "";
+            this._element.style.paddingLeft = '', this._element.style.paddingRight = '';
           }, h.prototype._checkScrollbar = function() {
             this._isBodyOverflowing = document.body.clientWidth <
               window.innerWidth, this._scrollbarWidth = this._getScrollbarWidth();
           }, h.prototype._setScrollbar = function() {
-            var e = parseInt(t(E.FIXED_CONTENT).css("padding-right") || 0, 10);
+            var e = parseInt(t(E.FIXED_CONTENT).css('padding-right') || 0, 10);
             this._originalBodyPadding = document.body.style.paddingRight ||
-              "", this._isBodyOverflowing &&
+              '', this._isBodyOverflowing &&
               (document.body.style.paddingRight = e +
                 this._scrollbarWidth +
-                "px");
+                'px');
           }, h.prototype._resetScrollbar = function() {
             document.body.style.paddingRight = this._originalBodyPadding;
           }, h.prototype._getScrollbarWidth = function() {
-            var t = document.createElement("div");
+            var t = document.createElement('div');
             t.className = m.SCROLLBAR_MEASURER, document.body.appendChild(t);
             var e = t.offsetWidth - t.clientWidth;
             return document.body.removeChild(t), e;
@@ -1167,11 +1167,11 @@ if ("undefined" == typeof jQuery)
                   {},
                   h.Default,
                   t(this).data(),
-                  "object" === ("undefined" == typeof e ? "undefined" : i(e)) &&
+                  'object' === ('undefined' == typeof e ? 'undefined' : i(e)) &&
                     e
                 );
               if (
-                (o || (o = new h(this, r), t(this).data(a, o)), "string" ==
+                (o || (o = new h(this, r), t(this).data(a, o)), 'string' ==
                   typeof e)
               ) {
                 if (void 0 === o[e])
@@ -1182,13 +1182,13 @@ if ("undefined" == typeof jQuery)
             });
           }, o(h, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return s;
               }
             },
             {
-              key: "Default",
+              key: 'Default',
               get: function() {
                 return _;
               }
@@ -1199,13 +1199,13 @@ if ("undefined" == typeof jQuery)
         var n = this, i = void 0, o = r.getSelectorFromElement(this);
         o && (i = t(o)[0]);
         var s = t(i).data(a)
-          ? "toggle"
+          ? 'toggle'
           : t.extend({}, t(i).data(), t(this).data());
-        "A" !== this.tagName && "AREA" !== this.tagName || e.preventDefault();
+        'A' !== this.tagName && 'AREA' !== this.tagName || e.preventDefault();
         var l = t(i).one(p.SHOW, function(e) {
           e.isDefaultPrevented() ||
             l.one(p.HIDDEN, function() {
-              t(n).is(":visible") && n.focus();
+              t(n).is(':visible') && n.focus();
             });
         });
         v._jQueryInterface.call(t(i), s, this);
@@ -1215,52 +1215,52 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = c, v._jQueryInterface;
       }, v;
     })(jQuery), (function(t) {
-      var e = "scrollspy",
-        s = "4.0.0-alpha.6",
-        a = "bs.scrollspy",
-        l = "." + a,
-        h = ".data-api",
+      var e = 'scrollspy',
+        s = '4.0.0-alpha.6',
+        a = 'bs.scrollspy',
+        l = '.' + a,
+        h = '.data-api',
         c = t.fn[e],
-        u = { offset: 10, method: "auto", target: "" },
-        d = { offset: "number", method: "string", target: "(string|element)" },
+        u = { offset: 10, method: 'auto', target: '' },
+        d = { offset: 'number', method: 'string', target: '(string|element)' },
         f = {
-          ACTIVATE: "activate" + l,
-          SCROLL: "scroll" + l,
-          LOAD_DATA_API: "load" + l + h
+          ACTIVATE: 'activate' + l,
+          SCROLL: 'scroll' + l,
+          LOAD_DATA_API: 'load' + l + h
         },
         _ = {
-          DROPDOWN_ITEM: "dropdown-item",
-          DROPDOWN_MENU: "dropdown-menu",
-          NAV_LINK: "nav-link",
-          NAV: "nav",
-          ACTIVE: "active"
+          DROPDOWN_ITEM: 'dropdown-item',
+          DROPDOWN_MENU: 'dropdown-menu',
+          NAV_LINK: 'nav-link',
+          NAV: 'nav',
+          ACTIVE: 'active'
         },
         g = {
           DATA_SPY: '[data-spy="scroll"]',
-          ACTIVE: ".active",
-          LIST_ITEM: ".list-item",
-          LI: "li",
-          LI_DROPDOWN: "li.dropdown",
-          NAV_LINKS: ".nav-link",
-          DROPDOWN: ".dropdown",
-          DROPDOWN_ITEMS: ".dropdown-item",
-          DROPDOWN_TOGGLE: ".dropdown-toggle"
+          ACTIVE: '.active',
+          LIST_ITEM: '.list-item',
+          LI: 'li',
+          LI_DROPDOWN: 'li.dropdown',
+          NAV_LINKS: '.nav-link',
+          DROPDOWN: '.dropdown',
+          DROPDOWN_ITEMS: '.dropdown-item',
+          DROPDOWN_TOGGLE: '.dropdown-toggle'
         },
-        p = { OFFSET: "offset", POSITION: "position" },
+        p = { OFFSET: 'offset', POSITION: 'position' },
         m = (function() {
           function h(e, i) {
             var o = this;
-            n(this, h), this._element = e, this._scrollElement = "BODY" ===
+            n(this, h), this._element = e, this._scrollElement = 'BODY' ===
               e.tagName
               ? window
               : e, this._config = this._getConfig(
               i
             ), this._selector = this._config.target +
-              " " +
+              ' ' +
               g.NAV_LINKS +
-              "," +
+              ',' +
               (this._config.target +
-                " " +
+                ' ' +
                 g.DROPDOWN_ITEMS), this._offsets = [], this._targets = [], this._activeTarget = null, this._scrollHeight = 0, t(
               this._scrollElement
             ).on(f.SCROLL, function(t) {
@@ -1272,7 +1272,7 @@ if ("undefined" == typeof jQuery)
               n = this._scrollElement !== this._scrollElement.window
                 ? p.POSITION
                 : p.OFFSET,
-              i = "auto" === this._config.method ? n : this._config.method,
+              i = 'auto' === this._config.method ? n : this._config.method,
               o = i === p.POSITION ? this._getScrollTop() : 0;
             this._offsets = [], this._targets = [], this._scrollHeight = this._getScrollHeight();
             var s = t.makeArray(t(this._selector));
@@ -1298,10 +1298,10 @@ if ("undefined" == typeof jQuery)
               l
             ), this._element = null, this._scrollElement = null, this._config = null, this._selector = null, this._offsets = null, this._targets = null, this._activeTarget = null, this._scrollHeight = null;
           }, h.prototype._getConfig = function(n) {
-            if ((n = t.extend({}, u, n), "string" != typeof n.target)) {
-              var i = t(n.target).attr("id");
+            if ((n = t.extend({}, u, n), 'string' != typeof n.target)) {
+              var i = t(n.target).attr('id');
               i ||
-                (i = r.getUID(e), t(n.target).attr("id", i)), n.target = "#" +
+                (i = r.getUID(e), t(n.target).attr('id', i)), n.target = '#' +
                 i;
             }
             return r.typeCheckConfig(e, n, d), n;
@@ -1339,7 +1339,7 @@ if ("undefined" == typeof jQuery)
             }
           }, h.prototype._activate = function(e) {
             this._activeTarget = e, this._clear();
-            var n = this._selector.split(",");
+            var n = this._selector.split(',');
             n = n.map(function(t) {
               return t +
                 '[data-target="' +
@@ -1347,13 +1347,13 @@ if ("undefined" == typeof jQuery)
                 '"],' +
                 (t + '[href="' + e + '"]');
             });
-            var i = t(n.join(","));
+            var i = t(n.join(','));
             i.hasClass(_.DROPDOWN_ITEM)
               ? (i
                   .closest(g.DROPDOWN)
                   .find(g.DROPDOWN_TOGGLE)
                   .addClass(_.ACTIVE), i.addClass(_.ACTIVE))
-              : i.parents(g.LI).find("> " + g.NAV_LINKS).addClass(_.ACTIVE), t(
+              : i.parents(g.LI).find('> ' + g.NAV_LINKS).addClass(_.ACTIVE), t(
               this._scrollElement
             ).trigger(f.ACTIVATE, { relatedTarget: e });
           }, h.prototype._clear = function() {
@@ -1361,11 +1361,11 @@ if ("undefined" == typeof jQuery)
           }, h._jQueryInterface = function(e) {
             return this.each(function() {
               var n = t(this).data(a),
-                o = "object" ===
-                  ("undefined" == typeof e ? "undefined" : i(e)) &&
+                o = 'object' ===
+                  ('undefined' == typeof e ? 'undefined' : i(e)) &&
                   e;
               if (
-                (n || (n = new h(this, o), t(this).data(a, n)), "string" ==
+                (n || (n = new h(this, o), t(this).data(a, n)), 'string' ==
                   typeof e)
               ) {
                 if (void 0 === n[e])
@@ -1375,13 +1375,13 @@ if ("undefined" == typeof jQuery)
             });
           }, o(h, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return s;
               }
             },
             {
-              key: "Default",
+              key: 'Default',
               get: function() {
                 return u;
               }
@@ -1399,38 +1399,38 @@ if ("undefined" == typeof jQuery)
         return t.fn[e] = c, m._jQueryInterface;
       }, m;
     })(jQuery), (function(t) {
-      var e = "tab",
-        i = "4.0.0-alpha.6",
-        s = "bs.tab",
-        a = "." + s,
-        l = ".data-api",
+      var e = 'tab',
+        i = '4.0.0-alpha.6',
+        s = 'bs.tab',
+        a = '.' + s,
+        l = '.data-api',
         h = t.fn[e],
         c = 150,
         u = {
-          HIDE: "hide" + a,
-          HIDDEN: "hidden" + a,
-          SHOW: "show" + a,
-          SHOWN: "shown" + a,
-          CLICK_DATA_API: "click" + a + l
+          HIDE: 'hide' + a,
+          HIDDEN: 'hidden' + a,
+          SHOW: 'show' + a,
+          SHOWN: 'shown' + a,
+          CLICK_DATA_API: 'click' + a + l
         },
         d = {
-          DROPDOWN_MENU: "dropdown-menu",
-          ACTIVE: "active",
-          DISABLED: "disabled",
-          FADE: "fade",
-          SHOW: "show"
+          DROPDOWN_MENU: 'dropdown-menu',
+          ACTIVE: 'active',
+          DISABLED: 'disabled',
+          FADE: 'fade',
+          SHOW: 'show'
         },
         f = {
-          A: "a",
-          LI: "li",
-          DROPDOWN: ".dropdown",
-          LIST: "ul:not(.dropdown-menu), ol:not(.dropdown-menu), nav:not(.dropdown-menu)",
-          FADE_CHILD: "> .nav-item .fade, > .fade",
-          ACTIVE: ".active",
-          ACTIVE_CHILD: "> .nav-item > .active, > .active",
+          A: 'a',
+          LI: 'li',
+          DROPDOWN: '.dropdown',
+          LIST: 'ul:not(.dropdown-menu), ol:not(.dropdown-menu), nav:not(.dropdown-menu)',
+          FADE_CHILD: '> .nav-item .fade, > .fade',
+          ACTIVE: '.active',
+          ACTIVE_CHILD: '> .nav-item > .active, > .active',
           DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"]',
-          DROPDOWN_TOGGLE: ".dropdown-toggle",
-          DROPDOWN_ACTIVE_CHILD: "> .dropdown-menu .active"
+          DROPDOWN_TOGGLE: '.dropdown-toggle',
+          DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
         },
         _ = (function() {
           function e(t) {
@@ -1485,12 +1485,12 @@ if ("undefined" == typeof jQuery)
               t(n).removeClass(d.ACTIVE);
               var s = t(n.parentNode).find(f.DROPDOWN_ACTIVE_CHILD)[0];
               s && t(s).removeClass(d.ACTIVE), n.setAttribute(
-                "aria-expanded",
+                'aria-expanded',
                 !1
               );
             }
             if (
-              (t(e).addClass(d.ACTIVE), e.setAttribute("aria-expanded", !0), i
+              (t(e).addClass(d.ACTIVE), e.setAttribute('aria-expanded', !0), i
                 ? (r.reflow(e), t(e).addClass(d.SHOW))
                 : t(e).removeClass(d.FADE), e.parentNode &&
                 t(e.parentNode).hasClass(d.DROPDOWN_MENU))
@@ -1498,7 +1498,7 @@ if ("undefined" == typeof jQuery)
               var a = t(e).closest(f.DROPDOWN)[0];
               a &&
                 t(a).find(f.DROPDOWN_TOGGLE).addClass(d.ACTIVE), e.setAttribute(
-                "aria-expanded",
+                'aria-expanded',
                 !0
               );
             }
@@ -1507,7 +1507,7 @@ if ("undefined" == typeof jQuery)
             return this.each(function() {
               var i = t(this), o = i.data(s);
               if (
-                (o || (o = new e(this), i.data(s, o)), "string" == typeof n)
+                (o || (o = new e(this), i.data(s, o)), 'string' == typeof n)
               ) {
                 if (void 0 === o[n])
                   throw new Error('No method named "' + n + '"');
@@ -1516,7 +1516,7 @@ if ("undefined" == typeof jQuery)
             });
           }, o(e, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return i;
               }
@@ -1524,84 +1524,84 @@ if ("undefined" == typeof jQuery)
           ]), e;
         })();
       return t(document).on(u.CLICK_DATA_API, f.DATA_TOGGLE, function(e) {
-        e.preventDefault(), _._jQueryInterface.call(t(this), "show");
+        e.preventDefault(), _._jQueryInterface.call(t(this), 'show');
       }), t.fn[e] = _._jQueryInterface, t.fn[e].Constructor = _, t.fn[
         e
       ].noConflict = function() {
         return t.fn[e] = h, _._jQueryInterface;
       }, _;
     })(jQuery), (function(t) {
-      if ("undefined" == typeof Tether)
+      if ('undefined' == typeof Tether)
         throw new Error(
-          "Bootstrap tooltips require Tether (http://tether.io/)"
+          'Bootstrap tooltips require Tether (http://tether.io/)'
         );
-      var e = "tooltip",
-        s = "4.0.0-alpha.6",
-        a = "bs.tooltip",
-        l = "." + a,
+      var e = 'tooltip',
+        s = '4.0.0-alpha.6',
+        a = 'bs.tooltip',
+        l = '.' + a,
         h = t.fn[e],
         c = 150,
-        u = "bs-tether",
+        u = 'bs-tether',
         d = {
           animation: !0,
           template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>',
-          trigger: "hover focus",
-          title: "",
+          trigger: 'hover focus',
+          title: '',
           delay: 0,
           html: !1,
           selector: !1,
-          placement: "top",
-          offset: "0 0",
+          placement: 'top',
+          offset: '0 0',
           constraints: [],
           container: !1
         },
         f = {
-          animation: "boolean",
-          template: "string",
-          title: "(string|element|function)",
-          trigger: "string",
-          delay: "(number|object)",
-          html: "boolean",
-          selector: "(string|boolean)",
-          placement: "(string|function)",
-          offset: "string",
-          constraints: "array",
-          container: "(string|element|boolean)"
+          animation: 'boolean',
+          template: 'string',
+          title: '(string|element|function)',
+          trigger: 'string',
+          delay: '(number|object)',
+          html: 'boolean',
+          selector: '(string|boolean)',
+          placement: '(string|function)',
+          offset: 'string',
+          constraints: 'array',
+          container: '(string|element|boolean)'
         },
         _ = {
-          TOP: "bottom center",
-          RIGHT: "middle left",
-          BOTTOM: "top center",
-          LEFT: "middle right"
+          TOP: 'bottom center',
+          RIGHT: 'middle left',
+          BOTTOM: 'top center',
+          LEFT: 'middle right'
         },
-        g = { SHOW: "show", OUT: "out" },
+        g = { SHOW: 'show', OUT: 'out' },
         p = {
-          HIDE: "hide" + l,
-          HIDDEN: "hidden" + l,
-          SHOW: "show" + l,
-          SHOWN: "shown" + l,
-          INSERTED: "inserted" + l,
-          CLICK: "click" + l,
-          FOCUSIN: "focusin" + l,
-          FOCUSOUT: "focusout" + l,
-          MOUSEENTER: "mouseenter" + l,
-          MOUSELEAVE: "mouseleave" + l
+          HIDE: 'hide' + l,
+          HIDDEN: 'hidden' + l,
+          SHOW: 'show' + l,
+          SHOWN: 'shown' + l,
+          INSERTED: 'inserted' + l,
+          CLICK: 'click' + l,
+          FOCUSIN: 'focusin' + l,
+          FOCUSOUT: 'focusout' + l,
+          MOUSEENTER: 'mouseenter' + l,
+          MOUSELEAVE: 'mouseleave' + l
         },
-        m = { FADE: "fade", SHOW: "show" },
-        E = { TOOLTIP: ".tooltip", TOOLTIP_INNER: ".tooltip-inner" },
+        m = { FADE: 'fade', SHOW: 'show' },
+        E = { TOOLTIP: '.tooltip', TOOLTIP_INNER: '.tooltip-inner' },
         v = { element: !1, enabled: !1 },
         T = {
-          HOVER: "hover",
-          FOCUS: "focus",
-          CLICK: "click",
-          MANUAL: "manual"
+          HOVER: 'hover',
+          FOCUS: 'focus',
+          CLICK: 'click',
+          MANUAL: 'manual'
         },
         I = (function() {
           function h(t, e) {
             n(
               this,
               h
-            ), this._isEnabled = !0, this._timeout = 0, this._hoverState = "", this._activeTrigger = {
+            ), this._isEnabled = !0, this._timeout = 0, this._hoverState = '', this._activeTrigger = {
             }, this._isTransitioning = !1, this._tether = null, this.element = t, this.config = this._getConfig(
               e
             ), this.tip = null, this._setListeners();
@@ -1635,19 +1635,19 @@ if ("undefined" == typeof jQuery)
               this.element,
               this.constructor.DATA_KEY
             ), t(this.element).off(this.constructor.EVENT_KEY), t(this.element)
-              .closest(".modal")
-              .off("hide.bs.modal"), this.tip &&
+              .closest('.modal')
+              .off('hide.bs.modal'), this.tip &&
               t(
                 this.tip
               ).remove(), this._isEnabled = null, this._timeout = null, this._hoverState = null, this._activeTrigger = null, this._tether = null, this.element = null, this.config = null, this.tip = null;
           }, h.prototype.show = function() {
             var e = this;
-            if ("none" === t(this.element).css("display"))
-              throw new Error("Please use show on visible elements");
+            if ('none' === t(this.element).css('display'))
+              throw new Error('Please use show on visible elements');
             var n = t.Event(this.constructor.Event.SHOW);
             if (this.isWithContent() && this._isEnabled) {
               if (this._isTransitioning)
-                throw new Error("Tooltip is transitioning");
+                throw new Error('Tooltip is transitioning');
               t(this.element).trigger(n);
               var i = t.contains(
                 this.element.ownerDocument.documentElement,
@@ -1655,12 +1655,12 @@ if ("undefined" == typeof jQuery)
               );
               if (n.isDefaultPrevented() || !i) return;
               var o = this.getTipElement(), s = r.getUID(this.constructor.NAME);
-              o.setAttribute("id", s), this.element.setAttribute(
-                "aria-describedby",
+              o.setAttribute('id', s), this.element.setAttribute(
+                'aria-describedby',
                 s
               ), this.setContent(), this.config.animation &&
                 t(o).addClass(m.FADE);
-              var a = "function" == typeof this.config.placement
+              var a = 'function' == typeof this.config.placement
                 ? this.config.placement.call(this, o, this.element)
                 : this.config.placement,
                 l = this._getAttachment(a),
@@ -1699,12 +1699,12 @@ if ("undefined" == typeof jQuery)
               i = this.getTipElement(),
               o = t.Event(this.constructor.Event.HIDE);
             if (this._isTransitioning)
-              throw new Error("Tooltip is transitioning");
+              throw new Error('Tooltip is transitioning');
             var s = function() {
               n._hoverState !== g.SHOW &&
                 i.parentNode &&
                 i.parentNode.removeChild(i), n.element.removeAttribute(
-                "aria-describedby"
+                'aria-describedby'
               ), t(n.element).trigger(
                 n.constructor.Event.HIDDEN
               ), n._isTransitioning = !1, n.cleanupTether(), e && e();
@@ -1718,7 +1718,7 @@ if ("undefined" == typeof jQuery)
                 ? (this._isTransitioning = !0, t(i)
                     .one(r.TRANSITION_END, s)
                     .emulateTransitionEnd(c))
-                : s(), this._hoverState = "");
+                : s(), this._hoverState = '');
           }, h.prototype.isWithContent = function() {
             return Boolean(this.getTitle());
           }, h.prototype.getTipElement = function() {
@@ -1728,19 +1728,19 @@ if ("undefined" == typeof jQuery)
             this.setElementContent(
               e.find(E.TOOLTIP_INNER),
               this.getTitle()
-            ), e.removeClass(m.FADE + " " + m.SHOW), this.cleanupTether();
+            ), e.removeClass(m.FADE + ' ' + m.SHOW), this.cleanupTether();
           }, h.prototype.setElementContent = function(e, n) {
             var o = this.config.html;
-            "object" === ("undefined" == typeof n ? "undefined" : i(n)) &&
+            'object' === ('undefined' == typeof n ? 'undefined' : i(n)) &&
               (n.nodeType || n.jquery)
               ? o
                   ? t(n).parent().is(e) || e.empty().append(n)
                   : e.text(t(n).text())
-              : e[o ? "html" : "text"](n);
+              : e[o ? 'html' : 'text'](n);
           }, h.prototype.getTitle = function() {
-            var t = this.element.getAttribute("data-original-title");
+            var t = this.element.getAttribute('data-original-title');
             return t ||
-              (t = "function" == typeof this.config.title
+              (t = 'function' == typeof this.config.title
                 ? this.config.title.call(this.element)
                 : this.config.title), t;
           }, h.prototype.cleanupTether = function() {
@@ -1748,9 +1748,9 @@ if ("undefined" == typeof jQuery)
           }, h.prototype._getAttachment = function(t) {
             return _[t.toUpperCase()];
           }, h.prototype._setListeners = function() {
-            var e = this, n = this.config.trigger.split(" ");
+            var e = this, n = this.config.trigger.split(' ');
             n.forEach(function(n) {
-              if ("click" === n)
+              if ('click' === n)
                 t(
                   e.element
                 ).on(e.constructor.Event.CLICK, e.config.selector, function(t) {
@@ -1771,22 +1771,22 @@ if ("undefined" == typeof jQuery)
                     return e._leave(t);
                   });
               }
-              t(e.element).closest(".modal").on("hide.bs.modal", function() {
+              t(e.element).closest('.modal').on('hide.bs.modal', function() {
                 return e.hide();
               });
             }), this.config.selector
               ? this.config = t.extend({}, this.config, {
-                  trigger: "manual",
-                  selector: ""
+                  trigger: 'manual',
+                  selector: ''
                 })
               : this._fixTitle();
           }, h.prototype._fixTitle = function() {
-            var t = i(this.element.getAttribute("data-original-title"));
-            (this.element.getAttribute("title") || "string" !== t) &&
+            var t = i(this.element.getAttribute('data-original-title'));
+            (this.element.getAttribute('title') || 'string' !== t) &&
               (this.element.setAttribute(
-                "data-original-title",
-                this.element.getAttribute("title") || ""
-              ), this.element.setAttribute("title", ""));
+                'data-original-title',
+                this.element.getAttribute('title') || ''
+              ), this.element.setAttribute('title', ''));
           }, h.prototype._enter = function(e, n) {
             var i = this.constructor.DATA_KEY;
             return n = n || t(e.currentTarget).data(i), n ||
@@ -1795,7 +1795,7 @@ if ("undefined" == typeof jQuery)
                 this._getDelegateConfig()
               ), t(e.currentTarget).data(i, n)), e &&
               (n._activeTrigger[
-                "focusin" === e.type ? T.FOCUS : T.HOVER
+                'focusin' === e.type ? T.FOCUS : T.HOVER
               ] = !0), t(n.getTipElement()).hasClass(m.SHOW) ||
               n._hoverState === g.SHOW
               ? void (n._hoverState = g.SHOW)
@@ -1818,7 +1818,7 @@ if ("undefined" == typeof jQuery)
                   this._getDelegateConfig()
                 ), t(e.currentTarget).data(i, n)), e &&
                 (n._activeTrigger[
-                  "focusout" === e.type ? T.FOCUS : T.HOVER
+                  'focusout' === e.type ? T.FOCUS : T.HOVER
                 ] = !1), !n._isWithActiveTrigger())
             )
               return clearTimeout(
@@ -1842,7 +1842,7 @@ if ("undefined" == typeof jQuery)
               t(this.element).data(),
               n
             ), n.delay &&
-              "number" == typeof n.delay &&
+              'number' == typeof n.delay &&
               (n.delay = { show: n.delay, hide: n.delay }), r.typeCheckConfig(
               e,
               n,
@@ -1858,12 +1858,12 @@ if ("undefined" == typeof jQuery)
           }, h._jQueryInterface = function(e) {
             return this.each(function() {
               var n = t(this).data(a),
-                o = "object" ===
-                  ("undefined" == typeof e ? "undefined" : i(e)) &&
+                o = 'object' ===
+                  ('undefined' == typeof e ? 'undefined' : i(e)) &&
                   e;
               if (
                 (n || !/dispose|hide/.test(e)) &&
-                  (n || (n = new h(this, o), t(this).data(a, n)), "string" ==
+                  (n || (n = new h(this, o), t(this).data(a, n)), 'string' ==
                     typeof e)
               ) {
                 if (void 0 === n[e])
@@ -1873,43 +1873,43 @@ if ("undefined" == typeof jQuery)
             });
           }, o(h, null, [
             {
-              key: "VERSION",
+              key: 'VERSION',
               get: function() {
                 return s;
               }
             },
             {
-              key: "Default",
+              key: 'Default',
               get: function() {
                 return d;
               }
             },
             {
-              key: "NAME",
+              key: 'NAME',
               get: function() {
                 return e;
               }
             },
             {
-              key: "DATA_KEY",
+              key: 'DATA_KEY',
               get: function() {
                 return a;
               }
             },
             {
-              key: "Event",
+              key: 'Event',
               get: function() {
                 return p;
               }
             },
             {
-              key: "EVENT_KEY",
+              key: 'EVENT_KEY',
               get: function() {
                 return l;
               }
             },
             {
-              key: "DefaultType",
+              key: 'DefaultType',
               get: function() {
                 return f;
               }
@@ -1923,31 +1923,31 @@ if ("undefined" == typeof jQuery)
       }, I;
     })(jQuery));
   (function(r) {
-    var a = "popover",
-      l = "4.0.0-alpha.6",
-      h = "bs.popover",
-      c = "." + h,
+    var a = 'popover',
+      l = '4.0.0-alpha.6',
+      h = 'bs.popover',
+      c = '.' + h,
       u = r.fn[a],
       d = r.extend({}, s.Default, {
-        placement: "right",
-        trigger: "click",
-        content: "",
+        placement: 'right',
+        trigger: 'click',
+        content: '',
         template: '<div class="popover" role="tooltip"><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
       }),
-      f = r.extend({}, s.DefaultType, { content: "(string|element|function)" }),
-      _ = { FADE: "fade", SHOW: "show" },
-      g = { TITLE: ".popover-title", CONTENT: ".popover-content" },
+      f = r.extend({}, s.DefaultType, { content: '(string|element|function)' }),
+      _ = { FADE: 'fade', SHOW: 'show' },
+      g = { TITLE: '.popover-title', CONTENT: '.popover-content' },
       p = {
-        HIDE: "hide" + c,
-        HIDDEN: "hidden" + c,
-        SHOW: "show" + c,
-        SHOWN: "shown" + c,
-        INSERTED: "inserted" + c,
-        CLICK: "click" + c,
-        FOCUSIN: "focusin" + c,
-        FOCUSOUT: "focusout" + c,
-        MOUSEENTER: "mouseenter" + c,
-        MOUSELEAVE: "mouseleave" + c
+        HIDE: 'hide' + c,
+        HIDDEN: 'hidden' + c,
+        SHOW: 'show' + c,
+        SHOWN: 'shown' + c,
+        INSERTED: 'inserted' + c,
+        CLICK: 'click' + c,
+        FOCUSIN: 'focusin' + c,
+        FOCUSOUT: 'focusout' + c,
+        MOUSEENTER: 'mouseenter' + c,
+        MOUSELEAVE: 'mouseleave' + c
       },
       m = (function(s) {
         function u() {
@@ -1965,21 +1965,21 @@ if ("undefined" == typeof jQuery)
           ), this.setElementContent(
             t.find(g.CONTENT),
             this._getContent()
-          ), t.removeClass(_.FADE + " " + _.SHOW), this.cleanupTether();
+          ), t.removeClass(_.FADE + ' ' + _.SHOW), this.cleanupTether();
         }, u.prototype._getContent = function() {
-          return this.element.getAttribute("data-content") ||
-            ("function" == typeof this.config.content
+          return this.element.getAttribute('data-content') ||
+            ('function' == typeof this.config.content
               ? this.config.content.call(this.element)
               : this.config.content);
         }, u._jQueryInterface = function(t) {
           return this.each(function() {
             var e = r(this).data(h),
-              n = "object" === ("undefined" == typeof t ? "undefined" : i(t))
+              n = 'object' === ('undefined' == typeof t ? 'undefined' : i(t))
                 ? t
                 : null;
             if (
               (e || !/destroy|hide/.test(t)) &&
-                (e || (e = new u(this, n), r(this).data(h, e)), "string" ==
+                (e || (e = new u(this, n), r(this).data(h, e)), 'string' ==
                   typeof t)
             ) {
               if (void 0 === e[t])
@@ -1989,43 +1989,43 @@ if ("undefined" == typeof jQuery)
           });
         }, o(u, null, [
           {
-            key: "VERSION",
+            key: 'VERSION',
             get: function() {
               return l;
             }
           },
           {
-            key: "Default",
+            key: 'Default',
             get: function() {
               return d;
             }
           },
           {
-            key: "NAME",
+            key: 'NAME',
             get: function() {
               return a;
             }
           },
           {
-            key: "DATA_KEY",
+            key: 'DATA_KEY',
             get: function() {
               return h;
             }
           },
           {
-            key: "Event",
+            key: 'Event',
             get: function() {
               return p;
             }
           },
           {
-            key: "EVENT_KEY",
+            key: 'EVENT_KEY',
             get: function() {
               return c;
             }
           },
           {
-            key: "DefaultType",
+            key: 'DefaultType',
             get: function() {
               return f;
             }

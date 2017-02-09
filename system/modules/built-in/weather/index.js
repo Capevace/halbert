@@ -1,6 +1,6 @@
-const fetch = require("node-fetch");
-const config = require("../../config");
-const specialIds = require("./special-ids");
+const fetch = require('node-fetch');
+const config = require('../../config');
+const specialIds = require('./special-ids');
 
 function onCurrentWeather(result) {
   const { city } = result.parameters;
@@ -16,13 +16,13 @@ function onCurrentWeather(result) {
 }
 
 function handleWeather(data, city) {
-  let connectingWord = "a";
+  let connectingWord = 'a';
 
   try {
     const { weather } = JSON.parse(data);
 
     if (specialIds.includes(weather[0].id)) {
-      connectingWord = "some";
+      connectingWord = 'some';
     }
 
     console.log(
@@ -40,5 +40,5 @@ function handleNetworkError(err) {
 }
 
 module.exports = {
-  "weather.current": onCurrentWeather
+  'weather.current': onCurrentWeather
 };

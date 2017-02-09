@@ -1,11 +1,11 @@
-const modules = require("../modules/modules");
-const database = require("../database");
-const isFunction = require("lodash/isFunction");
-const uuid = require("uuid-1345").v1;
+const modules = require('../modules/modules');
+const database = require('../database');
+const isFunction = require('lodash/isFunction');
+const uuid = require('uuid-1345').v1;
 
 function renderWidgetTemplates() {
   const widgets = modules.getWidgets();
-  let render = "";
+  let render = '';
 
   Object.keys(widgets).forEach(widgetKey => {
     let renderedWidget;
@@ -28,7 +28,7 @@ function renderWidgetTemplates() {
 function getWidgets() {
   console.log(modules.getWidgets());
   const w = database
-    .get("widgets")
+    .get('widgets')
     .map(widgetEntry => {
       const widgetConfig = modules.getWidget(widgetEntry.component);
 
@@ -53,7 +53,7 @@ function getWidgets() {
 }
 
 function updateWidget(widget) {
-  database.get("widgets").updateById(widget.id, widget).value();
+  database.get('widgets').updateById(widget.id, widget).value();
 }
 
 module.exports = {

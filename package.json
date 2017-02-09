@@ -54,7 +54,8 @@
     "start": "npm run activate-python-env && node system",
     "dev": "npm run activate-python-env && node system -d",
     "push": "git add . && git commit -m \"Upload\" && git push",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prettier": "prettier --single-quote --write 'system/**/*.js'"
   },
   "devDependencies": {
     "eslint": "^3.13.0",

@@ -1,22 +1,22 @@
-const actions = require("./actions");
-const { getPlaylists } = require("./play-music");
+const actions = require('./actions');
+const { getPlaylists } = require('./play-music');
 
 module.exports = builder => {
-  builder.widgets.createWidget("Music Player", "music", "widget.html");
+  builder.widgets.createWidget('Music Player', 'music', 'widget.html');
 
   builder.actions
-    .createAction("music.play")
-    .setMeta("Play Music", "play music")
-    .addArgument("query", "string")
+    .createAction('music.play')
+    .setMeta('Play Music', 'play music')
+    .addArgument('query', 'string')
     .setCallback(actions.play)
-    .createAction("music.resume")
-    .setMeta("Resume Music", "resume music")
+    .createAction('music.resume')
+    .setMeta('Resume Music', 'resume music')
     .setCallback(actions.resume)
-    .createAction("music.pause")
-    .setMeta("Pause Music", "pause music")
+    .createAction('music.pause')
+    .setMeta('Pause Music', 'pause music')
     .setCallback(actions.pause);
 
-  builder.routes.get("/music/playlists", (req, res) => {
+  builder.routes.get('/music/playlists', (req, res) => {
     function sendPlaylists() {
       const playlists = getPlaylists();
 

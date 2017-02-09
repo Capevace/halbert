@@ -1,4 +1,4 @@
-const PlayMusic = require("playmusic");
+const PlayMusic = require('playmusic');
 const playMusic = new PlayMusic();
 
 let googlePlayReady = false;
@@ -8,17 +8,17 @@ let playlists = {};
 let fetchedSongs = false;
 
 playMusic.init(
-  { email: "lukas.mateffy@gmail.com", password: "exkdqygckgmtfkpp" },
+  { email: 'lukas.mateffy@gmail.com', password: 'exkdqygckgmtfkpp' },
   function(err) {
     if (err) {
       console.logger.error(
-        "An error occurred trying to login to the provided Google Play Music account."
+        'An error occurred trying to login to the provided Google Play Music account.'
       );
       return;
     }
 
     googlePlayReady = true;
-    console.logger.info("Authorized Google Play Music.");
+    console.logger.info('Authorized Google Play Music.');
 
     cacheSongs();
   }
@@ -27,13 +27,13 @@ playMusic.init(
 function cacheSongs() {
   playMusic.getPlayLists((err, playListsData) => {
     if (err) {
-      console.error("An error occurred during the fetching of playlists.", err);
+      console.error('An error occurred during the fetching of playlists.', err);
       return;
     }
 
     if (!playListsData.data.items) {
       console.error(
-        "An error occurred during the fetching of playlists with data attr.",
+        'An error occurred during the fetching of playlists with data attr.',
         playListsData.data
       );
       return;
@@ -54,7 +54,7 @@ function cacheSongs() {
     playMusic.getPlayListEntries({}, (err, entriesData) => {
       if (err) {
         console.error(
-          "An error occurred during the fetching of playlist entries.",
+          'An error occurred during the fetching of playlist entries.',
           err
         );
         return;
@@ -62,7 +62,7 @@ function cacheSongs() {
 
       if (!entriesData.data.items) {
         console.error(
-          "An error occurred during the fetching of playlist entries with data attr.",
+          'An error occurred during the fetching of playlist entries with data attr.',
           entriesData.data
         );
         return;

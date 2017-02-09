@@ -1,18 +1,18 @@
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
-const { renderWidgetTemplates, getWidgets } = require("./widgets");
-const { getRegisteredModules } = require("../modules");
+const { renderWidgetTemplates, getWidgets } = require('./widgets');
+const { getRegisteredModules } = require('../modules');
 
 module.exports = app => {
   /*
    *  The Route for the main Dashboard.
    */
-  app.get("/", isLoggedIn, (req, res) => {
+  app.get('/', isLoggedIn, (req, res) => {
     // Expires in a year (temp)
-    const token = jwt.sign(req.user, "mysecret", { expiresIn: "5h" });
+    const token = jwt.sign(req.user, 'mysecret', { expiresIn: '5h' });
 
-    res.render("dashboard", {
+    res.render('dashboard', {
       token,
       layout: false,
       widgetTemplates: renderWidgetTemplates(),
@@ -23,34 +23,34 @@ module.exports = app => {
   /*
    *  Login Page
    */
-  app.get("/login", (req, res) => {
-    res.render("login");
+  app.get('/login', (req, res) => {
+    res.render('login');
   });
 
   /*
    *  Login request
    */
   app.post(
-    "/login",
-    passport.authenticate("local-login", {
-      successRedirect: "/",
-      failureRedirect: "/login"
+    '/login',
+    passport.authenticate('local-login', {
+      successRedirect: '/',
+      failureRedirect: '/login'
     })
   );
 
   /*
    *  The Route for HAL-view.
    */
-  app.get("/halbert", (req, res) => {
-    res.render("halbert", { layout: false });
+  app.get('/halbert', (req, res) => {
+    res.render('halbert', { layout: false });
   });
 
   /*
    *  The home screen is a WIP screen for smaller display.
    *  To be used by things like "home-stations".
    */
-  app.get("/homescreen", (req, res) =>
-    res.render("homescreen", { layout: false }));
+  app.get('/homescreen', (req, res) =>
+    res.render('homescreen', { layout: false }));
 
   /*
    *  Register the routes exported by the modules
@@ -60,16 +60,16 @@ module.exports = app => {
     const module = modules[moduleKey];
     module.routes.forEach(route => {
       switch (route.method.toLowerCase()) {
-        case "get":
+        case 'get':
           app.get(route.route, ...route.args);
           break;
-        case "post":
+        case 'post':
           app.post(route.route, ...route.args);
           break;
-        case "patch":
+        case 'patch':
           app.patch(route.route, ...route.args);
           break;
-        case "put":
+        case 'put':
           app.put(route.route, ...route.args);
           break;
         default:
@@ -91,5 +91,5 @@ function isLoggedIn(req, res, next) {
   }
 
   // Arent logged in, send to login
-  res.redirect("/login");
+  res.redirect('/login');
 }

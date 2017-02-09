@@ -1,5 +1,5 @@
-const { Accessory, Service, Characteristic } = require("hap-nodejs");
-const uuid = require("uuid-1345");
+const { Accessory, Service, Characteristic } = require('hap-nodejs');
+const uuid = require('uuid-1345');
 
 class AccessoryBuilder {
   constructor(moduleId) {

@@ -11,7 +11,7 @@ class RouteBuilder {
     this.routes.push({
       moduleId: this.moduleId,
       route,
-      method: "GET",
+      method: 'GET',
       args
     });
 
@@ -21,7 +21,7 @@ class RouteBuilder {
   post(route, ...args) {
     this.routes.push({
       route,
-      method: "POST",
+      method: 'POST',
       args
     });
 
@@ -31,7 +31,7 @@ class RouteBuilder {
   patch(route, ...args) {
     this.routes.push({
       route,
-      method: "PATCH",
+      method: 'PATCH',
       args
     });
 
@@ -41,7 +41,7 @@ class RouteBuilder {
   put(route, ...args) {
     this.routes.push({
       route,
-      method: "PUT",
+      method: 'PUT',
       args
     });
 
