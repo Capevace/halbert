@@ -38,6 +38,7 @@
     "play-sound": "^1.1.1",
     "player": "^0.6.1",
     "playmusic": "^2.2.0",
+    "prettier": "^0.16.0",
     "snowboy": "^1.1.0",
     "socket.io": "^1.7.2",
     "socketio-jwt": "^4.5.0",

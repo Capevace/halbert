@@ -33,10 +33,8 @@ function registerModule(moduleDirectory) {
 
   const moduleBuilder = getModuleBuilder(moduleInfo.id);
 
-  if (isFunction(module))
-    module(moduleBuilder);
-  else
-    return;
+  if (isFunction(module)) module(moduleBuilder);
+  else return;
 
   modules[moduleInfo.id] = {
     info: moduleInfo,
@@ -47,26 +45,25 @@ function registerModule(moduleDirectory) {
     widgets: moduleBuilder.widgets.widgets
   };
 
-  Object.keys(moduleBuilder.actions.actions)
-    .forEach(actionKey => {
-      const action = moduleBuilder.actions.actions[actionKey];
-      actions[actionKey] = action;
-    });
+  Object.keys(moduleBuilder.actions.actions).forEach(actionKey => {
+    const action = moduleBuilder.actions.actions[actionKey];
+    actions[actionKey] = action;
+  });
 
-  Object.keys(moduleBuilder.triggers.triggers)
-    .forEach(triggerKey => {
-      const trigger = moduleBuilder.triggers.triggers[triggerKey];
-      triggers[triggerKey] = trigger;
-    });
+  Object.keys(moduleBuilder.triggers.triggers).forEach(triggerKey => {
+    const trigger = moduleBuilder.triggers.triggers[triggerKey];
+    triggers[triggerKey] = trigger;
+  });
 
-  Object.keys(moduleBuilder.widgets.widgets)
-    .forEach(widgetKey => {
-      const widget = moduleBuilder.widgets.widgets[widgetKey];
-      widgets[widgetKey] = widget;
-    });
+  Object.keys(moduleBuilder.widgets.widgets).forEach(widgetKey => {
+    const widget = moduleBuilder.widgets.widgets[widgetKey];
+    widgets[widgetKey] = widget;
+  });
 
-  moduleBuilder.accessories.accessories
-    .forEach(accessoryKey => accessories.push(moduleBuilder.accessories.accessories[accessoryKey]));
+  moduleBuilder.accessories.accessories.forEach(
+    accessoryKey =>
+      accessories.push(moduleBuilder.accessories.accessories[accessoryKey])
+  );
 
   console.logger.success(`Registered Module '${moduleDirectory}'.`);
 }
@@ -89,7 +86,6 @@ function getModuleBuilder(moduleId) {
   return moduleBuilder;
 }
 
-
 function loadModuleInfo(modulePath) {
   const infoPath = path.resolve(modulePath, 'module.json');
   if (!fs.existsSync(infoPath)) {
@@ -103,7 +99,10 @@ function loadModuleInfo(modulePath) {
     const infoObject = JSON.parse(infoContent);
     return infoObject;
   } catch (err) {
-    console.logger.error(`Parsing module.json from module at '/${modulePath} failed.'`, err);
+    console.logger.error(
+      `Parsing module.json from module at '/${modulePath} failed.'`,
+      err
+    );
     return null;
   }
 }
@@ -125,20 +124,18 @@ module.exports = {
   runAction(actionKey, ...args) {
     const action = actions[actionKey];
 
-    if (action)
-      action.callback(...args);
-    else
-      console.logger.warn(`The action '${actionKey}' doesn't exist.`);
+    if (action) action.callback(...args);
+    else console.logger.warn(`The action '${actionKey}' doesn't exist.`);
   },
   emitTrigger(triggerKey, ...args) {
-    if (triggers[triggerKey])
-      triggerEmitter.emit(triggerKey, ...args);
-    else
-      console.logger.warn(`The trigger '${triggerKey}' doesn't exist.`);
+    if (triggers[triggerKey]) triggerEmitter.emit(triggerKey, ...args);
+    else console.logger.warn(`The trigger '${triggerKey}' doesn't exist.`);
   }
 };
 
 // Install built-in modules first
-fs.readdirSync(builtinPath)
-  .filter(result => fs.statSync(path.resolve(builtinPath, result)).isDirectory())
+fs
+  .readdirSync(builtinPath)
+  .filter(result =>
+    fs.statSync(path.resolve(builtinPath, result)).isDirectory())
   .forEach(directory => registerModule(directory));

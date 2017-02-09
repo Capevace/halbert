@@ -1,39 +1,41 @@
-const transmitCode = require('433mhz');
-const intertechno = require('./codes/intertechno');
-const { JaroWinklerDistance } = require('natural');
+const transmitCode = require("433mhz");
+const intertechno = require("./codes/intertechno");
+const { JaroWinklerDistance } = require("natural");
 
 const switches = {};
 
 function actions(moduleState) {
-  if (HALBERT_CONFIG.modules.switches && HALBERT_CONFIG.modules.switches.available) {
-    HALBERT_CONFIG.modules.switches.available
-      .forEach(switchConfig => {
-        // Setup switch
-        switches[`${switchConfig.id  }`] = switchConfig;
+  if (
+    HALBERT_CONFIG.modules.switches && HALBERT_CONFIG.modules.switches.available
+  ) {
+    HALBERT_CONFIG.modules.switches.available.forEach(switchConfig => {
+      // Setup switch
+      switches[`${switchConfig.id}`] = switchConfig;
 
-        moduleState.set(`switch_${  switchConfig.id}`, {
-          state: false
-        });
-
-        console.logger.info(`Prepared switch ${switchConfig.id}.`);
+      moduleState.set(`switch_${switchConfig.id}`, {
+        state: false
       });
+
+      console.logger.info(`Prepared switch ${switchConfig.id}.`);
+    });
   }
 
-  moduleState.set('busy', false);
+  moduleState.set("busy", false);
 
   function toggle(data, state) {
     let switchId = data.switchId;
 
     if (Array.isArray(data.switchName)) {
-      data.switchName
-        .forEach(name => toggle({ switchName: name }, state));
+      data.switchName.forEach(name => toggle({ switchName: name }, state));
 
       return;
-    } else if ('switchName' in data) {
+    } else if ("switchName" in data) {
       // Find Id
       switchId = switchNameToId(data.switchName);
       if (switchId === null) {
-        console.logger.error(`Switch with name '${data.switchName}' could not be found.`);
+        console.logger.error(
+          `Switch with name '${data.switchName}' could not be found.`
+        );
         return;
       }
     }
@@ -42,7 +44,7 @@ function actions(moduleState) {
   }
 
   function toggleWithId(switchId, state) {
-    const switchConfig = switches[`${switchId  }`];
+    const switchConfig = switches[`${switchId}`];
 
     if (!switchConfig) {
       console.logger.error(`Switch with '${switchId}' is not configured.`);
@@ -50,15 +52,15 @@ function actions(moduleState) {
     }
 
     switch (switchConfig.type) {
-    case 'remote':
-      toggleRemote(switchConfig, state);
-      break;
-    case 'relay':
-      toggleRelay(switchConfig, state);
-      break;
-    default:
-      console.logger.error(`Switch with '${switchId}' does not have a type.`);
-      break;
+      case "remote":
+        toggleRemote(switchConfig, state);
+        break;
+      case "relay":
+        toggleRelay(switchConfig, state);
+        break;
+      default:
+        console.logger.error(`Switch with '${switchId}' does not have a type.`);
+        break;
     }
   }
 
@@ -66,35 +68,37 @@ function actions(moduleState) {
     const code = deviceCodeToBinary(switchConfig, state);
 
     // Set state of switch, but also set it to busy
-    moduleState.set('busy', true);
-    moduleState.set(`switch_${  switchConfig.id}`, {
+    moduleState.set("busy", true);
+    moduleState.set(`switch_${switchConfig.id}`, {
       state
     });
 
     if (DEBUG_MODE) {
-      setTimeout(() => {
-        moduleState.set('busy', false);
-      }, 500);
+      setTimeout(
+        () => {
+          moduleState.set("busy", false);
+        },
+        500
+      );
     } else {
       transmitCode(code, err => {
         if (err) throw err;
         // finally remove busy state
-        moduleState.set('busy', false);
+        moduleState.set("busy", false);
       });
     }
   }
 
   function toggleRelay(switchConfig, state) {
     // TODO: add proper toggling of lights
-    moduleState.set(`switch_${  switchConfig.id}`, {
+    moduleState.set(`switch_${switchConfig.id}`, {
       state
     });
   }
 
   function switchNameToId(switchName) {
-    const result = HALBERT_CONFIG.modules.switches.available
-      .reduce((best, switchConfig) => {
-
+    const result = HALBERT_CONFIG.modules.switches.available.reduce(
+      (best, switchConfig) => {
         if (!switchConfig.hotwords) {
           const distance = JaroWinklerDistance(switchName, switchConfig.id);
 
@@ -109,19 +113,21 @@ function actions(moduleState) {
           return best;
         }
 
-        const result = switchConfig.hotwords
-          .reduce((bestHotword, hotword) => {
+        const result = switchConfig.hotwords.reduce(
+          (bestHotword, hotword) => {
             const distance = JaroWinklerDistance(switchName, hotword);
-            if (!bestHotword || distance > bestHotword.distance) {
+            if (!bestHotword || distance > bestHotword.distance) {
               return {
                 distance,
                 hotword
               };
             }
             return bestHotword;
-          }, null);
+          },
+          null
+        );
 
-        if (!best || (result !== null && result.distance > best.distance)) {
+        if (!best || result !== null && result.distance > best.distance) {
           return {
             distance: result.distance,
             hotword: result.hotword,
@@ -130,7 +136,9 @@ function actions(moduleState) {
         }
 
         return best;
-      }, null);
+      },
+      null
+    );
 
     if (result) {
       return result.config.id;
@@ -158,12 +166,14 @@ function actions(moduleState) {
 
   function deviceCodeToBinary(switchConfig, state) {
     switch (switchConfig.protocol) {
-    case 'intertechno':
-      const i = intertechno(switchConfig.code, state);
-      return i;
-    default:
-      console.logger.error(`There is no device code generator for the type '${switchConfig.protocol}' in switch '${switchConfig.id}'.`);
-      return null;
+      case "intertechno":
+        const i = intertechno(switchConfig.code, state);
+        return i;
+      default:
+        console.logger.error(
+          `There is no device code generator for the type '${switchConfig.protocol}' in switch '${switchConfig.id}'.`
+        );
+        return null;
     }
   }
 

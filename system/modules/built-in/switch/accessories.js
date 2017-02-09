@@ -1,9 +1,9 @@
-const config = require('../../config');
-const { Accessory, Service, Characteristic } = require('hap-nodejs');
-const uuid = require('uuid-1345');
-const { runAction } = require('../../modules');
+const config = require("../../config");
+const { Accessory, Service, Characteristic } = require("hap-nodejs");
+const uuid = require("uuid-1345");
+const { runAction } = require("../../modules");
 
-module.exports = function (state) {
+module.exports = function(state) {
   function setupAccessory(switchConfig) {
     const outletUUID = uuid.v3({
       namespace: uuid.namespace.url,
@@ -13,22 +13,25 @@ module.exports = function (state) {
 
     outlet
       .getService(Service.AccessoryInformation)
-      .setCharacteristic(Characteristic.Manufacturer, 'HALBERT')
-      .setCharacteristic(Characteristic.Model, `${switchConfig.type}-${switchConfig.protocol}-switch`)
+      .setCharacteristic(Characteristic.Manufacturer, "HALBERT")
+      .setCharacteristic(
+        Characteristic.Model,
+        `${switchConfig.type}-${switchConfig.protocol}-switch`
+      )
       .setCharacteristic(Characteristic.SerialNumber, switchConfig.id);
 
-    outlet.on('identify', (paired, callback) => {
-      console.logger.info(`${switchConfig.name} was identified. Paired: ${paired}.`);
+    outlet.on("identify", (paired, callback) => {
+      console.logger.info(
+        `${switchConfig.name} was identified. Paired: ${paired}.`
+      );
       callback();
     });
 
     outlet
       .addService(Service.Outlet, switchConfig.name)
       .getCharacteristic(Characteristic.On)
-      .on('set', (value, callback) => {
-        const action = value
-          ? 'switch.on'
-          : 'switch.off';
+      .on("set", (value, callback) => {
+        const action = value ? "switch.on" : "switch.off";
 
         runAction(action, {
           switchId: switchConfig.id
@@ -40,21 +43,20 @@ module.exports = function (state) {
     outlet
       .getService(Service.Outlet)
       .getCharacteristic(Characteristic.On)
-      .on('get', (callback) => {
-        callback(null, getState(`switch_${  switchConfig.id}`).state);
+      .on("get", callback => {
+        callback(null, getState(`switch_${switchConfig.id}`).state);
       });
 
     return outlet;
   }
-}
+};
 
 const switchAccessories = [];
 
 if (config.modules.switches && config.modules.switches.available) {
-  config.modules.switches.available
-    .forEach(switchConfig => {
-      switchAccessories.push(setupAccessory(switchConfig));
-    });
+  config.modules.switches.available.forEach(switchConfig => {
+    switchAccessories.push(setupAccessory(switchConfig));
+  });
 }
 
 module.exports = switchAccessories;

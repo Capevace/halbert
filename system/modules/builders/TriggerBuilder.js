@@ -36,10 +36,9 @@ class TriggerBuilder {
   }
 
   addArgument(name, type) {
-    this.triggers[this.currentTriggerId]
-      .arguments[name] = {
-        type
-      };
+    this.triggers[this.currentTriggerId].arguments[name] = {
+      type
+    };
 
     return this;
   }

@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const EventEmitter = require('events');
+const fs = require("fs");
+const path = require("path");
+const EventEmitter = require("events");
 
-const config = require('../config');
-const database = require('../database');
+const config = require("../config");
+const database = require("../database");
 
 const cacheTemplates = config.server.cacheTemplates;
 const triggerEmitter = new EventEmitter();
@@ -15,13 +15,17 @@ const registeredModules = {};
 
 // Registers a module by adding its triggers, conditions and actions (see docs)
 function registerModule(module, directory) {
-  if (!module.info || (module.info && (!module.info.name || !module.info.id))) {
-    console.logger.error(`The module in the '${directory}' folder didn't provide any or not enough info. Ignoring the module.`);
+  if (!module.info || module.info && (!module.info.name || !module.info.id)) {
+    console.logger.error(
+      `The module in the '${directory}' folder didn't provide any or not enough info. Ignoring the module.`
+    );
     return;
   }
 
   if (registeredModules[module.info.id]) {
-    console.logger.error(`The module '${module.info.id}' already exists. Skipping...`);
+    console.logger.error(
+      `The module '${module.info.id}' already exists. Skipping...`
+    );
     return;
   }
 
@@ -32,52 +36,46 @@ function registerModule(module, directory) {
   // Go through default settings and check, what's needed to be added
   // to current settings (by using Object.assign)
   if (module.defaultSettings) {
-    const oldSettings =
-      database
-        .get('modules')
-        .get(module.info.id)
-        .value();
+    const oldSettings = database.get("modules").get(module.info.id).value();
 
     database
-      .get('modules')
+      .get("modules")
       .set(
         module.info.id,
         Object.assign(module.defaultSettings || {}, oldSettings)
       )
       .value();
   } else {
-    database
-      .get('modules')
-      .set(module.info.id, {})
-      .value();
+    database.get("modules").set(module.info.id, {}).value();
   }
 
   // Register all the triggers that the module exports
   if (module.triggers) {
-    Object.keys(module.triggers)
-      .forEach(trigger => registerTrigger(trigger, module));
+    Object.keys(module.triggers).forEach(trigger =>
+      registerTrigger(trigger, module));
   }
 
   // Add all triggerListeners to the trigger emitter
   // the event function then checks, if the module is active
   // and then executes the trigger
   if (module.triggerListeners) {
-    Object.keys(module.triggerListeners)
-      .forEach(trigger => registerTriggerListener(trigger, module));
+    Object.keys(
+      module.triggerListeners
+    ).forEach(trigger => registerTriggerListener(trigger, module));
   }
 
   // Add all the conditions available,
   // but only those, that don't already exist
   if (module.conditions) {
-    Object.keys(module.conditions)
-      .forEach(condition => registerCondition(condition, module));
+    Object.keys(module.conditions).forEach(condition =>
+      registerCondition(condition, module));
   }
 
   // Add all the conditions available,
   // but only those, that don't already exist
   if (module.actions) {
-    Object.keys(module.actions)
-      .forEach(action => registerAction(action, module));
+    Object.keys(module.actions).forEach(action =>
+      registerAction(action, module));
   }
 
   registerTemplate(module, directory);
@@ -96,29 +94,39 @@ function registerTriggerListener(trigger, module) {
     if (isModuleActive(trigger)) {
       module.triggerListeners[trigger].call(null, triggerData);
     } else {
-      console.logger.info(`Ignoring trigger '${trigger}' for module '${module.info.id}'.`);
+      console.logger.info(
+        `Ignoring trigger '${trigger}' for module '${module.info.id}'.`
+      );
     }
   });
 
-  console.logger.success(`Module '${module.info.id}' is listening to '${trigger}'.`);
+  console.logger.success(
+    `Module '${module.info.id}' is listening to '${trigger}'.`
+  );
 }
 
 // Registers a trigger for a given module
 function registerTrigger(trigger, module) {
   if (registeredTriggers[trigger]) {
-    console.logger.error(`Trigger '${trigger} from '${module.info.id}' already exists.`);
+    console.logger.error(
+      `Trigger '${trigger} from '${module.info.id}' already exists.`
+    );
   }
 
   registeredTriggers[trigger] = module.triggers[trigger];
-  console.logger.success(`Module '${module.info.id}' registered trigger '${trigger}'.`);
+  console.logger.success(
+    `Module '${module.info.id}' registered trigger '${trigger}'.`
+  );
 }
 
 // Registers a condition for a given module
 function registerCondition(condition, module) {
   if (registeredConditions[condition]) {
-    console.logger.error(`Condition '${condition}' in '${module.info.id}' already exists.`);
+    console.logger.error(
+      `Condition '${condition}' in '${module.info.id}' already exists.`
+    );
     return;
-  };
+  }
 
   registeredConditions[condition] = module.conditions[condition];
   console.logger.success(`Condition '${condition}' was registered.`);
@@ -127,18 +135,20 @@ function registerCondition(condition, module) {
 // Registers an action for a given module
 function registerAction(action, module) {
   if (registeredActions[action]) {
-    console.logger.error(`Action '${action}' in '${module.info.id}' already exists.`);
+    console.logger.error(
+      `Action '${action}' in '${module.info.id}' already exists.`
+    );
     return;
-  };
+  }
 
   registeredActions[action] = module.actions[action];
   console.logger.success(`Action '${action}' was registered.`);
 }
 
 function registerTemplate(module, directory) {
-  const templatePath = path.resolve(__dirname, directory, 'widget.html');
+  const templatePath = path.resolve(__dirname, directory, "widget.html");
   if (fs.existsSync(templatePath)) {
-    const templateContent = fs.readFileSync(templatePath, 'utf8');
+    const templateContent = fs.readFileSync(templatePath, "utf8");
 
     if (cacheTemplates) {
       registeredTemplates[module.info.id] = templateContent;
@@ -176,7 +186,9 @@ function emitTrigger(event, data) {
 // Runs a condition function and returns the result
 function checkCondition(condition) {
   if (!registeredConditions[condition]) {
-    console.warn(`Tried to check condition, that doesn't exist. (${condition})`);
+    console.warn(
+      `Tried to check condition, that doesn't exist. (${condition})`
+    );
     return false;
   }
 
@@ -201,7 +213,7 @@ function getTemplates() {
     const renderedTemplates = {};
     for (const templateKey in registeredTemplates) {
       const path = registeredTemplates[templateKey];
-      renderedTemplates[templateKey] = fs.readFileSync(path, 'utf8');
+      renderedTemplates[templateKey] = fs.readFileSync(path, "utf8");
     }
 
     return renderedTemplates;
@@ -235,18 +247,23 @@ module.exports = {
 // Read all folders from modules folder
 // then filter these to get only directories
 // then register the module
-console.logger.info('Begin registering modules');
-console.logger.info('Template Cache:', cacheTemplates ? 'ENABLED' : 'DISABLED');
+console.logger.info("Begin registering modules");
+console.logger.info("Template Cache:", cacheTemplates ? "ENABLED" : "DISABLED");
 
 // Install built-in modules first
-fs.readdirSync(__dirname)
+fs
+  .readdirSync(__dirname)
   .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
-  .forEach(directory => registerModule(require(path.resolve(__dirname, directory)), directory));
+  .forEach(directory =>
+    registerModule(require(path.resolve(__dirname, directory)), directory));
 
 // Check if the modules path is the current path to remove duplicates in dev mode
 if (path.resolve(__dirname) !== path.resolve(MODULES_PATH)) {
   // Install user-modules after
-  fs.readdirSync(MODULES_PATH)
-    .filter(result => fs.statSync(path.resolve(__dirname, result)).isDirectory())
-    .forEach(directory => registerModule(require(path.resolve(__dirname, directory)), directory));
+  fs
+    .readdirSync(MODULES_PATH)
+    .filter(result =>
+      fs.statSync(path.resolve(__dirname, result)).isDirectory())
+    .forEach(directory =>
+      registerModule(require(path.resolve(__dirname, directory)), directory));
 }

@@ -2,8 +2,9 @@
 //
 // Widget Box
 //
-Vue.component('widget-box', {
-  template: `
+Vue.component("widget-box", {
+  template: (
+    `
     <div class="widget grid-item" :class="classObject">
       <div class="card"  :data-id="widget.id" @resize="resize">
         <widget-title :title="widgetTitle" :widget-data="widget"></widget-title>
@@ -12,41 +13,42 @@ Vue.component('widget-box', {
         </div>
       </div>
     </div>
-  `,
-  props: ['widget'],
+  `
+  ),
+  props: ["widget"],
   computed: {
-    widgetTitle: function () {
-      return this.widget.settings.title || this.widget.config.name;
+    widgetTitle: function() {
+      return this.widget.settings.title || this.widget.config.name;
     },
-    classObject: function () {
+    classObject: function() {
       const widthOneClasses = {
-        'col-xs-12': true,
-        'col-sm-6': true,
-        'col-md-4': true,
-        'col-lg-3': true,
-        'col-xl-2': true
+        "col-xs-12": true,
+        "col-sm-6": true,
+        "col-md-4": true,
+        "col-lg-3": true,
+        "col-xl-2": true
       };
       const widthTwoClasses = {
-        'col-xs-12': true,
-        'col-sm-12': true,
-        'col-md-8': true,
-        'col-lg-6': true,
-        'col-xl-4': true
+        "col-xs-12": true,
+        "col-sm-12": true,
+        "col-md-8": true,
+        "col-lg-6": true,
+        "col-xl-4": true
       };
       const widthFullClasses = {
-        'col-xs-12': true
+        "col-xs-12": true
       };
 
-      if (`${this.widget.size.width  }` === 'full') {
+      if (`${this.widget.size.width}` === "full") {
         return widthFullClasses;
-      } else if (`${this.widget.size.width  }` === '2') {
+      } else if (`${this.widget.size.width}` === "2") {
         return widthTwoClasses;
       } else {
         return widthOneClasses;
       }
     }
   },
-  mounted: function () {
+  mounted: function() {
     console.info(this.widget.componentName);
     let timeout = null;
     addResizeListener(this.$el, () => {
@@ -58,18 +60,16 @@ Vue.component('widget-box', {
     });
   },
   methods: {
-    resize: function () {
-
-    }
+    resize: function() {}
   }
 });
-
 
 //
 // Widget Title
 //
-Vue.component('widget-title', {
-  template: `
+Vue.component("widget-title", {
+  template: (
+    `
     <h6 class="card-title">
       <div class="row">
         <div class="col-9">
@@ -82,21 +82,22 @@ Vue.component('widget-title', {
         </div>
       </div>
     </h6>
-  `,
-  props: ['title', 'widgetData'],
+  `
+  ),
+  props: ["title", "widgetData"],
   computed: {
-    jsonData: function () {
-      return JSON.stringify(this.widgetData || {});
+    jsonData: function() {
+      return JSON.stringify(this.widgetData || {});
     }
   }
 });
 
-
 //
 // Options Modal
 //
-Vue.component('options-modal', {
-  template: `
+Vue.component("options-modal", {
+  template: (
+    `
     <div class="modal fade" id="options-modal" tabindex="-1" role="dialog" aria-labelledby="options-modal-label" aria-hidden="true">
       <div class="visible-print-inline">{{widgetData}}</div>
       <div class="modal-dialog" role="document">
@@ -140,36 +141,36 @@ Vue.component('options-modal', {
         </div>
       </div>
     </div>
-  `,
-  props: ['widgetData', 'onSubmit'],
+  `
+  ),
+  props: ["widgetData", "onSubmit"],
   data: () => ({
     widget: {
       settings: {
-        title: 'Untitled Widget'
+        title: "Untitled Widget"
       },
       config: {
         settingsTypes: {}
       }
     }
   }),
-  beforeUpdate: function () {
+  beforeUpdate: function() {
     console.log(this.widgetData);
     this.widget = this.widgetData;
   },
   methods: {
-    submit: function () {
-      if (this.onSubmit)
-        this.onSubmit(this.widget);
+    submit: function() {
+      if (this.onSubmit) this.onSubmit(this.widget);
     }
   }
 });
 
-
 //
 // Logs Modal
 //
-Vue.component('logs-modal', {
-  template: `
+Vue.component("logs-modal", {
+  template: (
+    `
     <div class="modal fade in" id="logs-modal" tabindex="-1" role="dialog" aria-labelledby="logs-modal-label" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -192,34 +193,37 @@ Vue.component('logs-modal', {
         </div>
       </div>
     </div>
-  `,
+  `
+  ),
   data: () => ({
     logs: []
   }),
-  created: function () {
-    window.socket.on('readback-logs', payload => {
-      this.logs = payload.logs
-        .map(log => parseTerminalColors(log));
+  created: function() {
+    window.socket.on("readback-logs", payload => {
+      this.logs = payload.logs.map(log => parseTerminalColors(log));
     });
 
-    window.socket.emit('request-readback-logs');
+    window.socket.emit("request-readback-logs");
 
-    window.socket.on('log', payload => {
+    window.socket.on("log", payload => {
       this.logs.push(parseTerminalColors(payload.logString));
 
       if (this.logs.length > 1000) {
-        this.logs = this.logs.slice(this.logs.length-1000, this.logs.length - 1);
+        this.logs = this.logs.slice(
+          this.logs.length - 1000,
+          this.logs.length - 1
+        );
       }
     });
   }
 });
 
-
 //
 // System Info Modal
 //
-Vue.component('system-info-modal', {
-  template: `
+Vue.component("system-info-modal", {
+  template: (
+    `
     <div class="modal fade in" id="system-info-modal" tabindex="-1" role="dialog" aria-labelledby="system-info-modal-label" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -241,50 +245,55 @@ Vue.component('system-info-modal', {
         </div>
       </div>
     </div>
-  `,
+  `
+  ),
   data: () => ({
     logs: []
   }),
-  created: function () {
-    window.socket.on('readback-logs', payload => {
-      this.logs = payload.logs
-        .map(log => parseTerminalColors(log));
+  created: function() {
+    window.socket.on("readback-logs", payload => {
+      this.logs = payload.logs.map(log => parseTerminalColors(log));
     });
 
-    window.socket.emit('request-readback-logs');
+    window.socket.emit("request-readback-logs");
 
-    window.socket.on('log', payload => {
+    window.socket.on("log", payload => {
       this.logs.push(parseTerminalColors(payload.logString));
 
       if (this.logs.length > 1000) {
-        this.logs = this.logs.slice(this.logs.length-1000, this.logs.length - 1);
+        this.logs = this.logs.slice(
+          this.logs.length - 1000,
+          this.logs.length - 1
+        );
       }
     });
   }
 });
 
-
 //
 // Control Switch
 //
-Vue.component('control-switch', {
-  template: `<div class="control-switch" :class="classObject" @click="onClick"></div>`,
-  props: ['value', 'onChange', 'disabled'],
+Vue.component("control-switch", {
+  template: (
+    `<div class="control-switch" :class="classObject" @click="onClick"></div>`
+  ),
+  props: ["value", "onChange", "disabled"],
   computed: {
-    classObject: function () {
+    classObject: function() {
       return {
-        'control-switch-on': !!this.value,
-        'control-switch-disabled': !!this.disabled
+        "control-switch-on": !!this.value,
+        "control-switch-disabled": !!this.disabled
       };
     }
   },
   methods: {
-    onClick: function () {
+    onClick: function() {
       if (this.onChange) {
-        if (!this.disabled)
-          this.onChange();
+        if (!this.disabled) this.onChange();
       } else {
-        console.warn('This control-switch doesn\'t have a onChange function attached.');
+        console.warn(
+          "This control-switch doesn't have a onChange function attached."
+        );
       }
     }
   }

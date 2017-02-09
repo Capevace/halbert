@@ -16,7 +16,9 @@ class ActionBuilder {
       sentence: actionIdentifier,
       arguments: {},
       callback: () => {
-        console.logger.warn(`No callback for action '${actionIdentifier}' in module '${this.moduleId}'`);
+        console.logger.warn(
+          `No callback for action '${actionIdentifier}' in module '${this.moduleId}'`
+        );
       }
     };
 
@@ -38,17 +40,15 @@ class ActionBuilder {
   }
 
   addArgument(name, type) {
-    this.actions[this.currentActionId]
-      .arguments[name] = {
-        type
-      };
+    this.actions[this.currentActionId].arguments[name] = {
+      type
+    };
 
     return this;
   }
 
   setCallback(callback) {
-    this.actions[this.currentActionId]
-      .callback = callback;
+    this.actions[this.currentActionId].callback = callback;
 
     return this;
   }

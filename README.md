@@ -14,6 +14,7 @@
 - [Getting Started](#getting-started)
 - [Structure](#structure)
 - [Config](#config)
+- [About the Code](#about-the-code)
 
 
 ## What is H.A.L.B.E.R.T.
@@ -120,3 +121,6 @@ This is what an example config looks like:
 
 ### Config Documentation
 **Coming soon**
+
+## About the Code
+The Code is formatted using JLongster's [prettier](https://github.com/jlongster/prettier).

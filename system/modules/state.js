@@ -14,7 +14,7 @@ function state(stateId) {
     stateCache[stateId] = {};
   }
 
-  const getState = (key) => {
+  const getState = key => {
     if (key) {
       return get(stateCache[stateId], key);
     }
@@ -26,7 +26,6 @@ function state(stateId) {
     set(stateCache[stateId], key, value);
 
     stateWasUpdated(`${stateId}.${key}`, value);
-
   };
 
   return {

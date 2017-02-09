@@ -1,4 +1,4 @@
-const PlayMusic = require('playmusic');
+const PlayMusic = require("playmusic");
 const playMusic = new PlayMusic();
 
 let googlePlayReady = false;
@@ -7,60 +7,72 @@ const songs = {};
 let playlists = {};
 let fetchedSongs = false;
 
-playMusic.init({ email: 'lukas.mateffy@gmail.com', password: 'exkdqygckgmtfkpp' }, function(err) {
-  if(err) {
-    console.logger.error('An error occurred trying to login to the provided Google Play Music account.');
-    return;
+playMusic.init(
+  { email: "lukas.mateffy@gmail.com", password: "exkdqygckgmtfkpp" },
+  function(err) {
+    if (err) {
+      console.logger.error(
+        "An error occurred trying to login to the provided Google Play Music account."
+      );
+      return;
+    }
+
+    googlePlayReady = true;
+    console.logger.info("Authorized Google Play Music.");
+
+    cacheSongs();
   }
-
-  googlePlayReady = true;
-  console.logger.info('Authorized Google Play Music.');
-
-  cacheSongs();
-});
+);
 
 function cacheSongs() {
   playMusic.getPlayLists((err, playListsData) => {
     if (err) {
-      console.error('An error occurred during the fetching of playlists.', err);
+      console.error("An error occurred during the fetching of playlists.", err);
       return;
     }
 
     if (!playListsData.data.items) {
-      console.error('An error occurred during the fetching of playlists with data attr.', playListsData.data);
+      console.error(
+        "An error occurred during the fetching of playlists with data attr.",
+        playListsData.data
+      );
       return;
     }
 
     playlists = {};
-    playListsData.data.items
-      .forEach(playlist => {
-        playlists[playlist.id] = {
-          id: playlist.id,
-          name: playlist.name,
-          type: playlist.type,
-          description: playlist.description,
-          deleted: playlist.deleted,
-          songs: []
-        };
-      });
+    playListsData.data.items.forEach(playlist => {
+      playlists[playlist.id] = {
+        id: playlist.id,
+        name: playlist.name,
+        type: playlist.type,
+        description: playlist.description,
+        deleted: playlist.deleted,
+        songs: []
+      };
+    });
 
     playMusic.getPlayListEntries({}, (err, entriesData) => {
       if (err) {
-        console.error('An error occurred during the fetching of playlist entries.', err);
+        console.error(
+          "An error occurred during the fetching of playlist entries.",
+          err
+        );
         return;
       }
 
       if (!entriesData.data.items) {
-        console.error('An error occurred during the fetching of playlist entries with data attr.', entriesData.data);
+        console.error(
+          "An error occurred during the fetching of playlist entries with data attr.",
+          entriesData.data
+        );
         return;
       }
 
-      entriesData.data.items
-        .forEach(entry => {
-          const song = cacheSong(entry);
+      entriesData.data.items.forEach(entry => {
+        const song = cacheSong(entry);
 
-          playlists[entry.playlistId].songs.push(song);
-        });
+        if (song) playlists[entry.playlistId].songs.push(song);
+      });
 
       fetchedSongs = true;
     });
@@ -88,6 +100,8 @@ function getSong(id) {
 }
 
 function cacheSong(entry) {
+  if (!entry.track) return null;
+
   const song = {
     playlistId: entry.playlistId,
     id: entry.track.storeId,
@@ -99,12 +113,16 @@ function cacheSong(entry) {
     year: entry.track.year,
     genre: entry.track.genre,
     duration: entry.track.durationMillis,
-    albumArt: (entry.track.albumArtRef && entry.track.albumArtRef.length > 0)
-      ? entry.track.albumArtRef[0].url
-      : null,
-    artistArt: (entry.track.artistArtRef && entry.track.artistArtRef.length > 0)
-      ? entry.track.artistArtRef[0].url
-      : null,
+    albumArt: (
+      entry.track.albumArtRef && entry.track.albumArtRef.length > 0
+        ? entry.track.albumArtRef[0].url
+        : null
+    ),
+    artistArt: (
+      entry.track.artistArtRef && entry.track.artistArtRef.length > 0
+        ? entry.track.artistArtRef[0].url
+        : null
+    ),
     size: entry.track.estimatedSize,
     albumId: entry.track.albumId
   };

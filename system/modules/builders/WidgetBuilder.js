@@ -1,10 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const isFunction = require('lodash/isFunction');
-const { server } = require('../../config');
+const fs = require("fs");
+const path = require("path");
+const isFunction = require("lodash/isFunction");
+const { server } = require("../../config");
 
 function renderTemplate(templateFileName, moduleId) {
-  return fs.readFileSync(path.resolve(__dirname, '../built-in', moduleId, templateFileName), 'utf8');
+  return fs.readFileSync(
+    path.resolve(__dirname, "../built-in", moduleId, templateFileName),
+    "utf8"
+  );
 }
 
 class WidgetBuilder {
@@ -49,7 +52,9 @@ class WidgetBuilder {
     if (!this.currentWidgetId) return this;
     if (!callback) {
       callback = () => {
-        console.logger.warn(`No onDataRequest callback provided for widget ${this.currentWidgetId}.`);
+        console.logger.warn(
+          `No onDataRequest callback provided for widget ${this.currentWidgetId}.`
+        );
       };
 
       // Execute to log
@@ -64,12 +69,14 @@ class WidgetBuilder {
   addSetting(key, type) {
     if (!this.currentWidgetId) return this;
 
-    if (!key || !type) {
-      console.logger.warn(`No key or type provided for option in widget ${this.currentWidgetId}`);
+    if (!key || !type) {
+      console.logger.warn(
+        `No key or type provided for option in widget ${this.currentWidgetId}`
+      );
       return;
     }
 
-    if (typeof type === 'string') {
+    if (typeof type === "string") {
       this.widgets[this.currentWidgetId].settingsTypes[key] = {
         type
       };

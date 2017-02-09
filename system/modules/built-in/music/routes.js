@@ -1,8 +1,7 @@
-const { getPlaylists } = require('./play-music');
+const { getPlaylists } = require("./play-music");
 
 function setupRoutes(app) {
-  app.get('/music/playlists', (req, res) => {
-
+  app.get("/music/playlists", (req, res) => {
     function sendPlaylists() {
       const playlists = getPlaylists();
 
@@ -18,7 +17,6 @@ function setupRoutes(app) {
 
     sendPlaylists();
   });
-
 }
 
 module.exports = setupRoutes;

@@ -1,5 +1,5 @@
-const { Accessory, Service, Characteristic } = require('hap-nodejs');
-const uuid = require('uuid-1345');
+const { Accessory, Service, Characteristic } = require("hap-nodejs");
+const uuid = require("uuid-1345");
 
 class AccessoryBuilder {
   constructor(moduleId) {
@@ -11,7 +11,9 @@ class AccessoryBuilder {
 
   createAccessory(name, id) {
     if (!name || !id) {
-      console.logger.error('An accessory wasn\'t supplied with a proper name or id. These two must be provided.');
+      console.logger.error(
+        "An accessory wasn't supplied with a proper name or id. These two must be provided."
+      );
       return null;
     }
 
