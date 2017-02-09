@@ -1,0 +1,7 @@
+{
+  "name": "Rules",
+  "description": "Creates the ability to create rules (like IFTTT), but using triggers and actions of the H.A.L.B.E.R.T. system.",
+  "id": "rules",
+  "author": "Lukas von Mateffy (@Capevace)",
+  "type": "virtual"
+}
