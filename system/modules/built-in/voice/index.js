@@ -6,15 +6,20 @@ module.exports = builder => {
   builder.widgets.createWidget('Voice Recognizer', 'voice', 'widget.html');
 
   builder.triggers
-    .createTrigger('voice-input.parsed')
-    .setMeta('Voice Input parsed', 'voice input parsed')
-    .addArgument('input', 'string');
+    .createTrigger('microphone.input')
+    .setMeta('Microphone Input', 'microphone has input')
+    .addOutputType('input', 'string');
 
   builder.triggers
-    .listen('microphone.input', data =>
-      runAction('voice-input.parse', data.input))
-    .listen('voice-input.parsed', data =>
-      runAction(data.result.action, data.result.parameters));
+    .createTrigger('voice-input.parsed')
+    .setMeta('Voice Input parsed', 'voice input parsed')
+    .addOutputType('input', 'string');
+
+  builder.triggers;
+  // .listen('microphone.input', data =>
+  //   runAction('voice-input.parse', data.input))
+  // .listen('voice-input.parsed', data =>
+  //   runAction(data.result.action, data.result.parameters));
 
   builder.actions
     .createAction('voice-input.parse')

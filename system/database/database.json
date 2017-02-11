@@ -20,6 +20,29 @@
       "data": {}
     },
     {
+      "id": "82572d72-e7ed-11a6-016c-0242ac150004",
+      "settings": {
+        "title": "Rules"
+      },
+      "size": {
+        "width": 1,
+        "height": 1
+      },
+      "component": "rules-rule-settings",
+      "config": {
+        "id": "rules-rule-settings",
+        "name": "Rules Manager",
+        "componentName": "rule-settings",
+        "moduleId": "rules",
+        "settingsTypes": {
+          "rule": {
+            "type": "string"
+          }
+        }
+      },
+      "data": {}
+    },
+    {
       "id": "8dd6d170-e7ed-11a6-078c-0242ac150040",
       "settings": {
         "title": "Music"
@@ -93,6 +116,55 @@
     "switches-widget-switch": {},
     "music": {},
     "voice": {},
-    "ifttt": {}
+    "ifttt": {},
+    "rules": {
+      "rules": [
+        {
+          "id": "e067dd3f-61f6-4d8d-b9ee-890163337f3a",
+          "trigger": {
+            "id": "microphone.input",
+            "condition": {
+              "input": "help"
+            }
+          },
+          "action": {
+            "id": "switch.on",
+            "arguments": {
+              "switchId": "desk-leds"
+            }
+          }
+        },
+        {
+          "id": "5c54fea5-4c43-480d-8563-5e20ccd55b1e",
+          "trigger": {
+            "id": "voice-input.parsed",
+            "condition": {
+              "input": "codeword dick"
+            }
+          },
+          "action": {
+            "id": "switch.on",
+            "arguments": {
+              "switchId": "desk-leds"
+            }
+          }
+        },
+        {
+          "id": "e671752a-8505-43aa-8390-edf55e5b10b9",
+          "trigger": {
+            "id": "microphone.input",
+            "condition": {
+              "input": "codeword dick"
+            }
+          },
+          "action": {
+            "id": "switch.on",
+            "arguments": {
+              "switchId": "desk-leds"
+            }
+          }
+        }
+      ]
+    }
   }
 }

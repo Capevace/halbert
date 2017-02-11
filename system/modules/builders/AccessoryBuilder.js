@@ -29,6 +29,11 @@ class AccessoryBuilder {
 
     return accessory;
   }
+
+  getAccessories() {
+    // Placeholder for later replacement with prototype
+    return [];
+  }
 }
 
 module.exports = AccessoryBuilder;

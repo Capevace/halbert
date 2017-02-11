@@ -1,0 +1,43 @@
+<script type="text/x-template" id="rule-settings-template">
+  <div class="row">
+    <div v-if="loading">
+      Loading...
+    </div>
+    <div v-else v-for="rule in rules">
+      {{rule.trigger.id}}
+      -
+      {{rule.action.id}}
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  Vue.component('rule-settings', {
+    template: '#rule-settings-template',
+    props: ['id', 'moduleId', 'widgetData'],
+    data: function () {
+      return {
+        rules: this.widgetData.data.rules,
+        loading: false
+      };
+    },
+    created: function () {
+
+    },
+    methods: {
+      toggle: function () {
+        var action = (this.switchData.state)
+          ? 'switch.off'
+          : 'switch.on';
+
+        runAction(action, {
+          switchId: this.widgetData.settings.switchId
+        });
+      }
+    }
+  });
+</script>
+
+<style>
+
+</style>

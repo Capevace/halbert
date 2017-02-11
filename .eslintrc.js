@@ -10,7 +10,7 @@ module.exports = {
     node: true
   },
   rules: {
-    'indent': ['error', 2],
+    indent: ['warn', 2],
     'comma-dangle': ['error'],
     'eol-last': 'error',
     'no-undef': 'error',
@@ -27,5 +27,5 @@ module.exports = {
     CONFIG_PATH: true,
     DEBUG_MODE: true,
     HALBERT_CONFIG: true
-  },
-}
+  }
+};

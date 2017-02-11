@@ -2,18 +2,17 @@ const { find } = require('lodash');
 // const accessories = require('./accessories');
 
 module.exports = builder => {
-  console.log(builder.state.get);
   const actions = require('./actions')(builder.state);
 
   builder.triggers
     .createTrigger('switch.on')
     .setMeta('Switch set to on', 'a switch was set to on')
-    .addArgument('switchId', 'string');
+    .addOutputType('switchId', 'string');
 
   builder.triggers
     .createTrigger('switch.off')
     .setMeta('Switch set to off', 'a switch was set to off')
-    .addArgument('switchId', 'string');
+    .addOutputType('switchId', 'string');
 
   builder.actions
     .createAction('switch.on')

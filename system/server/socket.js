@@ -24,6 +24,11 @@ function setupSockets(io) {
       modules.runAction(action, data);
     });
 
+    socket.on('emit-trigger', ({ trigger, data }) => {
+      console.logger.info('Received command to emit trigger', trigger);
+      modules.emitTrigger(trigger, data);
+    });
+
     socket.on('widget-updated', widget => {
       widgets.updateWidget(widget);
       socket.emit('dashboard-refresh');

@@ -11,6 +11,7 @@ const {
   WidgetBuilder
 } = require('./builders');
 const stateBuilder = require('./state').state;
+const database = require('../database');
 
 const modules = {};
 const actions = {};
@@ -19,6 +20,12 @@ const accessories = [];
 const widgets = {};
 const triggerEmitter = new EventEmitter();
 const builtinPath = path.resolve(__dirname, 'built-in');
+
+// Extend builders with getters for module state
+TriggerBuilder.prototype.getTriggers = () => triggers;
+ActionBuilder.prototype.getActions = () => actions;
+AccessoryBuilder.prototype.getAccessories = () => accessories;
+WidgetBuilder.prototype.getWidgets = () => widgets;
 
 function registerModule(moduleDirectory) {
   console.logger.info(`Registering Module '${moduleDirectory}'.`);
@@ -72,7 +79,8 @@ function getModuleBuilder(moduleId) {
   const state = stateBuilder(moduleId);
 
   const moduleBuilder = {
-    triggers: new TriggerBuilder(moduleId, triggerEmitter),
+    triggers: new TriggerBuilder(moduleId, trigger =>
+      triggerEmitter.on(trigger.id, trigger.callback)),
     actions: new ActionBuilder(moduleId),
     routes: new RouteBuilder(moduleId),
     accessories: new AccessoryBuilder(moduleId),
@@ -80,7 +88,10 @@ function getModuleBuilder(moduleId) {
     state: {
       get: state.getState.bind(state),
       set: state.setState.bind(state)
-    }
+    },
+    database: database.get('modules').get(moduleId),
+    runAction,
+    emitTrigger
   };
 
   return moduleBuilder;
@@ -107,12 +118,30 @@ function loadModuleInfo(modulePath) {
   }
 }
 
+function runAction(actionKey, input) {
+  const action = actions[actionKey];
+
+  if (action) action.callback(input);
+  else console.logger.warn(`The action '${actionKey}' doesn't exist.`);
+}
+
+function emitTrigger(triggerKey, output) {
+  if (triggers[triggerKey]) triggerEmitter.emit(triggerKey, output);
+  else console.logger.warn(`The trigger '${triggerKey}' doesn't exist.`);
+}
+
 module.exports = {
   getRegisteredModules() {
     return modules;
   },
   getRegisteredModule(id) {
     return modules[id];
+  },
+  getTriggers() {
+    return triggers;
+  },
+  getActions() {
+    return actions;
   },
   getWidgets() {
     return widgets;
@@ -121,16 +150,8 @@ module.exports = {
     console.log(widgets[key]);
     return widgets[key];
   },
-  runAction(actionKey, ...args) {
-    const action = actions[actionKey];
-
-    if (action) action.callback(...args);
-    else console.logger.warn(`The action '${actionKey}' doesn't exist.`);
-  },
-  emitTrigger(triggerKey, ...args) {
-    if (triggers[triggerKey]) triggerEmitter.emit(triggerKey, ...args);
-    else console.logger.warn(`The trigger '${triggerKey}' doesn't exist.`);
-  }
+  runAction,
+  emitTrigger
 };
 
 // Install built-in modules first

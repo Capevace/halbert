@@ -62,7 +62,35 @@ socket.on('session-id', data => {
 });
 
 socket.on('log', data => {
-  console.log(data.logString);
+  const styles = [];
+  const t = stripHtml(data.logString)
+    .replace(/\[1m/g, '')
+    .replace(/\[22m/g, '')
+    .replace(/\[33m/g, () => {
+      styles.push('color:#c5a628;');
+      return '%c';
+    })
+    .replace(/\[31m/g, () => {
+      styles.push('color:#bb3c3c;');
+      return '%c';
+    })
+    .replace(/\[32m/g, () => {
+      styles.push('color:#3cbb8e;');
+      return '%c';
+    })
+    .replace(/\[36m/g, () => {
+      styles.push('color:#3c7ebb;');
+      return '%c';
+    })
+    .replace(/\[35m/g, () => {
+      styles.push('color:#3c4abb;');
+      return '%c';
+    })
+    .replace(/\[39m/g, () => {
+      styles.push('color:black;');
+      return '%c';
+    });
+  console.log(t, ...styles);
 });
 
 // dont think well need this anymore, but am keeping for now
@@ -116,4 +144,13 @@ function runAction(action, data) {
   });
 }
 
+function emitTrigger(trigger, data) {
+  socket.emit('emit-trigger', {
+    trigger,
+    data
+  });
+}
+
 window.state = state;
+window.runAction = runAction;
+window.emitTrigger = emitTrigger;

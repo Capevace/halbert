@@ -1,67 +1,74 @@
-const { post } = require('axios');
 const uuid = require('uuid-1345').v4;
 
+let ruleCallbacks = {};
+
+function setupRule(ruleData, builder) {
+  const triggerCallback = output => {
+    console.logger.success('Ran rule');
+    builder.runAction(ruleData.action.id, ruleData.action.arguments);
+  };
+  ruleCallbacks[ruleData.id] = triggerCallback;
+  console.logger.warn(
+    ruleData,
+    ruleData.trigger,
+    triggerCallback,
+    ruleData.trigger.condition === triggerCallback
+  );
+  builder.triggers.listen(
+    ruleData.trigger.id,
+    ruleData.trigger.condition,
+    triggerCallback
+  );
+}
+
 module.exports = builder => {
-  builder.triggers
-    .createTrigger('ifttt.webhook')
-    .setMeta('IFTTT triggered a webhoook', 'IFTTT triggered a webhook');
+  // Setup saved rules
+  builder.database
+    .get('rules')
+    .value()
+    .forEach(rule => setupRule(rule, builder));
 
-  builder.actions
-    .createAction('ifttt.request-event')
-    .setMeta('Request IFTTT event', 'request IFTTT event')
-    .addArgument('name', 'string')
-    .addArgument('value1', 'string')
-    .addArgument('value2', 'string')
-    .addArgument('value3', 'string')
-    .setCallback(data => {
-      if (
-        !HALBERT_CONFIG.modules.ifttt || !HALBERT_CONFIG.modules.ifttt.apiKey
-      ) {
-        console.logger.error(
-          'Unable to send an event request to IFTTT. No API Key given.'
-        );
-        return;
-      }
-
-      if (!data.name) {
-        console.logger.error(
-          'Unable to send an event request to IFTTT. No event name given.'
-        );
-        return;
-      }
-
-      const url = `https://maker.ifttt.com/trigger/${data.name}/with/key/${HALBERT_CONFIG.modules.ifttt.apiKey}`;
-      post(url, {
-        value1: data.value1,
-        value2: data.value2,
-        value3: data.value3
-      })
-        .then(function(response) {
-          if (response.status !== 200) {
-            console.logger.warn('Status code of IFTTT is not 200.', response);
-          } else {
-            console.logger.info(`IFTTT event '${data.name}' was triggered.`);
-          }
-        })
-        .catch(function(error) {
-          console.logger.error(
-            `Error triggering IFTTT event '${data.name}'.`,
-            error
-          );
-        });
+  builder.widgets
+    .createWidget('Rules Settings', 'rule-settings', 'rules.html')
+    .addSetting('rule', 'string')
+    .onDataRequest(settings => {
+      return {
+        rules: builder.database.get('rules').value()
+      };
     });
 
-  if (HALBERT_CONFIG.modules.ifttt.webhookSecret) {
-    builder.routes.post('/ifttt/webhook', (req, res) => {
-      const webhookSecret = req.query.key;
+  builder.routes.post('/rules/create', (req, res) => {
+    if (!req.body.trigger || req.body.trigger && !req.body.trigger.id) {
+      res.status(400).json({
+        status: 400,
+        message: 'Your trigger was not configured properly.'
+      });
+      return;
+    }
 
-      if (webhookSecret !== HALBERT_CONFIG.modules.ifttt.webhookSecret) {
-        res.sendStatus(401);
-        return;
+    if (!req.body.action || req.body.action && !req.body.action.id) {
+      res.status(400).json({
+        status: 400,
+        message: 'Your action was not configured properly.'
+      });
+      return;
+    }
+
+    const rule = {
+      id: uuid(),
+      trigger: {
+        id: req.body.trigger.id,
+        condition: req.body.trigger.condition || {}
+      },
+      action: {
+        id: req.body.action.id,
+        arguments: req.body.action.arguments || {}
       }
+    };
 
-      console.log(req.body);
-      res.sendStatus(200);
-    });
-  }
+    setupRule(rule, builder);
+    builder.database.get('rules').push(rule).value();
+
+    res.sendStatus(200);
+  });
 };

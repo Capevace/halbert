@@ -52,6 +52,11 @@ class ActionBuilder {
 
     return this;
   }
+
+  getActions() {
+    // Placeholder for later replacement with prototype
+    return {};
+  }
 }
 
 module.exports = ActionBuilder;

@@ -56,21 +56,13 @@
 
       recognition.onresult = function (event) {
         var firstResult = event.results[0][0];
-        runAction('voice-input.parse', {
+        console.info('SpeechRecognition:', firstResult.transcript);
+        emitTrigger('microphone.input', {
           input: firstResult.transcript
         });
       };
     },
     methods: {
-      start: function (e) {
-        e.preventDefault();
-
-        runAction('voice-input.parse', {
-          input: this.input
-        });
-
-        this.input = '';
-      },
       toggleListen: function () {
         if (this.listeningState) {
           recognition.stop();

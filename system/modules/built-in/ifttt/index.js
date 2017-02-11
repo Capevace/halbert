@@ -3,7 +3,7 @@ const uuid = require('uuid-1345').v4;
 
 if (!HALBERT_CONFIG.modules.ifttt.webhookSecret) {
   console.logger.warn(
-    'No webhook secret defined! Webhooks will not work! Please HALBERT_CONFIGure a secret or use the one below.'
+    'No webhook secret defined! Webhooks will not work! Please configure a secret or use the one below.'
   );
   console.logger.info(`Generated webhook secret '${uuid()}'`);
 }
