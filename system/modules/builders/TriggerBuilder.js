@@ -1,11 +1,11 @@
 // The TriggerBuilder class is a utility to create triggers.
 // The good thing about it is, that it's chainable.
 class TriggerBuilder {
-  constructor(moduleId, onTriggerListen) {
+  constructor(moduleId, triggerEmitter) {
     this.moduleId = moduleId;
     this.currentTriggerId = null;
     this.triggers = {};
-    this.onTriggerListen = onTriggerListen;
+    this.triggerEmitter = triggerEmitter;
   }
 
   createTrigger(triggerIdentifier) {
@@ -53,33 +53,30 @@ class TriggerBuilder {
       usesCondition = false;
     }
 
-    this.onTriggerListen({
-      id: trigger,
-      callback: triggerOutput => {
-        // If no callback supplied here, means we don't have conditions, or invalid function input
-        if (!usesCondition) {
-          callback(triggerOutput);
-          return;
-        }
-
-        const matchesCondition = Object.keys(condition).reduce(
-          (isMatching, conditionKey) => {
-            // If we're already not matching, return false to exit the loop
-            if (!isMatching) return false;
-            return triggerOutput[conditionKey] === condition[conditionKey];
-          },
-          true
-        );
-
-        if (matchesCondition) callback(triggerOutput);
+    this.triggerEmitter.on(trigger, triggerOutput => {
+      // If no callback supplied here, means we don't have conditions, or invalid function input
+      if (!usesCondition) {
+        callback(triggerOutput);
+        return;
       }
+
+      const matchesCondition = Object.keys(condition).reduce(
+        (isMatching, conditionKey) => {
+          // If we're already not matching, return false to exit the loop
+          if (!isMatching) return false;
+          return triggerOutput[conditionKey] === condition[conditionKey];
+        },
+        true
+      );
+
+      if (matchesCondition) callback(triggerOutput);
     });
 
     return this;
   }
 
   unlisten(trigger, callback) {
-    // this.triggerEmitter.removeListener(trigger, callback);
+    this.triggerEmitter.removeListener(trigger, callback);
 
     return this;
   }

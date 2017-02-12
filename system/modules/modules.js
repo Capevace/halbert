@@ -79,8 +79,7 @@ function getModuleBuilder(moduleId) {
   const state = stateBuilder(moduleId);
 
   const moduleBuilder = {
-    triggers: new TriggerBuilder(moduleId, trigger =>
-      triggerEmitter.on(trigger.id, trigger.callback)),
+    triggers: new TriggerBuilder(moduleId, triggerEmitter),
     actions: new ActionBuilder(moduleId),
     routes: new RouteBuilder(moduleId),
     accessories: new AccessoryBuilder(moduleId),
@@ -115,14 +114,14 @@ function loadModuleInfo(modulePath) {
   }
 }
 
-function runAction(actionKey, input) {
+function runAction(actionKey, input = {}) {
   const action = actions[actionKey];
 
   if (action) action.callback(input);
   else console.logger.warn(`The action '${actionKey}' doesn't exist.`);
 }
 
-function emitTrigger(triggerKey, output) {
+function emitTrigger(triggerKey, output = {}) {
   if (triggers[triggerKey]) triggerEmitter.emit(triggerKey, output);
   else console.logger.warn(`The trigger '${triggerKey}' doesn't exist.`);
 }

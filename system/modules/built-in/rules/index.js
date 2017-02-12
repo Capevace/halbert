@@ -1,10 +1,10 @@
 const uuid = require('uuid-1345').v4;
 
-let ruleCallbacks = {};
+const ruleCallbacks = {};
 
 function setupRule(ruleData, builder) {
   const triggerCallback = output => {
-    console.logger.success('Ran rule');
+    console.logger.info(`Rule '${ruleData.id}' ran.`);
     builder.runAction(ruleData.action.id, ruleData.action.arguments);
   };
   ruleCallbacks[ruleData.id] = triggerCallback;
