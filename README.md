@@ -148,11 +148,11 @@ The Builder consists of multiple different sub-objects.
 #### builder.accessories
 This builder enables you to create accessories to be used by Apple's Home Kit. Since Halbert deploys a HomeKit-Bridge, you can make the things you're building controllable via the iOS Home App.
 
-.`createAccessory(name, id)` -> `Accessory`
+##### .`createAccessory(name, id)` -> `Accessory`
 
 Create an accessory and return it. If you want to know, how to further work with these Accessory Objects, see [HAP-NodeJS](https://github.com/KhaosT/HAP-NodeJS).
 
-.`getAccessories()` -> `Array`
+##### .`getAccessories()` -> `Array`
 
 Get a list of this module's registered accessories.
 
@@ -160,15 +160,15 @@ Get a list of this module's registered accessories.
 This builder enables you to create actions to be used by other modules, widgets etc.
 You can chain these calls.
 
-.`createAction(actionId)` -> `ActionBuilder`
+##### .`createAction(actionId)` -> `ActionBuilder`
 
 Create an actions with the supplied id.
 
-.`setMeta(name, sentence)` -> `ActionBuilder`
+##### .`setMeta(name, sentence)` -> `ActionBuilder`
 
 Set the action's meta data. This means the Action title and the sentence. The sentence part should fit into the sentence '_If trigger, then [X]_'.
 
-.`setCallback()` -> `ActionBuilder`
+##### .`setCallback()` -> `ActionBuilder`
 
 Set the callback for an action call. The callback will be supplied with an `input`-argument.
 E.g.
@@ -178,7 +178,7 @@ E.g.
 });
 
 ```
-.`getActions()` -> `Array`
+##### .`getActions()` -> `Array`
 
 Get a list of this module's actions.
 
