@@ -122,5 +122,59 @@ This is what an example config looks like:
 ### Config Documentation
 **Coming soon**
 
+## Modules
+Modules are the primary source of logic for Halbert. There are multiple built-in modules, providing basic funcitonality. But the main purpose of this system, is so users can create and share their own modules.
+
+### How to make a module
+Create a new folder with the desired module name (it should be lowercase and no spaces).
+Inside that folder, create an index.js file. This will be your entry point.
+A boilerplate index.js file would look like this:
+```javascript
+module.exports = function (builder) {
+  // Your Code in here
+};
+```
+
+The builder object is a utility which gives you access to the underlying systems such as widgets, api routes, actions or triggers.
+
+#### Builder
+The Builder consists of multiple different sub-objects.
+- [builder.accessories](#builder.accessories)
+- [builder.actions](#builder.actions)
+- [builder.routes](#builder.routes)
+- [builder.triggers](#builder.triggers)
+- [builder.widgets](#builder.widgets)
+
+##### Builder.accessories
+This builder enables you to create accessories to be used by Apple's Home Kit. Since Halbert deploys a HomeKit-Bridge, you can make the things you're building controllable via the iOS Home App.
+
+.`createAccessory(name, id)` -> `Accessory`
+Create an accessory and return it. If you want to know, how to further work with these Accessory Objects, see [HAP-NodeJS](https://github.com/KhaosT/HAP-NodeJS).
+
+.`getAccessories()` -> `Array`
+Get a list of this module's registered accessories.
+
+##### Builder.actions
+This builder enables you to create actions to be used by other modules, widgets etc.
+You can chain these calls.
+
+.`createAction(actionId)` -> `ActionBuilder`
+Create an actions with the supplied id.
+
+.`setMeta(name, sentence)` -> `ActionBuilder`
+Set the action's meta data. This means the Action title and the sentence. The sentence part should fit into the sentence '_If trigger, then [X]_'.
+
+.`setCallback()` -> `ActionBuilder`
+Set the callback for an action call. The callback will be supplied with an `input`-argument.
+E.g.
+```javascript
+.setCallback(function (input) {
+  console.log(input.temperature);
+});
+```
+.`getActions()` -> `Array`
+Get a list of this module's actions.
+
+
 ## About the Code
 The Code is formatted using JLongster's [prettier](https://github.com/jlongster/prettier).
