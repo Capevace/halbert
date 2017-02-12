@@ -1,7 +1,0 @@
-- Rewrite setState/getState to state.get/.set
-- Supply custom builder functions for module interaction ('runAction' etc)
-- refactor scss
-- add possibility to pass output from trigger to action
-- somehow fix unlistening triggers
-- add module pages (maybe popups or separate pages) so they can have global settings.
-  This would enable modules that act in background but still require easily editable config.
