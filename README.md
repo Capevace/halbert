@@ -12,7 +12,8 @@
 
 - [What is H.A.L.B.E.R.T.](#what-is-halbert)
 - [Getting Started](#getting-started)
-- [Structure](#structure)
+- [File Structure](#structure)
+- [Modules](#modules)
 - [Config](#config)
 - [About the Code](#about-the-code)
 
