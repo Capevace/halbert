@@ -29,8 +29,8 @@ function state(stateId) {
   };
 
   return {
-    getState,
-    setState,
+    get: getState,
+    set: setState,
     stateEvents: {
       on: (key, callback) => {
         changeEmitter.on(`${stateId}.${key}`, callback);

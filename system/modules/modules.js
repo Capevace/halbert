@@ -85,10 +85,7 @@ function getModuleBuilder(moduleId) {
     routes: new RouteBuilder(moduleId),
     accessories: new AccessoryBuilder(moduleId),
     widgets: new WidgetBuilder(moduleId),
-    state: {
-      get: state.getState.bind(state),
-      set: state.setState.bind(state)
-    },
+    state,
     database: database.get('modules').get(moduleId),
     runAction,
     emitTrigger

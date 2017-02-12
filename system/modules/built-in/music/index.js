@@ -1,7 +1,8 @@
-const actions = require('./actions');
 const { getPlaylists } = require('./play-music');
 
 module.exports = builder => {
+  const actions = require('./actions')(builder.state);
+
   builder.widgets.createWidget('Music Player', 'music', 'widget.html');
 
   builder.actions
