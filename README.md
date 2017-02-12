@@ -139,13 +139,13 @@ The builder object is a utility which gives you access to the underlying systems
 
 #### Builder
 The Builder consists of multiple different sub-objects.
-- [builder.accessories](#builder.accessories)
-- [builder.actions](#builder.actions)
-- [builder.routes](#builder.routes)
-- [builder.triggers](#builder.triggers)
-- [builder.widgets](#builder.widgets)
+- [builder.accessories](#builderaccessories)
+- [builder.actions](#builderactions)
+- [builder.routes](#builderroutes)
+- [builder.triggers](#buildertriggers)
+- [builder.widgets](#builderwidgets)
 
-##### Builder.accessories
+##### builder.accessories
 This builder enables you to create accessories to be used by Apple's Home Kit. Since Halbert deploys a HomeKit-Bridge, you can make the things you're building controllable via the iOS Home App.
 
 .`createAccessory(name, id)` -> `Accessory`
@@ -154,7 +154,7 @@ Create an accessory and return it. If you want to know, how to further work with
 .`getAccessories()` -> `Array`
 Get a list of this module's registered accessories.
 
-##### Builder.actions
+##### builder.actions
 This builder enables you to create actions to be used by other modules, widgets etc.
 You can chain these calls.
 
