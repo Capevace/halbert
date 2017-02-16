@@ -1,6 +1,6 @@
 const apiai = require('apiai');
 const app = apiai('1d055286e299446db31cd7c9fc5a0eab');
-const { emitTrigger, runAction } = require('../../modules');
+const { emitTrigger, runAction } = require('../../moduleRegistry');
 
 module.exports = builder => {
   builder.widgets.createWidget('Voice Recognizer', 'voice', 'widget.html');

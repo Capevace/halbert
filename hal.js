@@ -1,13 +1,16 @@
 // const nlp = require('speakeasy-nlp');
 // const natural = require('natural');
+const path = require('path');
 
-const EngineBuilder = require("adaptjs").EngineBuilder;
+const EngineBuilder = require('adaptjs').EngineBuilder;
 
-const builder = new EngineBuilder();
+const builder = new EngineBuilder(
+  path.resolve(__dirname, 'env/halbert_python_env/src/adapt-parser')
+);
 
-builder.entity("WeatherKeyword", ["weather"]);
-builder.entity("WeatherType", ["snow", "rain", "wind", "sleet", "sun"]);
-builder.entity("Cities", ["Seattle", "San Francisco", "Tokyo"]);
+builder.entity('WeatherKeyword', ['weather']);
+builder.entity('WeatherType', ['snow', 'rain', 'wind', 'sleet', 'sun']);
+builder.entity('Cities', ['Seattle', 'San Francisco', 'Tokyo']);
 
 builder.entity('toggleKeyword', ['toggle', 'switch', 'turn']);
 builder.entity('toggleType', ['on', 'off', 'up', 'down']);
@@ -28,10 +31,10 @@ builder
   .optionally('location');
 
 builder
-  .intent("WeatherIntent")
-  .require("WeatherKeyword", "weatherkey")
-  .optionally("WeatherType")
-  .require("Cities");
+  .intent('WeatherIntent')
+  .require('WeatherKeyword', 'weatherkey')
+  .optionally('WeatherType')
+  .require('Cities');
 
 builder
   .intent('MusicIntent')
@@ -41,9 +44,14 @@ builder
 
 const engine = builder.build();
 const query = 'toggle the light on the desk in the living room'.toLowerCase();
-engine.query(query)
-.then(intents => parseIntent(intents, query))
-.catch(error => { console.log('d', error); console.log(error.stack); engine.stop(); });
+engine
+  .query(query)
+  .then(intents => parseIntent(intents, query))
+  .catch(error => {
+    console.log('d', error);
+    console.log(error.stack);
+    engine.stop();
+  });
 
 function parseIntent(intents, query) {
   const intent = intents[0];
@@ -72,7 +80,6 @@ function parseIntent(intents, query) {
   default:
   }
 
-
   engine.stop();
 }
 
@@ -80,21 +87,30 @@ function parseIntent(intents, query) {
 
 const handlers = [];
 function createHandler(handler) {
-  handlers.push(Object.assign({}, {
-    id: `${parseInt(Math.random() * 9999)  }`,
-    owners: [],
-    actions: [],
-    subjects: [],
-    adjectives: [],
-    // verbs: [],
-    // nouns: [],
-    requiredTokens: [], // words required
-    bannedTokens: [], // words that are banned
-    tokens: [],
-    handle: function () {
-      console.error('A Handler didnt have a handle function! Handler:', this.id);
-    }
-  }, handler));
+  handlers.push(
+    Object.assign(
+      {},
+      {
+        id: `${parseInt(Math.random() * 9999)}`,
+        owners: [],
+        actions: [],
+        subjects: [],
+        adjectives: [],
+        // verbs: [],
+        // nouns: [],
+        requiredTokens: [], // words required
+        bannedTokens: [], // words that are banned
+        tokens: [],
+        handle: function() {
+          console.error(
+            'A Handler didnt have a handle function! Handler:',
+            this.id
+          );
+        }
+      },
+      handler
+    )
+  );
 }
 
 // function evaluateTaskHandlers(task) {
@@ -169,12 +185,10 @@ createHandler({
   bannedTokens: [], // words that are banned
   tokens: ['via', 'spotify', 'up', 'down']
 });
-
 // const input = process.argv.slice(2, process.argv.length).join(' ').toLowerCase();
 // const c = nlp.classify(input);
 // // console.log(c);
 // evaluateTaskHandlers(c);
-
 // const classifier = new natural.BayesClassifier();
 // classifier.addDocument('turn off the lights', 'hue-handler');
 // classifier.addDocument('turn on the lights', 'hue-handler');

@@ -203,7 +203,7 @@ Vue.component('logs-modal', {
       this.logs = payload.logs.map(log => parseTerminalColors(log));
     });
 
-    window.socket.emit('request-readback-logs');
+    window.socket.emit('readback-logs-request');
 
     window.socket.on('log', payload => {
       this.logs.push(parseTerminalColors(payload.logString));

@@ -1,0 +1,22 @@
+SSA=should start after
+
+Dependent on:
+  Modules:
+    - HomeKit
+    - Widgets
+    - (intents)?
+    - (SSA) server
+
+  Sockets:
+    - (SSA) server
+
+
+
+Setup:
+  - System Events
+  - Config (seq)
+  - Database (seq)
+  - Load Modules (emit modules done)
+  - HomeKit
+  - Sockets
+  - HTTP Server

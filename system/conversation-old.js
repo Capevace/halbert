@@ -1,6 +1,6 @@
 const ApiAI = require('apiai');
 const app = ApiAI('1d055286e299446db31cd7c9fc5a0eab');
-const { hasTrigger, runTrigger } = require('./moduleRegistry');
+const { hasTrigger, runTrigger } = require('./modules');
 const { say } = require('./voice');
 
 function sendRequest(input) {

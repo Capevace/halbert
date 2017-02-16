@@ -1,4 +1,4 @@
-const modules = require('../modules/modules');
+const modules = require('../moduleRegistry');
 const database = require('../database');
 const isFunction = require('lodash/isFunction');
 const uuid = require('uuid-1345').v1;

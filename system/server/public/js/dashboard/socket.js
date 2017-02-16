@@ -1,5 +1,6 @@
 /* global io, $ */
-const socket = io.connect(location.toString(), {
+console.log(`${location.toString()}interface`);
+const socket = io.connect(`${location.toString()}interface`, {
   query: `token=${window.IO_TOKEN}`
 });
 
@@ -41,7 +42,7 @@ socket.on('disconnect', () => {
 socket.on('reconnect', () => {
   console.info('Reconnected');
 
-  socket.emit('request-session-id');
+  socket.emit('session-id-request');
 });
 
 socket.on('dashboard-refresh', () => {

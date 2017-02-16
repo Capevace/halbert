@@ -26,29 +26,29 @@ const log = (orignalArguments, type, ...args) => {
   let dateString = '';
 
   switch (type) {
-    case 'info':
-      dateString = chalk.cyan.bold(
+  case 'info':
+    dateString = chalk.cyan.bold(
         `[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`
       );
-      break;
-    case 'error':
-      dateString = chalk.red.bold(
+    break;
+  case 'error':
+    dateString = chalk.red.bold(
         `[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`
       );
-      break;
-    case 'warn':
-      dateString = chalk.yellow.bold(
+    break;
+  case 'warn':
+    dateString = chalk.yellow.bold(
         `[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`
       );
-      break;
-    case 'success':
-      dateString = chalk.green.bold(
+    break;
+  case 'success':
+    dateString = chalk.green.bold(
         `[${date.toLocaleDateString()} ${date.toLocaleTimeString()}]`
       );
-      break;
-    case 'say':
-      dateString = chalk.magenta.bold(`[H.A.L.B.E.R.T.]`);
-      break;
+    break;
+  case 'say':
+    dateString = chalk.magenta.bold(`[H.A.L.B.E.R.T.]`);
+    break;
   }
 
   const logString = `${orignalArguments.reduce(

@@ -1,5 +1,5 @@
 const EventEmitter = require('events');
-const systemEvent = require('../system-event');
+const systemEvent = require('../systemEventEmitter');
 const { set, get } = require('lodash');
 
 const stateCache = {};
@@ -82,7 +82,7 @@ function setupSync(io) {
   console.logger.success('State is now in sync with the IO-Server.');
 }
 
-systemEvent.on('socket.io-ready', setupSync);
+systemEvent.on('interface-socket-ready', setupSync);
 
 module.exports = {
   state,
