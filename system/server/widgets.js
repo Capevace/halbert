@@ -26,7 +26,6 @@ function renderWidgetTemplates() {
 }
 
 function getWidgets() {
-  console.log(modules.getWidgets());
   const w = database
     .get('widgets')
     .map(widgetEntry => {
@@ -48,7 +47,6 @@ function getWidgets() {
     })
     .value();
 
-  console.log(w);
   return w;
 }
 

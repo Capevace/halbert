@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { renderWidgetTemplates, getWidgets } = require('../widgets');
 
 function renderDashboard(req, res) {
   // Expires in a year (temp)
