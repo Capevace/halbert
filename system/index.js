@@ -7,7 +7,7 @@ require('./log');
 console.logger.info('Setting up H.A.L.B.E.R.T....');
 
 // Start Setup
-require('./setup.new');
+require('./setup');
 
 // At this point, the project is running
 
