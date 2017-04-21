@@ -2,9 +2,6 @@
   "device": {
     "uuid": "d12b728c-6bce-4515-824a-ce45250f20fa"
   },
-  "weather": {
-    "openWeatherMapApiKey": "e3f4af5a5833f5b51e62d04ac9f6db75"
-  },
   "server": {
     "port": 3000,
     "cacheTemplates": false

@@ -1,6 +1,8 @@
 const path = require('path');
 const EventEmitter = require('events');
-const PythonShell = require('python-shell');
+const spawn = require('child_process').spawn;
+const uuid = require('uuid-1345');
+const systemEventEmitter = require('../systemEventEmitter');
 
 // The IntentParser is used to invoke the Adapt Framework made by Mycroft.
 // We're using that framework wor natural langage intent parsing.
@@ -8,7 +10,7 @@ const PythonShell = require('python-shell');
 // The main reason we're not using hinzundcode's 'adaptjs' is that we need to be able to
 // insert / update entities and intents later on. The latter only enables you to specify the both on start.
 class IntentParser {
-  constructor(adaptInstallPath) {
+  constructor(intentKey, adaptInstallPath) {
     // When theres no specific install path given (e.g. for testing)
     // we want to use a "defualt" one. In this case we're using the one included in our python virtualenv.
     if (!adaptInstallPath) {
@@ -16,92 +18,110 @@ class IntentParser {
         __dirname,
         '../../env/halbert_python_env/src/adapt-parser'
       );
-      console.log(adaptInstallPath);
     }
 
-    // We create a new python shell to communicate with our Adapt instance.
-    // Communications are running over stdin/stdout and using JSON.
-    // The "first" argument (it's actually sys.argv[1], so the second argument) is the path
-    // to the preferred Adapt Install.
-    this.shell = new PythonShell('worker.py', {
-      mode: 'json',
-      args: [adaptInstallPath],
-      scriptPath: path.resolve(__dirname)
+    this.shellIsSetup = false;
+    this.cachedIntents = [];
+    this.cachedEntities = [];
+    this.intentSocket = null;
+
+    // We create a new python shell, which wraps around the adapt parser,
+    // and exposes a protocol to us, so we can communicate with it using our socketio instance.
+    this.shell = spawn('python', [
+      path.resolve(__dirname, 'worker.py'),
+      adaptInstallPath,
+      intentKey
+    ]);
+
+    this.shell.stderr.on('data', data => {
+      console.logger.error(
+        'An error occurred in the intent python shell.',
+        data
+      );
     });
-    this.shell.on('message', m => console.log(m));
-    this.shell.on('close', () => console.log('closed'));
-    this.shell.stdout.on('data', d => console.log(d));
-    this.shell.stderr.on('data', d => console.log(d));
-    this.shell.stdin.on('data', d => console.log(d));
-    this.intentEmitter = new EventEmitter();
+
+    this.shell.on('close', code => {
+      console.logger.info(`Intent Python shell finished with status '${code}'`);
+    });
+
+    this.events = new EventEmitter();
   }
 
-  onMessage(message) {
-    console.log(message);
-    switch (message.type) {
-    case 'intents':
-      this.intentEmitter.emit('intents', message.intents);
-    case 'error':
-    default:
-        // An unknown action was passed into out python worker. Should not break so we can ignore.
-      throw new Error(message.error);
-    }
+  onSocketConnection(intentSocket) {
+    this.shellIsSetup = true;
+    this.intentSocket = intentSocket;
+    this.intentSocket.on('parsed_intent', payload =>
+      this.events.emit('intent-socket-parsed-query', payload));
+    this.events.emit('connection-established');
   }
 
   // Used to insert a new entity into the system.
   insertEntity(entity) {
-    this.shell.send({
-      type: 'update_entities',
-      payload: {
-        entities: [entity.encode()]
-      }
-    });
+    this._sendInsertEntitiesRequest([entity.encode()]);
   }
 
   // Enables you to insert multiple entities at once.
   insertEntities(entities) {
-    this.shell.send({
-      type: 'update_entities',
-      payload: {
-        entities: entities.map(entity => entity.encode())
-      }
-    });
+    const encodedEntities = entities.map(entity => entity.encode());
+    this._sendInsertEntitiesRequest(encodedEntities);
   }
 
   // Used to insert a new intent into the system.
   insertIntent(intent) {
-    this.shell.send({
-      type: 'update_intents',
-      payload: {
-        intents: [intent.encode()]
-      }
-    });
+    this._sendInsertIntentRequest([intent.encode()]);
   }
 
   // Enables you to insert multiple intents at once.
   insertIntents(intents) {
-    this.shell.send({
-      type: 'update_intents',
-      payload: {
-        intents: intents.map(intent => intent.encode())
-      }
-    });
+    const encodedIntents = intents.map(intent => intent.encode());
+    this._sendInsertIntentRequest(encodedIntents);
   }
 
   // Returns a promise for when the intent has been parsed.
   // In the then callback us a list of possible intents.
   parse(intentQuery) {
     return new Promise((resolve, reject) => {
-      // We subscribe ourselves to the intent emitter,
-      // which emits an 'intents' event, everytime our shell's 'message' callback contains an intent result.
-      // This should work as long as we're not requesting multiple intents per second or something.
-      // Meh.
-      const onParseComplete = intents => {
-        this.intentEmitter.removeListener('intents', onParseComplete);
-        resolve(intents);
-      };
+      const queryId = uuid.v4();
+      if (!this.shellIsSetup) {
+        this.events.on('connection-established', () =>
+          this._sendParseRequest(intentQuery, queryId).then(resolve));
+      } else {
+        this._sendParseRequest(intentQuery, queryId).then(resolve);
+      }
+    });
+  }
 
-      this.intentEmitter.on('intents', onParseComplete);
+  _sendInsertEntitiesRequest(intents) {
+    this.intentSocket.emit('update_entities_request', {
+      entities
+    });
+  }
+
+  _sendInsertIntentRequest(intents) {
+    this.intentSocket.emit('update_intents_request', {
+      intents
+    });
+  }
+
+  _sendParseRequest(query, queryId) {
+    return new Promise(resolve => {
+      // We subscribe ourselves to the intent emitter,
+      this.events.on('intent-socket-parsed-query', () => {
+        // We check, if the ID that came back is the one we sent out.
+        // That means it's out request => we can resolve our promise
+        if (payload.id === queryId) {
+          this.events.removeListener(
+            'intent-socket-parsed-query',
+            onParseComplete
+          );
+          resolve(payload.intents);
+        }
+      });
+
+      this.intentSocket.emit('parse_intent_request', {
+        query,
+        id: uuid.v4()
+      });
     });
   }
 

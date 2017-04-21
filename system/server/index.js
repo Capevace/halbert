@@ -7,6 +7,7 @@ const passport = require('passport');
 const config = require('../config');
 const { getLocalIP } = require('./network');
 const setupPassport = require('./passport');
+const { setupWidgetSystem } = require('./widgets');
 const setupRoutes = require('./routes');
 const setupSockets = require('./sockets');
 
@@ -51,10 +52,14 @@ function setupServer(moduleRegistry) {
   const server = require('http').createServer(app);
   const io = require('socket.io')(server);
 
+  // We setup everything needed for the server.
+  // That Includes the Express intance itself, the widget system (which is required
+  // by some routes), the routes itself and the sockets.
   setupPassport();
   setupExpressApp(app);
+  setupWidgetSystem(moduleRegistry);
   setupRoutes(app, moduleRegistry);
-  setupSockets(io);
+  setupSockets(io, moduleRegistry);
 
   // Start the server
   server.listen(config.server.port, () => {

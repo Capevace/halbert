@@ -1,10 +1,15 @@
-const modules = require('../moduleRegistry');
 const database = require('../database');
 const isFunction = require('lodash/isFunction');
 const uuid = require('uuid-1345').v1;
 
+let moduleRegistry = null;
+
+function setupWidgetSystem(newModuleRegistry) {
+  moduleRegistry = newModuleRegistry;
+}
+
 function renderWidgetTemplates() {
-  const widgets = modules.getWidgets();
+  const widgets = moduleRegistry.getWidgets();
   let render = '';
 
   Object.keys(widgets).forEach(widgetKey => {
@@ -29,7 +34,7 @@ function getWidgets() {
   const w = database
     .get('widgets')
     .map(widgetEntry => {
-      const widgetConfig = modules.getWidget(widgetEntry.component);
+      const widgetConfig = moduleRegistry.getWidget(widgetEntry.component);
 
       return {
         id: widgetEntry.id,
@@ -55,6 +60,7 @@ function updateWidget(widget) {
 }
 
 module.exports = {
+  setupWidgetSystem,
   renderWidgetTemplates,
   getWidgets,
   updateWidget

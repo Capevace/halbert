@@ -6,7 +6,7 @@ const { logEvent, getReadbackLogs } = require('../../log');
 // the web interface and thus creates a represantation of the system's state
 // across all open interfaces. That way there's no problems with data not
 // being the same on multiple displays for example.
-function setupInterfaceSocket(io) {
+function setupInterfaceSocket(io, moduleRegistry) {
   const interfaceSocket = io.of('/interface');
   interfaceSocket.use(
     socketioJwt.authorize({
@@ -22,9 +22,9 @@ function setupInterfaceSocket(io) {
 
     socket.on('session-id-request', onSessionIdRequest.bind(null, socket));
     socket.on('readback-logs-request', onReadbackLogRequest.bind(null, socket));
-    socket.on('emit-trigger', onEmitTriggerRequest);
-    socket.on('run-action', onRunActionRequest);
-    socket.on('widget-updated', onWidgetUpdated);
+    socket.on('emit-trigger', onEmitTriggerRequest.bind(null, moduleRegistry));
+    socket.on('run-action', onRunActionRequest.bind(null, moduleRegistry));
+    socket.on('widget-updated', onWidgetUpdated.bind(null, socket));
     socket.on('disconnect', onDisconnect);
   });
 
@@ -45,17 +45,17 @@ function onReadbackLogRequest(socket) {
   });
 }
 
-function onEmitTriggerRequest({ trigger, data }) {
+function onEmitTriggerRequest(moduleRegistry, { trigger, data }) {
   console.logger.info('Received command to emit trigger', trigger);
-  modules.emitTrigger(trigger, data);
+  moduleRegistry.emitTrigger(trigger, data);
 }
 
-function onRunActionRequest({ action, data }) {
+function onRunActionRequest(moduleRegistry, { action, data }) {
   console.logger.info('Received command to execute action', action);
-  modules.runAction(action, data);
+  moduleRegistry.runAction(action, data);
 }
 
-function onWidgetUpdated(widget) {
+function onWidgetUpdated(socket, widget) {
   widgets.updateWidget(widget);
   socket.emit('dashboard-refresh');
 }

@@ -15,14 +15,15 @@ const config = require('./config');
 const database = require('./database');
 
 // Start Setup
+// Setup Intent System
+const intent = require('./intent');
+
+// Setup Module System and start registering modules
 const moduleRegistry = require('./moduleRegistry');
 
 // Setup HTTP Server and Socket Server
 const serverSetup = require('./server');
 serverSetup(moduleRegistry);
-// // Setup Intent System
-// const intentParserSetup = require('./intent');
-// intentParserSetup(moduleRegistry);
 // // Setup Home Kit once initial modules are registered.
 // const homeKitSetup = require('./home-kit');
 // homeKitSetup(moduleRegistry);
